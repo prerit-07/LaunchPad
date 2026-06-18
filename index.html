@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+  MBA Partner — Courses (Round 2, revised)
+  Additions: trust stat strip, plan comparison table, testimonials section,
+  product variant/tier selectors (Master/Mini, domain pickers), mentor cards,
+  FAQ accordion, related-courses strip, mini-cart drawer, mobile search,
+  coupon field, login placeholder, accessibility fixes.
+  Bracketed copy like [this] is placeholder — swap in real content before launch.
+  See wix-integration-mapping.md for how this maps onto native Wix Stores/Velo.
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -11,329 +20,382 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --purple:#5022C3;--purple-dark:#3B1A8F;
-  --orange:#E2680F;--star:#E59819;
-  --ink:#1C1D1F;--ink2:#6A6F73;--ink3:#9197A0;
-  --bg:#fff;--surface2:#F7F9FA;
-  --line:#E4E8EB;--line2:#EDF0F2;--green:#1A7F4B;--red:#C0392B;
-  --r:6px;
+  --orange:#E2680F;--orange-dark:#A8480A;--star:#E59819;
+  --ink:#111114;--ink2:#86868B;--ink3:#A6A6AB;
+  --bg:#FBFBFC;--surface:#fff;--surface2:#F5F5F7;
+  --line:#EAEAEC;--green:#1A7F4B;
+  --r:18px;--r-sm:10px;
+  --ease:cubic-bezier(.4,0,.2,1);
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
 a{text-decoration:none;color:inherit}
-.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
 
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
+@keyframes wordUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.head h1 .w{display:inline-block;opacity:0;animation:wordUp .6s var(--ease) forwards}
+.head p.anim{opacity:0;animation:fadeUp .6s var(--ease) forwards}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none}}
-.ripple{position:relative;overflow:hidden}
-.ripple>span.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rp .55s linear;pointer-events:none}
-@keyframes rp{to{transform:scale(2.4);opacity:0}}
+@media(prefers-reduced-motion:reduce){.head h1 .w,.head p.anim,.reveal{animation:none!important;opacity:1!important;transform:none!important}}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.nav-in{display:flex;align-items:center;gap:18px;height:62px}
-.brand{display:flex;align-items:center;gap:9px;cursor:pointer}
-.brand-mark{width:32px;height:32px;background:var(--purple);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
-.brand-name{font-size:15px;font-weight:700}
-.nav-search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;border:1px solid var(--ink);border-radius:30px;padding:9px 18px;background:#fff}
-.nav-search i{color:var(--ink);font-size:18px}
-.nav-search input{border:none;outline:none;font-family:inherit;font-size:14px;width:100%;background:transparent}
-.nav-right{display:flex;align-items:center;gap:6px;margin-left:auto}
-.nav-a{font-size:13px;font-weight:600;color:var(--ink);padding:8px 12px;cursor:pointer;border:none;background:transparent;font-family:inherit}
-.nav-a:hover{color:var(--purple)}
-.cart-btn{position:relative;display:flex;align-items:center;padding:8px;cursor:pointer;border:none;background:transparent;color:var(--ink);font-size:21px}
-.cart-btn:hover{color:var(--purple)}
-.cart-count{position:absolute;top:0;right:-2px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(251,251,252,.85);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:18px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;flex-shrink:0}
+.brand-mark{width:46px;height:46px;background:var(--orange);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:24px;box-shadow:0 4px 14px rgba(226,104,15,.3)}
+.brand-text{display:flex;flex-direction:column;line-height:1.1}
+.brand-name{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.brand-tag{font-size:11px;color:var(--ink2);font-weight:500}
+.nav-search{flex:1;max-width:520px;display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--line);border-radius:30px;padding:11px 18px;transition:.2s}
+.nav-search:focus-within{border-color:var(--orange);background:#fff;box-shadow:0 0 0 3px rgba(226,104,15,.1)}
+.nav-search i{color:var(--ink3);font-size:18px}
+.nav-search input{border:none;background:transparent;outline:none;font-family:inherit;font-size:14px;width:100%}
+.nav-right{display:flex;align-items:center;gap:2px;margin-left:auto}
+.nav-a{font-size:13px;color:var(--ink2);padding:8px 13px;border-radius:8px;cursor:pointer;border:none;background:transparent;font-family:inherit;transition:color .2s;white-space:nowrap;display:flex;align-items:center}
+.nav-a:hover{color:var(--ink)}
+.cart-btn{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--ink);padding:8px 13px;cursor:pointer;border:none;background:transparent;font-family:inherit;position:relative}
+.cart-btn:hover{color:var(--orange-dark)}
+.cart-count{background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.mobile-search-btn{display:none}
+.mobile-search-bar{display:none;padding:12px 18px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mobile-search-bar.open{display:block}
+.mobile-search-bar .nav-search{max-width:none}
+
+.head{padding:64px 0 32px;text-align:center}
+.head .eyebrow{font-size:13px;font-weight:600;color:var(--orange);margin-bottom:14px}
+.head h1{font-size:48px;font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:18px}
+.head p{font-size:18px;color:var(--ink2);line-height:1.5;margin:0 auto;font-weight:400;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+.trust-strip{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:22px 26px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin-top:6px}
+.trust-item{flex:1;min-width:140px;text-align:center}
+.trust-num{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--orange-dark)}
+.trust-lbl{font-size:12px;color:var(--ink2);margin-top:3px;font-weight:500}
+
+.compare-sec{margin-top:36px}
+.compare-head h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.compare-head p{font-size:14px;color:var(--ink2);margin-bottom:18px}
+.compare-table{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);overflow-x:auto}
+.cmp-row{display:grid;grid-template-columns:160px repeat(4,1fr);min-width:680px}
+.cmp-row:not(.cmp-head){border-top:1px solid var(--line)}
+.cmp-cell{padding:14px 12px;font-size:13px;color:#3C3C40;display:flex;align-items:center;justify-content:center;text-align:center}
+.cmp-label{justify-content:flex-start;text-align:left;font-weight:600;color:var(--ink2);font-size:12px}
+.cmp-col-head{flex-direction:column;gap:4px;padding:18px 12px;position:relative}
+.cmp-col-head.hl,.cmp-cell.hl{background:#FDF6EF}
+.cmp-name{font-weight:700;font-size:14px}
+.cmp-price{font-weight:800;font-size:16px}
+.cmp-tag{position:absolute;top:6px;right:8px;font-size:10px;font-weight:700;background:var(--orange);color:#fff;padding:2px 7px;border-radius:10px}
+.cmp-cta{margin-top:4px;font-size:12px;font-weight:700;color:var(--orange-dark);background:none;border:1px solid var(--orange);border-radius:20px;padding:5px 12px;cursor:pointer;font-family:inherit}
+
+.tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:12px 0 8px;position:sticky;top:72px;z-index:50;background:rgba(251,251,252,.9);backdrop-filter:blur(12px)}
+.tab{font-size:13px;font-weight:500;color:var(--ink2);padding:8px 16px;border-radius:30px;border:none;cursor:pointer;background:transparent;font-family:inherit;transition:.2s}
+.tab:hover{background:var(--surface2);color:var(--ink)}
+.tab.active{background:var(--ink);color:#fff}
+
+.sort-bar{display:flex;justify-content:flex-end;align-items:center;padding:18px 0 0}
+.sort-wrap{position:relative}
+.sort-btn{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:30px;padding:9px 16px;background:var(--surface);font-family:inherit;cursor:pointer;white-space:nowrap}
+.sort-btn:hover{background:var(--surface2)}
+.sort-btn i.caret{font-size:15px;transition:transform .2s}
+.sort-wrap.open .sort-btn i.caret{transform:rotate(180deg)}
+.sort-menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgba(17,17,20,.13);min-width:220px;z-index:60;padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s}
+.sort-wrap.open .sort-menu{opacity:1;visibility:visible;transform:none}
+.sort-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:500;color:var(--ink);padding:11px 13px;border-radius:9px;cursor:pointer}
+.sort-opt:hover{background:var(--surface2)}
+.sort-opt.sel{font-weight:700;color:var(--orange-dark)}
+.sort-opt i{font-size:16px;color:var(--orange);opacity:0}.sort-opt.sel i{opacity:1}
 
 .view{display:none}.view.active{display:block}
 
-/* BANNER + STATS */
-.cat-banner{background:var(--surface2);border-bottom:1px solid var(--line)}
-.cat-banner-in{padding:30px 0}
-.cat-banner h1{font-size:30px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
-.cat-banner p{font-size:15px;color:var(--ink2);max-width:640px;line-height:1.5;margin-bottom:22px}
-.stat-strip{display:flex;gap:40px;flex-wrap:wrap}
-.stat .num{font-size:26px;font-weight:800;color:var(--purple)}
-.stat .lbl{font-size:12px;color:var(--ink2);margin-top:2px}
+.cat-sec{padding:30px 0 4px}
+.cat-sec h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 
-/* CATALOG */
-.shell{display:grid;grid-template-columns:230px 1fr;gap:36px;padding:28px 0 120px}
-.side-h{font-size:15px;font-weight:700;margin-bottom:14px}
-.side-list{display:flex;flex-direction:column;gap:2px;margin-bottom:28px}
-.side-item{font-size:14px;color:var(--ink);padding:9px 12px;border-radius:var(--r);cursor:pointer;border:none;background:transparent;font-family:inherit;text-align:left;display:flex;justify-content:space-between;align-items:center}
-.side-item:hover{background:var(--surface2)}
-.side-item.active{background:#EDE7FB;color:var(--purple-dark);font-weight:700}
-.side-item .n{font-size:12px;color:var(--ink3)}
-.side-note{font-size:12px;color:var(--ink3);line-height:1.5;border-top:1px solid var(--line2);padding-top:16px}
-.results-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px}
-.results-count{font-size:14px;font-weight:700}.results-count span{color:var(--ink2);font-weight:400}
-
-.sort-wrap{position:relative}
-.sort-btn{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--ink);border-radius:var(--r);padding:9px 14px;background:#fff;font-family:inherit;cursor:pointer;white-space:nowrap}
-.sort-btn:hover{background:var(--surface2)}
-.sort-btn i{font-size:16px;transition:transform .2s}
-.sort-wrap.open .sort-btn i.caret{transform:rotate(180deg)}
-.sort-menu{position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.14);min-width:210px;z-index:60;padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s}
-.sort-wrap.open .sort-menu{opacity:1;visibility:visible;transform:none}
-.sort-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:500;color:var(--ink);padding:10px 12px;border-radius:var(--r);cursor:pointer}
-.sort-opt:hover{background:var(--surface2)}
-.sort-opt.sel{font-weight:700;color:var(--purple)}
-.sort-opt i{font-size:16px;color:var(--purple);opacity:0}.sort-opt.sel i{opacity:1}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px 18px}
-
-/* CARD */
-.card{cursor:pointer;display:flex;flex-direction:column;position:relative}
-.thumb{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
-.thumb i{font-size:46px;transition:transform .4s cubic-bezier(.22,.61,.36,1)}
-.card:hover .thumb i{transform:scale(1.12) rotate(-4deg)}
-.t-purple{background:#EDE7FB;color:var(--purple)}.t-dark{background:#1C1D2B;color:#F3C58A}
-.t-teal{background:#E1F2EF;color:#0A6B5A}.t-blue{background:#E5EEF7;color:#2C5C92}.t-rose{background:#FBE9EC;color:#B23A50}
-.thumb .bestseller{position:absolute;top:8px;left:8px;font-size:11px;font-weight:700;background:#ECEB98;color:#3D3C0A;padding:3px 8px;border-radius:3px;z-index:2}
-.cmp-check{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.94);border-radius:20px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;z-index:3;border:1px solid var(--line)}
-.cmp-check input{accent-color:var(--purple);width:13px;height:13px;cursor:pointer}
-.cmp-check.on{background:var(--purple);color:#fff;border-color:var(--purple)}
-.card-body{padding:8px 2px 0}
-.c-title{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.c-instr{font-size:12px;color:var(--ink2);margin-bottom:5px}
-.c-rating{display:flex;align-items:center;gap:5px;margin-bottom:5px}
-.c-rate-num{font-size:13px;font-weight:700;color:#92590A}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover,.card:focus-visible{transform:translateY(-4px);box-shadow:0 18px 44px rgba(17,17,20,.1)}
+.card-vis{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(100deg,#eee 25%,#f6f6f6 37%,#eee 63%);background-size:200% 100%;animation:shimmer 1.4s linear infinite}
+.card-vis img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s,transform .5s var(--ease)}
+.card-vis img.loaded{opacity:1}
+.card:hover .card-vis img{transform:scale(1.07)}
+.card-vis::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.28));pointer-events:none}
+.card-vis .badge{position:absolute;top:10px;left:10px;z-index:2;font-size:11px;font-weight:700;background:#ECEB98;color:#3D3C0A;padding:4px 9px;border-radius:4px}
+.card-vis .vtype{position:absolute;bottom:10px;left:12px;z-index:2;font-size:11px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.card-title{font-size:16px;font-weight:700;line-height:1.3;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-instr{font-size:12px;color:var(--ink2);margin-bottom:6px}
+.card-rating{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+.card-rate-num{font-size:13px;font-weight:700;color:#92590A}
 .stars{display:inline-flex;gap:1px;color:var(--star);font-size:13px}
-.c-rate-cnt{font-size:12px;color:var(--ink2)}
-.c-meta{font-size:12px;color:var(--ink2);margin-bottom:6px;display:flex;gap:10px;flex-wrap:wrap}
-.c-meta span{display:flex;align-items:center;gap:3px}.c-meta i{font-size:13px}
-.c-price{display:flex;align-items:baseline;gap:7px}
-.c-price b{font-size:16px;font-weight:800}.c-price s{font-size:13px;color:var(--ink3)}
+.card-rate-cnt{font-size:12px;color:var(--ink2)}
+.card-meta{font-size:12px;color:var(--ink2);display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.card-meta span{display:flex;align-items:center;gap:3px}.card-meta i{font-size:13px}
+.card-price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.card-price{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.card-mrp{font-size:13px;color:var(--ink3);text-decoration:line-through}
+.card-off{font-size:12px;font-weight:700;color:var(--green)}
 
-/* COMPARE BAR */
-.cmp-bar{position:fixed;left:0;right:0;bottom:0;z-index:120;background:#1C1D2B;color:#fff;transform:translateY(110%);transition:transform .4s cubic-bezier(.22,.61,.36,1)}
-.cmp-bar.show{transform:none}
-.cmp-bar-in{display:flex;align-items:center;gap:14px;padding:14px 0}
-.cmp-slots{display:flex;gap:10px;flex:1;overflow-x:auto}
-.cmp-slot{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 10px;min-width:180px}
-.cmp-slot .mini{width:40px;height:26px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.cmp-slot .nm{font-size:12px;font-weight:600;line-height:1.2;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cmp-slot .x{cursor:pointer;color:#A9ABC4;font-size:16px}.cmp-slot .x:hover{color:#fff}
-.cmp-empty-slot{min-width:120px;border:1px dashed rgba(255,255,255,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#7E80A0;padding:8px}
-.cmp-actions{display:flex;gap:10px;flex-shrink:0}
-.cmp-clear{background:transparent;border:none;color:#A9ABC4;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.cmp-clear:hover{color:#fff}
-.cmp-go{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:11px 22px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
-.cmp-go:hover{background:#C95A0B}.cmp-go:disabled{opacity:.4;cursor:not-allowed}
+.testi-sec{margin:50px 0 24px}
+.testi-h{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.testi-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:#FBF1E6;color:var(--orange-dark);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.testi-quote{font-size:14px;color:#3C3C40;line-height:1.6;margin-bottom:14px}
+.testi-name{font-size:13px;font-weight:700}
+.testi-meta{font-size:12px;color:var(--ink2)}
 
-/* COMPARE VIEW */
-.cmp-head{padding:28px 0 6px}
-.cmp-head h1{font-size:28px;font-weight:800;margin-top:14px}
-.cmp-wrap{padding:22px 0 80px;overflow-x:auto}
-.cmp-table{width:100%;border-collapse:separate;border-spacing:0;min-width:680px}
-.cmp-table th,.cmp-table td{padding:16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.cmp-table thead th{position:sticky;top:62px;background:#fff;z-index:5;border-bottom:2px solid var(--ink)}
-.cmp-col-label{font-size:13px;font-weight:700;color:var(--ink2);width:200px;background:var(--surface2)}
-.cmp-ch{display:flex;flex-direction:column;gap:8px}
-.cmp-ch .mini{width:100%;aspect-ratio:16/9;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:30px}
-.cmp-ch .nm{font-size:15px;font-weight:700;line-height:1.25}
-.cmp-ch .ty{font-size:12px;color:var(--orange);font-weight:600}
-.cmp-ch .rm{font-size:12px;color:var(--red);cursor:pointer;font-weight:600}
-.cmp-price{font-size:20px;font-weight:800}.cmp-price s{font-size:13px;color:var(--ink3);font-weight:400;margin-left:6px}
-.cmp-save{font-size:12px;color:var(--green);font-weight:700}
-.cmp-yes{color:var(--green);font-size:18px}.cmp-no{color:var(--ink3);font-size:18px}
-.cmp-add{background:var(--purple);color:#fff;border:none;border-radius:6px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
-.cmp-add:hover{background:var(--purple-dark)}
-.cmp-row-best{background:#FBFBE9}
+.dt-head{padding:44px 0 0}
+.dt-crumb{font-size:13px;color:var(--ink2);margin-bottom:22px;display:flex;align-items:center;gap:7px}
+.dt-crumb a{color:var(--orange-dark);cursor:pointer;font-weight:500}
+.dt-type{font-size:13px;font-weight:600;color:var(--orange);margin-bottom:12px}
+.dt-title{font-size:40px;font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px;max-width:760px}
+.dt-tagline{font-size:18px;color:var(--ink2);line-height:1.5;max-width:620px;font-weight:400;margin-bottom:16px}
+.dt-rating{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--ink2)}
+.dt-rating .num{color:#92590A;font-weight:800}.dt-rating .stars{color:var(--star)}
+.dt-banner{aspect-ratio:21/8;border-radius:var(--r);overflow:hidden;margin:28px 0 0;background:var(--surface2)}
+.dt-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.dt-grid{display:grid;grid-template-columns:1fr 320px;gap:56px;padding:36px 0 60px}
+.dt-block{margin-bottom:42px}
+.dt-block h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:18px}
+.dt-desc{font-size:17px;color:#3C3C40;line-height:1.7}
+.feat-list{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.feat-item{display:flex;gap:11px;font-size:15px;align-items:flex-start;line-height:1.4}
+.feat-item i{color:var(--orange);font-size:19px;margin-top:1px;flex-shrink:0}
+.curr-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.curr-num{width:30px;height:30px;border-radius:50%;background:var(--surface2);color:var(--ink);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.curr-t{font-size:15px;font-weight:600}.curr-s{font-size:14px;color:var(--ink2);margin-top:3px}
+.skeleton{background:var(--surface2);border-radius:var(--r-sm);padding:20px;font-size:14px;color:var(--ink2)}
 
-/* ===== DETAIL — CLEAN LIGHT LAYOUT ===== */
-.dt-top{border-bottom:1px solid var(--line);background:var(--surface2)}
-.dt-top-in{padding:26px 0 30px;max-width:760px}
-.dt-crumb{font-size:13px;color:var(--ink2);margin-bottom:16px;display:flex;gap:7px;align-items:center}
-.dt-crumb a{color:var(--purple);cursor:pointer;font-weight:600}
-.dt-type{display:inline-block;font-size:12px;font-weight:700;color:var(--orange);background:#FBEFE4;padding:4px 11px;border-radius:20px;margin-bottom:14px}
-.dt-title{font-size:32px;font-weight:800;line-height:1.18;letter-spacing:-.01em;margin-bottom:12px}
-.dt-tagline{font-size:16px;color:var(--ink2);line-height:1.6;margin-bottom:18px}
-.dt-rating{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-bottom:18px}
-.dt-rating .num{color:#92590A;font-weight:800;font-size:15px}.dt-rating .stars{color:var(--star)}
-.dt-hi{display:flex;gap:10px;flex-wrap:wrap}
-.dt-hi span{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 14px}
-.dt-hi i{font-size:16px;color:var(--purple)}
+.mentor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.mentor-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface)}
+.mentor-avatar{width:42px;height:42px;border-radius:50%;background:#FBF1E6;color:var(--orange-dark);font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:14px}
+.mentor-name{font-size:14px;font-weight:700}
+.mentor-school{font-size:12px;color:var(--orange-dark);font-weight:600;margin:2px 0 6px}
+.mentor-cred{font-size:12px;color:var(--ink2);line-height:1.5}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 2px;background:none;border:none;font-family:inherit;font-size:15px;font-weight:600;text-align:left;cursor:pointer;color:var(--ink)}
+.faq-q i{transition:transform .2s;color:var(--ink3);flex-shrink:0}
+.faq-item.open .faq-q i{transform:rotate(180deg);color:var(--orange)}
+.faq-a{font-size:14px;color:var(--ink2);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .25s var(--ease)}
+.faq-item.open .faq-a{max-height:320px;padding-bottom:16px}
 
-.dt-grid{display:grid;grid-template-columns:1fr 340px;gap:48px;padding:36px 0 80px;align-items:start}
-.dt-block{margin-bottom:38px}.dt-block:last-child{margin-bottom:0}
-.dt-block h3{font-size:21px;font-weight:800;margin-bottom:16px}
-.dt-desc{font-size:15px;color:#3C3C40;line-height:1.8}
-.feat-box{border:1px solid var(--line);border-radius:10px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.feat-item{display:flex;gap:11px;font-size:14px;align-items:flex-start;line-height:1.45}
-.feat-item i{color:var(--green);font-size:18px;margin-top:1px;flex-shrink:0}
-.curr-item{display:flex;gap:14px;padding:16px;border:1px solid var(--line);border-top:none}
-.curr-item:first-child{border-top:1px solid var(--line);border-radius:10px 10px 0 0}.curr-item:last-child{border-radius:0 0 10px 10px}
-.curr-num{width:28px;height:28px;border-radius:50%;background:#EDE7FB;color:var(--purple);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.curr-t{font-size:14px;font-weight:700}.curr-s{font-size:13px;color:var(--ink2);margin-top:2px}
-.skeleton{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:20px;font-size:14px;color:var(--ink2)}
+.buy{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0;height:fit-content;box-shadow:0 8px 28px rgba(17,17,20,.06);overflow:hidden}
+.buy-vis{aspect-ratio:16/9;overflow:hidden;background:var(--surface2)}
+.buy-vis img{width:100%;height:100%;object-fit:cover;display:block}
+.buy-pad{padding:24px 26px 26px}
+.variant-group{margin-bottom:16px}
+.variant-label{font-size:11px;font-weight:700;color:var(--ink2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.variant-pills{display:flex;flex-wrap:wrap;gap:8px}
+.variant-pill{font-size:12.5px;font-weight:600;padding:8px 13px;border-radius:20px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-family:inherit;color:var(--ink);transition:.15s}
+.variant-pill:hover{border-color:var(--orange)}
+.variant-pill.sel{border-color:var(--orange);background:#FDF6EF;color:var(--orange-dark)}
+.buy-price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px;margin-bottom:10px}
+.buy-price{font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.buy-mrp{font-size:16px;color:var(--ink3);text-decoration:line-through;line-height:1}
+.buy-off{font-size:12px;font-weight:700;color:var(--green);background:#E5F4EC;padding:4px 9px;border-radius:20px;line-height:1}
+.buy-urgency{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--orange-dark);background:#FDF1E6;padding:8px 12px;border-radius:10px;margin-bottom:16px}
+.buy-note{font-size:13px;color:var(--ink2);margin-bottom:22px}
+.buy-enroll{width:100%;background:var(--orange);color:#fff;font-size:16px;font-weight:600;padding:15px;border-radius:30px;border:none;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:.2s}
+.buy-enroll:hover{background:#C95A0B}
+.buy-cart{width:100%;background:var(--surface2);color:var(--ink);font-size:15px;font-weight:600;padding:14px;border-radius:30px;border:none;cursor:pointer;font-family:inherit;transition:.2s}
+.buy-cart:hover{background:#ECECEF}
+.buy-incl{margin-top:24px;border-top:1px solid var(--line);padding-top:20px;display:flex;flex-direction:column;gap:13px}
+.buy-incl div{font-size:14px;display:flex;gap:11px;align-items:center;color:#3C3C40}.buy-incl i{color:var(--orange);font-size:18px}
 
-/* sticky enroll card — light, clean, no overlap */
-.enroll{position:sticky;top:80px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.09);overflow:hidden}
-.enroll-vis{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:48px}
-.enroll-pad{padding:24px}
-.enroll-price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px;margin-bottom:8px}
-.enroll-price{font-size:32px;font-weight:800;line-height:1}
-.enroll-mrp{font-size:16px;color:var(--ink3);text-decoration:line-through;line-height:1}
-.enroll-badge{font-size:12px;font-weight:700;color:var(--green);background:#E5F4EC;padding:4px 10px;border-radius:20px;line-height:1}
-.enroll-note{font-size:13px;color:var(--ink2);margin-bottom:20px}
-.bn-enroll{width:100%;background:var(--purple);color:#fff;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:8px;cursor:pointer;font-family:inherit;margin-bottom:10px}
-.bn-enroll:hover{background:var(--purple-dark)}
-.bn-cart{width:100%;background:#fff;color:var(--purple);font-size:15px;font-weight:700;padding:13px;border:1.5px solid var(--purple);border-radius:8px;cursor:pointer;font-family:inherit}
-.bn-cart:hover{background:#F4EFFE}
-.enroll-incl{margin-top:20px;padding-top:18px;border-top:1px solid var(--line2);display:flex;flex-direction:column;gap:11px}
-.enroll-incl div{font-size:13px;color:var(--ink);display:flex;gap:11px;align-items:center}.enroll-incl i{color:var(--purple);font-size:18px}
+.related-sec{margin:8px 0 64px}
+.related-h{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
 
-/* CHECKOUT */
-.co-grid{display:grid;grid-template-columns:1fr 360px;gap:36px;padding:30px 0 70px}
-.co-title{font-size:28px;font-weight:800;margin:26px 0 4px}
-.co-sub{font-size:14px;color:var(--ink2);margin-bottom:22px}
-.co-panel{border:1px solid var(--line);border-radius:8px;padding:24px;margin-bottom:18px}
-.co-panel h3{font-size:17px;font-weight:800;margin-bottom:18px}
-.field{margin-bottom:15px}.field:last-child{margin-bottom:0}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.field input{width:100%;font-family:inherit;font-size:14px;padding:12px 14px;border:1px solid var(--ink2);border-radius:var(--r);outline:none}
-.field input:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(80,34,195,.15)}
+.co-grid{display:grid;grid-template-columns:1fr 360px;gap:40px;padding:36px 0 80px}
+.co-title{font-size:38px;font-weight:800;letter-spacing:-.03em;margin:36px 0 6px}
+.co-sub{font-size:16px;color:var(--ink2);margin-bottom:8px}
+.co-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;margin-bottom:18px}
+.co-panel h3{font-size:17px;font-weight:700;margin-bottom:20px}
+.field{margin-bottom:16px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:7px}
+.field input{width:100%;font-family:inherit;font-size:15px;padding:13px 15px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);outline:none;transition:.2s}
+.field input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(226,104,15,.12)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.pay-opt{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:var(--r);margin-bottom:9px;cursor:pointer}
-.pay-opt.sel{border-color:var(--purple);background:#F4EFFE}
-.pay-opt i{font-size:20px;color:var(--purple)}.pay-opt-t{font-size:14px;font-weight:700}
-.summary{position:sticky;top:80px;height:fit-content}
-.sum-item{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line2)}
-.sum-item-t{font-size:14px;font-weight:700}.sum-item-ty{font-size:12px;color:var(--ink2)}
-.sum-item-p{font-size:14px;font-weight:800;white-space:nowrap}
-.sum-remove{font-size:12px;color:var(--purple);cursor:pointer;font-weight:700;margin-top:4px;display:inline-block}
-.sum-row{display:flex;justify-content:space-between;font-size:14px;padding:8px 0;color:var(--ink2)}
-.sum-total{display:flex;justify-content:space-between;font-size:20px;font-weight:800;padding-top:14px;margin-top:6px;border-top:1px solid var(--ink)}
-.co-pay-btn{width:100%;background:var(--purple);color:#fff;font-size:16px;font-weight:700;padding:15px;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;margin-top:18px}
-.co-pay-btn:hover{background:var(--purple-dark)}
-.co-empty{text-align:center;padding:80px 20px}
-.co-empty i{font-size:50px;color:var(--ink3);opacity:.5}.co-empty p{font-size:16px;color:var(--ink2);margin:16px 0 24px}
+.pay-opt{display:flex;align-items:center;gap:13px;padding:15px;border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:10px;cursor:pointer;transition:.2s}
+.pay-opt.sel{border-color:var(--orange);background:#FDF6EF}
+.pay-opt i{font-size:21px;color:var(--ink)}.pay-opt.sel i{color:var(--orange)}.pay-opt-t{font-size:15px;font-weight:600}
+.pay-note{font-size:12px;color:var(--ink2);margin-top:6px}
+.summary{position:sticky;top:96px;height:fit-content}
+.sum-item{display:flex;justify-content:space-between;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.sum-item-t{font-size:15px;font-weight:600}.sum-item-ty{font-size:13px;color:var(--ink2)}
+.sum-item-p{font-size:15px;font-weight:700;white-space:nowrap}
+.sum-remove{font-size:12px;color:var(--orange-dark);cursor:pointer;font-weight:600;margin-top:5px;display:inline-block}
+.sum-row{display:flex;justify-content:space-between;font-size:15px;padding:9px 0;color:var(--ink2)}
+.sum-total{display:flex;justify-content:space-between;font-size:22px;font-weight:800;letter-spacing:-.02em;padding-top:16px;margin-top:6px;border-top:1px solid var(--ink)}
+.coupon-row{display:flex;gap:8px;margin:6px 0 4px}
+.coupon-row input{flex:1;font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:30px;outline:none}
+.coupon-row input:focus{border-color:var(--orange)}
+.coupon-row button{font-size:12px;font-weight:700;color:var(--orange-dark);background:var(--surface2);border:none;padding:0 16px;border-radius:30px;cursor:pointer;font-family:inherit}
+.co-pay-btn{width:100%;background:var(--orange);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:30px;border:none;cursor:pointer;font-family:inherit;margin-top:14px;transition:.2s}
+.co-pay-btn:hover{background:#C95A0B}
+.co-empty{text-align:center;padding:90px 20px}
+.co-empty i{font-size:52px;color:var(--ink3);opacity:.5}
+.co-empty p{font-size:17px;color:var(--ink2);margin:18px 0 26px}
 
-/* MODAL + TOAST */
-.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(28,29,31,.5);opacity:0;visibility:hidden;transition:.2s;z-index:300;padding:20px}
+.drawer-overlay{position:fixed;inset:0;background:rgba(17,17,20,.35);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:.25s;z-index:250}
+.drawer-overlay.open{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;top:0;right:0;height:100%;width:380px;max-width:92vw;background:var(--surface);box-shadow:-12px 0 40px rgba(17,17,20,.18);transform:translateX(100%);transition:transform .3s var(--ease);z-index:260;display:flex;flex-direction:column}
+.cart-drawer.open{transform:none}
+.cart-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line);font-weight:700;font-size:16px}
+.drawer-close{border:none;background:var(--surface2);width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1}
+.cart-drawer-body{flex:1;overflow-y:auto;padding:6px 22px}
+.cart-drawer-foot{padding:18px 22px;border-top:1px solid var(--line)}
+.cd-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cd-item-t{font-size:14px;font-weight:600}
+.cd-item-v{font-size:12px;color:var(--ink2);margin-top:2px}
+.cd-item-p{font-size:14px;font-weight:700;margin-left:auto;white-space:nowrap}
+.cd-remove{font-size:11px;color:var(--orange-dark);cursor:pointer;font-weight:600}
+.cd-empty{text-align:center;padding:50px 10px;color:var(--ink2);font-size:14px}
+
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,20,.4);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:.25s;z-index:300;padding:20px}
 .modal.open{opacity:1;visibility:visible}
-.modal-box{background:#fff;border-radius:10px;max-width:410px;width:100%;padding:30px;text-align:center;transform:scale(.95);transition:.2s}
+.modal-box{background:var(--surface);border-radius:24px;max-width:420px;width:100%;padding:36px;text-align:center;transform:scale(.95);transition:.25s var(--ease)}
 .modal.open .modal-box{transform:scale(1)}
-.modal-ico{width:56px;height:56px;border-radius:50%;background:#EDE7FB;color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px}
-.modal-title{font-size:19px;font-weight:800;margin-bottom:9px}
-.modal-text{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:22px}
-.modal-actions{display:flex;gap:10px}
-.modal-btn{flex:1;font-size:14px;font-weight:700;padding:12px;border-radius:var(--r);border:none;cursor:pointer;font-family:inherit}
-.modal-btn.primary{background:var(--purple);color:#fff}.modal-btn.ghost{background:var(--surface2);border:1px solid var(--line)}
-.toast-wrap{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:400;display:flex;flex-direction:column;gap:8px;align-items:center}
-.toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;padding:13px 20px;border-radius:6px;opacity:0;transform:translateY(12px);transition:.25s}
+.modal-ico{width:60px;height:60px;border-radius:50%;background:#FBF1E6;color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px}
+.modal-title{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.modal-text{font-size:15px;color:var(--ink2);line-height:1.6;margin-bottom:26px}
+.modal-actions{display:flex;gap:11px}
+.modal-btn{flex:1;font-size:15px;font-weight:600;padding:13px;border-radius:30px;border:none;cursor:pointer;font-family:inherit}
+.modal-btn.primary{background:var(--orange);color:#fff}
+.modal-btn.ghost{background:var(--surface2)}
+.toast-wrap{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:400;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;padding:14px 22px;border-radius:30px;opacity:0;transform:translateY(12px);transition:.3s var(--ease)}
 .toast.show{opacity:1;transform:translateY(0)}.toast i{color:#5BD08A;font-size:18px}
 
-@media(max-width:980px){
-  .shell{grid-template-columns:1fr}.side{display:none}
-  .dt-grid,.co-grid{grid-template-columns:1fr;gap:28px}
-  .enroll{position:static;order:-1}.summary{position:static;order:-1}
+@media(max-width:860px){
+  .nav-in{height:64px;gap:14px}.tabs{top:64px}
+  .brand-tag{display:none}
+  .dt-grid,.co-grid{grid-template-columns:1fr;gap:32px}
+  .buy,.summary{position:static}.summary{order:-1}
+  .grid,.testi-grid{grid-template-columns:1fr 1fr}
+  .head h1{font-size:38px}.head p{font-size:15px}
+  .dt-title{font-size:32px}.feat-list,.mentor-grid{grid-template-columns:1fr}.dt-banner{aspect-ratio:16/7}
 }
-@media(max-width:560px){.nav-search{display:none}.feat-box{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.stat-strip{gap:24px}.dt-title{font-size:26px}}
+@media(max-width:600px){
+  .nav-search{display:none}.head p{white-space:normal;font-size:15px}
+  .mobile-search-btn{display:flex;align-items:center;justify-content:center;padding:8px}
+  .testi-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){.wrap{padding:0 18px}.field-row{grid-template-columns:1fr}.head{padding:44px 0 28px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <nav class="nav"><div class="wrap nav-in">
-  <div class="brand" onclick="location.hash='#/'"><div class="brand-mark">M</div><div class="brand-name">MBA Partner</div></div>
-  <div class="nav-search"><i class="ti ti-search"></i><input id="navSearch" placeholder="Search for courses & offerings"/></div>
-  <div class="nav-right">
-    <button class="nav-a" data-modal="testimonials">Testimonials</button>
-    <button class="cart-btn" onclick="location.hash='#/checkout'"><i class="ti ti-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
+  <div class="brand" onclick="location.hash='#/'">
+    <div class="brand-mark">M</div>
+    <div class="brand-text"><div class="brand-name">MBA Partner</div><div class="brand-tag">Alumni of old IIMs</div></div>
   </div>
-</div></nav>
+  <div class="nav-search"><i class="ti ti-search"></i><input id="searchInput" placeholder="Search for courses & offerings" aria-label="Search for courses and offerings"/></div>
+  <div class="nav-right">
+    <button class="nav-a" onclick="location.hash='#/'">Courses</button>
+    <button class="nav-a" data-modal="testimonials">Testimonials</button>
+    <button class="nav-a" id="loginBtn" aria-label="Login"><i class="ti ti-user-circle" style="font-size:18px"></i></button>
+    <button class="nav-a mobile-search-btn" id="mobileSearchBtn" aria-label="Search"><i class="ti ti-search" style="font-size:18px"></i></button>
+    <button class="cart-btn" id="cartBtn" aria-label="Cart, 0 items"><i class="ti ti-shopping-cart" style="font-size:18px"></i><span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</div>
+<div class="mobile-search-bar" id="mobileSearchBar">
+  <div class="nav-search"><i class="ti ti-search"></i><input id="searchInputMobile" placeholder="Search for courses & offerings" aria-label="Search for courses and offerings"/><button class="drawer-close" id="mobileSearchClose" aria-label="Close search" style="margin-left:8px">&times;</button></div>
+</div>
+</nav>
 
 <!-- ===== CATALOG ===== -->
 <div class="view active" id="view-catalog">
-  <div class="cat-banner"><div class="wrap cat-banner-in">
-    <h1 class="reveal">Courses & offerings</h1>
-    <p class="reveal">Placement bootcamps, live consulting projects and case competition prep — built by IIM alumni to get MBA students placed.</p>
-    <div class="stat-strip reveal">
-      <div class="stat"><div class="num" data-count="10000" data-suffix="+">0</div><div class="lbl">Students enrolled</div></div>
-      <div class="stat"><div class="num" data-count="30" data-suffix="+">0</div><div class="lbl">Winning case PPTs</div></div>
-      <div class="stat"><div class="num" data-count="9" data-suffix="">0</div><div class="lbl">Offerings</div></div>
-      <div class="stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="lbl">Would recommend</div></div>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">An initiative by alumni of old IIMs</div>
+      <h1 id="headline"><span class="w" style="animation-delay:.05s">Find</span> <span class="w" style="animation-delay:.2s">your</span> <span class="w" style="animation-delay:.35s">edge.</span></h1>
+      <p class="anim" style="animation-delay:.6s">Placement bootcamps, live consulting projects and case competition prep — built to get you placed.</p>
     </div>
-  </div></div>
-  <div class="wrap"><div class="shell">
-    <aside class="side">
-      <div class="side-h">Categories</div>
-      <div class="side-list" id="sideList"></div>
-      <div class="side-note">Tip: tick <b>Compare</b> on any cards to see them side by side. All offerings include a certificate and CV points.</div>
-    </aside>
-    <main>
-      <div class="results-top">
-        <div class="results-count" id="resultsCount"></div>
-        <div class="sort-wrap" id="sortWrap">
-          <button class="sort-btn" id="sortBtn"><i class="ti ti-arrows-sort"></i> <span id="sortLabel">Most popular</span> <i class="ti ti-chevron-down caret"></i></button>
-          <div class="sort-menu" id="sortMenu"></div>
-        </div>
+    <div class="trust-strip reveal">
+      <div class="trust-item"><div class="trust-num">9.6/10</div><div class="trust-lbl">Avg. rating · 700+ students</div></div>
+      <div class="trust-item"><div class="trust-num">5,000+</div><div class="trust-lbl">Student network</div></div>
+      <div class="trust-item"><div class="trust-num">98.7%</div><div class="trust-lbl">Placed in desired domain</div></div>
+      <div class="trust-item"><div class="trust-num">IIM · XLRI · FMS</div><div class="trust-lbl">Mentor schools</div></div>
+    </div>
+    <div class="compare-sec reveal">
+      <div class="compare-head"><h2>Not sure which plan?</h2><p>Compare the bootcamp and combo tracks at a glance.</p></div>
+      <div class="compare-table" id="compareTable"></div>
+    </div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="wrap">
+    <div class="sort-bar">
+      <div class="sort-wrap" id="sortWrap">
+        <button class="sort-btn" id="sortBtn"><i class="ti ti-arrows-sort"></i> Sort: <span id="sortLabel">Most popular</span> <i class="ti ti-chevron-down caret"></i></button>
+        <div class="sort-menu" id="sortMenu"></div>
       </div>
-      <div class="grid" id="cardGrid"></div>
-    </main>
-  </div></div>
+    </div>
+  </div>
+  <div class="wrap" id="catalogBody"></div>
+  <div class="wrap">
+    <div class="testi-sec reveal">
+      <h2 class="testi-h">What students say</h2>
+      <div class="testi-grid" id="testiGrid"></div>
+    </div>
+  </div>
+  <div style="height:40px"></div>
 </div>
 
-<!-- ===== COMPARE ===== -->
-<div class="view" id="view-compare"><div class="wrap">
-  <div class="cmp-head">
-    <div class="dt-crumb" style="color:var(--ink2)"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:12px"></i> <span>Compare</span></div>
-    <h1>Compare offerings</h1>
-  </div>
-  <div class="cmp-wrap"><div id="compareBody"></div></div>
-</div></div>
-
 <!-- ===== DETAIL ===== -->
-<div class="view" id="view-detail">
-  <div class="dt-top"><div class="wrap"><div class="dt-top-in">
-    <div class="dt-crumb"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:12px"></i> <span id="bcCat"></span></div>
+<div class="view" id="view-detail"><div class="wrap">
+  <div class="dt-head">
+    <div class="dt-crumb"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:13px"></i> <span id="bcTitle"></span></div>
     <div class="dt-type" id="dType"></div>
     <div class="dt-title" id="dTitle"></div>
     <div class="dt-tagline" id="dTagline"></div>
     <div class="dt-rating" id="dRating"></div>
-    <div class="dt-hi" id="dHi"></div>
-  </div></div></div>
-  <div class="wrap"><div class="dt-grid">
+    <div class="dt-banner"><img id="dBanner" alt=""/></div>
+  </div>
+  <div class="dt-grid">
     <div>
-      <div class="dt-block reveal"><h3>What you'll get</h3><div class="feat-box" id="dFeats"></div></div>
-      <div class="dt-block reveal"><h3>About this offering</h3><div class="dt-desc" id="dDesc"></div></div>
-      <div class="dt-block reveal"><h3>Curriculum</h3><div id="dCurriculum"></div></div>
+      <div class="dt-block"><h3>Overview</h3><div class="dt-desc" id="dDesc"></div></div>
+      <div class="dt-block"><h3>What's included</h3><div class="feat-list" id="dFeats"></div></div>
+      <div class="dt-block"><h3>Curriculum</h3><div id="dCurriculum"></div></div>
+      <div class="dt-block"><h3>Meet your mentors</h3><div class="mentor-grid" id="dMentors"></div></div>
+      <div class="dt-block"><h3>FAQs</h3><div class="faq-list" id="dFaq"></div></div>
     </div>
-    <div>
-      <div class="enroll">
-        <div class="enroll-vis" id="enrollVis"><i class="ti ti-stars"></i></div>
-        <div class="enroll-pad">
-          <div class="enroll-price-row" id="enrollPriceRow"></div>
-          <div class="enroll-note" id="enrollNote"></div>
-          <button class="bn-enroll ripple" id="dEnroll">Enroll now</button>
-          <button class="bn-cart ripple" id="dCart">Add to cart</button>
-          <div class="enroll-incl">
-            <div><i class="ti ti-certificate"></i> Certificate of completion</div>
-            <div><i class="ti ti-chart-arrows-vertical"></i> Verifiable CV points</div>
-            <div><i class="ti ti-users"></i> Mentored by IIM alumni</div>
-            <div><i class="ti ti-infinity"></i> Lifetime access to materials</div>
-          </div>
+    <div><div class="buy">
+      <div class="buy-vis"><img id="buyImg" alt=""/></div>
+      <div class="buy-pad">
+        <div id="dVariants"></div>
+        <div class="buy-price-row" id="dPriceRow"></div>
+        <div class="buy-urgency"><i class="ti ti-flame"></i> Next cohort starting soon · limited mentor slots</div>
+        <div class="buy-note" id="dNote">One-time payment · Lifetime access</div>
+        <button class="buy-enroll" id="dEnroll">Enroll now</button>
+        <button class="buy-cart" id="dCart">Add to cart</button>
+        <div class="buy-incl">
+          <div><i class="ti ti-certificate"></i> Certificate + CV points</div>
+          <div><i class="ti ti-users"></i> Mentored by IIM alumni</div>
+          <div><i class="ti ti-headset"></i> Community & support access</div>
         </div>
       </div>
-    </div>
-  </div></div>
-</div>
+    </div></div>
+  </div>
+  <div class="related-sec reveal"><h3 class="related-h">You might also like</h3><div class="grid" id="dRelated"></div></div>
+</div></div>
 
 <!-- ===== CHECKOUT ===== -->
 <div class="view" id="view-checkout"><div class="wrap">
-  <div class="dt-crumb" style="color:var(--ink2);padding-top:24px"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:12px"></i> <span>Checkout</span></div>
+  <div class="dt-crumb" style="padding-top:40px"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:13px"></i> <span>Checkout</span></div>
   <div id="checkoutBody"></div>
 </div></div>
 
-<!-- COMPARE BAR -->
-<div class="cmp-bar" id="cmpBar"><div class="wrap cmp-bar-in">
-  <div class="cmp-slots" id="cmpSlots"></div>
-  <div class="cmp-actions"><button class="cmp-clear" id="cmpClear">Clear</button><button class="cmp-go" id="cmpGo">Compare</button></div>
-</div></div>
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Cart">
+  <div class="cart-drawer-head"><span>Your cart</span><button class="drawer-close" id="drawerClose" aria-label="Close cart">&times;</button></div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-foot" id="cartDrawerFoot"></div>
+</aside>
 
 <!-- MODAL + TOAST -->
-<div class="modal" id="modal"><div class="modal-box">
+<div class="modal" id="modal"><div class="modal-box" role="dialog" aria-modal="true">
   <div class="modal-ico" id="modalIco"><i class="ti ti-info-circle"></i></div>
   <div class="modal-title" id="modalTitle"></div>
   <div class="modal-text" id="modalText"></div>
@@ -342,193 +404,382 @@ a{text-decoration:none;color:inherit}
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
+const DOMAINS=[
+  {key:'marketing',label:'Marketing'},{key:'finance',label:'Finance'},{key:'operations',label:'Operations'},
+  {key:'hr',label:'HR'},{key:'strategy',label:'Strategy'}
+];
 const CATS=[
   {key:'combo',label:'Combos'},{key:'bootcamp',label:'Placement bootcamp'},
   {key:'live',label:'Live projects'},{key:'case',label:'Case competitions'},{key:'cert',label:'Certifications'}
 ];
+/* img = stock placeholder (Unsplash). Swap for MBA Partner's own images later.
+   rating/students/level/hours/instr are demo placeholders too.
+   optionGroups = product variants. Tier groups override price/mrp/feats;
+   domain groups are informational selections required before checkout. */
+const IMG=(id,w)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w||800}&q=70`;
 const COURSES=[
-  {id:'flagship-bundle',cat:'combo',type:'Flagship bundle',icon:'ti-stars',vis:'t-dark',best:true,rating:4.9,students:4120,level:'All levels',hours:'40+ hrs',cvPoints:10,mentor:'IIM + AIR 1',instr:'IIM alumni · Prodmark',title:'The Complete Placement Bundle',sub:'Bootcamp, a 2-month live project and case competition prep — everything in one track.',tagline:'Everything you need — from a killer CV to dominating case rounds.',desc:'Our most complete offering. Combines the Placement Bootcamp, a 2-month live consulting project, and case competition mentorship into a single guided track. [Skeleton — full description to be provided.]',price:13999,mrp:14500,off:'Save ₹501',feats:['3–5 expert-reviewed CV slots','5–7 mock PI sessions','2-month live project (Prodmark)','30+ winning case PPTs (AIR 1)','Canva Premium (1 year)','Priority community support'],curriculum:[{t:'Onboarding & profiling',s:'Goal setting and CV audit'},{t:'CV & PI mastery',s:'Reviews and mock interviews'},{t:'Live consulting project',s:'Real deliverables over 2 months'},{t:'Case competition sprint',s:'Frameworks and winning decks'}]},
-  {id:'placement-bootcamp',cat:'bootcamp',type:'Solo',icon:'ti-briefcase',vis:'t-purple',best:true,rating:4.8,students:6240,level:'All levels',hours:'6+ hrs',cvPoints:5,mentor:'IIM alumni',instr:'IIM alumni panel',title:'Placement Bootcamp',sub:'CV building, mock interviews and core domain sessions to make you Day-1 ready.',tagline:'Our flagship placement programme to make you Day-1 ready.',desc:'Covers CV building, personal interview prep and core domain sessions with personalised feedback from IIM alumni. [Skeleton.]',price:7499,mrp:7999,off:null,feats:['3–5 expert-reviewed CV slots','7 mock PI sessions','6 hours of live domain sessions','ATS-ready resume templates'],curriculum:[{t:'CV building',s:'Draft, review, ATS optimisation'},{t:'Domain sessions',s:'6 hours across core domains'},{t:'Mock interviews',s:'7 sessions with feedback'}]},
-  {id:'bootcamp-case',cat:'bootcamp',type:'Combo',icon:'ti-tournament',vis:'t-purple',best:false,rating:4.7,students:2110,level:'Intermediate',hours:'12+ hrs',cvPoints:6,mentor:'IIM + AIR 1',instr:'IIM alumni · AIR 1',title:'Bootcamp + Case Competitions',sub:'Win case competitions while landing placements — a dual track for consulting aspirants.',tagline:'Placement training plus case competition mastery.',desc:'A dual-track for consulting aspirants. [Skeleton.]',price:9499,mrp:9999,off:'5% off',feats:['5 CV slots','30+ winning case PPTs','AIR 1 mentorship','Canva Pro included'],curriculum:[]},
-  {id:'bootcamp-live',cat:'bootcamp',type:'Combo',icon:'ti-device-laptop',vis:'t-purple',best:false,rating:4.8,students:1890,level:'All levels',hours:'16+ hrs',cvPoints:7,mentor:'IIM + Prodmark',instr:'IIM alumni · Prodmark',title:'Bootcamp + Live Project',sub:'Real consulting experience paired with full placement training.',tagline:'Work on a real live project while preparing for placements.',desc:'Pairs the Placement Bootcamp with a 2-month live project at Prodmark Consultants. [Skeleton.]',price:11499,mrp:11999,off:'4% off',feats:['5 CV slots','2-month live project','10 live sessions','Real consulting deliverables'],curriculum:[]},
-  {id:'live-1',cat:'live',type:'Internship',icon:'ti-building',vis:'t-blue',best:false,rating:4.6,students:3320,level:'Beginner',hours:'4+ hrs',cvPoints:5,mentor:'Prodmark',instr:'Prodmark Consultants',title:'Live Project — 1 Domain',sub:'Pick any one domain, build real deliverables and earn 5 verifiable CV points.',tagline:'Real consulting deliverables with Prodmark Consultants.',desc:'Pick one domain and work on real deliverables over 1–2 months. [Skeleton.]',price:4000,mrp:4500,off:'11% off',feats:['4 hours of live sessions','5 verifiable CV points','1–2 month tenure','Real client deliverables'],curriculum:[]},
-  {id:'live-2',cat:'live',type:'Internship',icon:'ti-building-skyscraper',vis:'t-blue',best:true,rating:4.7,students:2480,level:'Intermediate',hours:'8+ hrs',cvPoints:10,mentor:'Prodmark',instr:'Prodmark Consultants',title:'Live Project — 2 Domains',sub:'Double the exposure across two domains with an AI-ready CV outcome.',tagline:'Cross-domain exposure with an AI-ready CV outcome.',desc:'Work across two domains for double the exposure and 10 CV points. [Skeleton.]',price:7500,mrp:7999,off:'6% off',feats:['8 hours of live sessions','10 verifiable CV points','AI-ready CV build','Cross-domain exposure'],curriculum:[]},
-  {id:'case-dominate',cat:'case',type:'Standalone',icon:'ti-medal',vis:'t-teal',best:true,rating:4.9,students:5010,level:'All levels',hours:'10+ hrs',cvPoints:3,mentor:'AIR 1',instr:'AIR 1 mentor',title:'Dominating Case Competitions',sub:'Learn to win from an AIR 1 mentor with 30+ winning PPTs and frameworks.',tagline:'Learn to win case competitions from an AIR 1 mentor.',desc:'Access 30+ winning PPTs, frameworks and presentation techniques. [Skeleton.]',price:3499,mrp:3999,off:'13% off',feats:['AIR 1 mentor','30+ winning case PPTs','Framework masterclass','Canva Pro included'],curriculum:[]},
-  {id:'case-live',cat:'case',type:'Combo',icon:'ti-stack',vis:'t-teal',best:false,rating:4.7,students:1450,level:'Intermediate',hours:'14+ hrs',cvPoints:4,mentor:'AIR 1 + Prodmark',instr:'AIR 1 · Prodmark',title:'Case Competitions + Live Project',sub:'Combine case wins with real consulting experience to double your CV impact.',tagline:'Double your CV impact.',desc:'Combine case competition wins with a real live consulting project. [Skeleton.]',price:8499,mrp:8999,off:'6% off',feats:['30+ winning PPTs','4 verifiable CV points','Live consulting project','Canva Pro included'],curriculum:[]},
-  {id:'adv-excel',cat:'cert',type:'Certification',icon:'ti-table',vis:'t-rose',best:false,rating:4.6,students:7820,level:'Beginner',hours:'8+ hrs',cvPoints:2,mentor:'Industry trainers',instr:'Industry trainers',title:'Advanced Excel',sub:'Formulas, pivot tables, dashboards and automation through real-world projects.',tagline:'Master Excel skills that show up on your CV immediately.',desc:'Formulas, pivot tables, dashboards and automation through real-world projects. [Skeleton.]',price:1199,mrp:1499,off:null,feats:['Real-world projects','Pivot tables & dashboards','Formula & automation mastery','Completion certificate'],curriculum:[]},
-  {id:'power-bi',cat:'cert',type:'Certification',icon:'ti-chart-bar',vis:'t-rose',best:false,rating:4.7,students:5630,level:'Beginner',hours:'10+ hrs',cvPoints:2,mentor:'Industry trainers',instr:'Industry trainers',title:'Power BI Certification',sub:'Build real-time dynamic dashboards with a career-focused, self-paced curriculum.',tagline:'Flexible learning that fits your MBA schedule.',desc:'Build real-time dynamic dashboards with a career-focused curriculum. [Skeleton.]',price:1499,mrp:null,off:null,feats:['Real-time dynamic dashboards','Career-focused curriculum','Flexible self-paced learning','Completion certificate'],curriculum:[]}
+  {id:'flagship-bundle',cat:'combo',type:'Flagship bundle',img:'photo-1454165804606-c3d57bc86b40',badge:'Best value',rating:4.9,students:4120,level:'All levels',hours:'40+ hrs',instr:'IIM alumni · Prodmark',title:'The Complete Placement Bundle',sub:'Bootcamp, a 2-month live project and case competition prep — everything in one track.',tagline:'Everything you need — from a killer CV to dominating case rounds.',desc:'Our most complete offering. Combines the Placement Bootcamp, a 2-month live consulting project, and case competition mentorship into a single guided track. [Skeleton — full description to be provided.]',price:13999,mrp:14500,off:'Save ₹501',feats:['3–5 expert-reviewed CV slots','5–7 mock PI sessions','2-month live project (Prodmark)','30+ winning case PPTs (AIR 1)','Canva Premium (1 year)','Priority community support'],curriculum:[{t:'Onboarding & profiling',s:'Goal setting and CV audit'},{t:'CV & PI mastery',s:'Reviews and mock interviews'},{t:'Live consulting project',s:'Real deliverables over 2 months'},{t:'Case competition sprint',s:'Frameworks and winning decks'}],optionGroups:[{id:'domain',label:'Choose your live project domain',type:'single',required:true,options:DOMAINS}]},
+  {id:'placement-bootcamp',cat:'bootcamp',type:'Solo',img:'photo-1521737604893-d14cc237f11d',badge:'Bestseller',rating:4.8,students:6240,level:'All levels',hours:'6+ hrs',instr:'IIM alumni panel',title:'Placement Bootcamp',sub:'CV building, mock interviews and core domain sessions to make you Day-1 ready.',tagline:'Our flagship placement programme to make you Day-1 ready.',desc:'Covers CV building, personal interview prep and core domain sessions with personalised feedback from IIM alumni. [Skeleton.]',price:7499,mrp:7999,off:null,feats:['3–5 expert-reviewed CV slots','7 mock PI sessions','6 hours of live domain sessions','ATS-ready resume templates'],curriculum:[{t:'CV building',s:'Draft, review, ATS optimisation'},{t:'Domain sessions',s:'6 hours across core domains'},{t:'Mock interviews',s:'7 sessions with feedback'}],optionGroups:[{id:'tier',label:'Choose your plan',type:'single',required:true,options:[
+    {key:'master',label:'Master',default:true,price:7499,mrp:7999,feats:['5 expert-reviewed CV slots','7 mock PI sessions','7 mock GDs','6 hours of live domain sessions']},
+    {key:'mini',label:'Mini',price:5499,mrp:5999,feats:['3 expert-reviewed CV slots','5 mock PI sessions','5 mock GDs']}
+  ]}]},
+  {id:'bootcamp-case',cat:'bootcamp',type:'Combo',img:'photo-1552664730-d307ca884978',badge:null,rating:4.7,students:2110,level:'Intermediate',hours:'12+ hrs',instr:'IIM alumni · AIR 1',title:'Bootcamp + Case Competitions',sub:'Win case competitions while landing placements — a dual track for consulting aspirants.',tagline:'Placement training plus case competition mastery.',desc:'A dual-track for consulting aspirants. [Skeleton.]',price:9499,mrp:9999,off:'5% off',feats:['5 CV slots','30+ winning case PPTs','AIR 1 mentorship','Canva Pro included'],curriculum:[]},
+  {id:'bootcamp-live',cat:'bootcamp',type:'Combo',img:'photo-1517245386807-bb43f82c33c4',badge:null,rating:4.8,students:1890,level:'All levels',hours:'16+ hrs',instr:'IIM alumni · Prodmark',title:'Bootcamp + Live Project',sub:'Real consulting experience paired with full placement training.',tagline:'Work on a real live project while preparing for placements.',desc:'Pairs the Placement Bootcamp with a 2-month live project at Prodmark Consultants. [Skeleton.]',price:11499,mrp:11999,off:'4% off',feats:['5 CV slots','2-month live project','10 live sessions','Real consulting deliverables'],curriculum:[],optionGroups:[{id:'domain',label:'Choose your live project domain',type:'single',required:true,options:DOMAINS}]},
+  {id:'live-1',cat:'live',type:'Internship',img:'photo-1542744173-8e7e53415bb0',badge:null,rating:4.6,students:3320,level:'Beginner',hours:'4+ hrs',instr:'Prodmark Consultants',title:'Live Project — 1 Domain',sub:'Pick any one domain, build real deliverables and earn 5 verifiable CV points.',tagline:'Real consulting deliverables with Prodmark Consultants.',desc:'Pick one domain and work on real deliverables over 1–2 months. [Skeleton.]',price:4000,mrp:4500,off:'11% off',feats:['4 hours of live sessions','5 verifiable CV points','1–2 month tenure','Real client deliverables'],curriculum:[],optionGroups:[{id:'domain',label:'Choose your domain',type:'single',required:true,options:DOMAINS}]},
+  {id:'live-2',cat:'live',type:'Internship',img:'photo-1531973576160-7125cd663d86',badge:null,rating:4.7,students:2480,level:'Intermediate',hours:'8+ hrs',instr:'Prodmark Consultants',title:'Live Project — 2 Domains',sub:'Double the exposure across two domains with an AI-ready CV outcome.',tagline:'Cross-domain exposure with an AI-ready CV outcome.',desc:'Work across two domains for double the exposure and 10 CV points. [Skeleton.]',price:7500,mrp:7999,off:'6% off',feats:['8 hours of live sessions','10 verifiable CV points','AI-ready CV build','Cross-domain exposure'],curriculum:[],optionGroups:[{id:'domain',label:'Choose 2 domains',type:'multi',exact:2,required:true,options:DOMAINS}]},
+  {id:'case-dominate',cat:'case',type:'Standalone',img:'photo-1567427017947-545c5f8d16ad',badge:'Bestseller',rating:4.9,students:5010,level:'All levels',hours:'10+ hrs',instr:'AIR 1 mentor',title:'Dominating Case Competitions',sub:'Learn to win from an AIR 1 mentor with 30+ winning PPTs and frameworks.',tagline:'Learn to win case competitions from an AIR 1 mentor.',desc:'Access 30+ winning PPTs, frameworks and presentation techniques. [Skeleton.]',price:3499,mrp:3999,off:'13% off',feats:['AIR 1 mentor','30+ winning case PPTs','Framework masterclass','Canva Pro included'],curriculum:[]},
+  {id:'case-live',cat:'case',type:'Combo',img:'photo-1543286386-713bdd548da4',badge:null,rating:4.7,students:1450,level:'Intermediate',hours:'14+ hrs',instr:'AIR 1 · Prodmark',title:'Case Competitions + Live Project',sub:'Combine case wins with real consulting experience to double your CV impact.',tagline:'Double your CV impact.',desc:'Combine case competition wins with a real live consulting project. [Skeleton.]',price:8499,mrp:8999,off:'6% off',feats:['30+ winning PPTs','4 verifiable CV points','Live consulting project','Canva Pro included'],curriculum:[],optionGroups:[{id:'domain',label:'Choose your live project domain',type:'single',required:true,options:DOMAINS}]},
+  {id:'adv-excel',cat:'cert',type:'Certification',img:'photo-1460925895917-afdab827c52f',badge:null,rating:4.6,students:7820,level:'Beginner',hours:'8+ hrs',instr:'Industry trainers',title:'Advanced Excel',sub:'Formulas, pivot tables, dashboards and automation through real-world projects.',tagline:'Master Excel skills that show up on your CV immediately.',desc:'Formulas, pivot tables, dashboards and automation through real-world projects. [Skeleton.]',price:1199,mrp:1499,off:null,feats:['Real-world projects','Pivot tables & dashboards','Formula & automation mastery','Completion certificate'],curriculum:[]},
+  {id:'power-bi',cat:'cert',type:'Certification',img:'photo-1551288049-bebda4e38f71',badge:null,rating:4.7,students:5630,level:'Beginner',hours:'10+ hrs',instr:'Industry trainers',title:'Power BI Certification',sub:'Build real-time dynamic dashboards with a career-focused, self-paced curriculum.',tagline:'Flexible learning that fits your MBA schedule.',desc:'Build real-time dynamic dashboards with a career-focused curriculum. [Skeleton.]',price:1499,mrp:null,off:null,feats:['Real-time dynamic dashboards','Career-focused curriculum','Flexible self-paced learning','Completion certificate'],curriculum:[]}
 ];
+
+const MENTORS=[
+  {initials:'IA',name:'[Mentor name]',school:'IIM Ahmedabad',cred:'[1-line credential — confirm with team]'},
+  {initials:'XL',name:'[Mentor name]',school:'XLRI Jamshedpur',cred:'[1-line credential — confirm with team]'},
+  {initials:'FM',name:'[Mentor name]',school:'FMS Delhi',cred:'[1-line credential — confirm with team]'},
+  {initials:'IB',name:'[Mentor name]',school:'IIM Bangalore',cred:'[1-line credential — confirm with team]'}
+];
+const FAQS=[
+  {q:'How is this delivered — live or recorded?',a:'Sessions run live online with mentors, and recordings are shared afterward for anyone who misses a slot. [Confirm exact mode with team.]'},
+  {q:'When does the next batch start?',a:'New batches open on a rolling basis. [Insert current cohort start date once confirmed.]'},
+  {q:'What happens if I\u2019m not satisfied with the program?',a:'[Insert refund / guarantee policy here — none assumed in this skeleton.]'},
+  {q:'How long do I have access to materials and recordings?',a:'[Insert access/validity window, e.g. lifetime or 6 months.]'},
+  {q:'Will I get a certificate at the end?',a:'Yes — every program includes a completion certificate plus CV-ready points you can list on your resume.'},
+  {q:'How do I reach my mentor if I have doubts?',a:'Through the MBA Partner community on WhatsApp/Telegram, plus dedicated doubt-clearing slots during the program. [Confirm exact support SLA.]'}
+];
+const TESTIMONIALS=[
+  {name:'[Student name]',school:'[B-school]',outcome:'[Placement / SIP outcome]',quote:'[Pull an approved quote from the Hall of Fame wall — keep it under ~25 words.]'},
+  {name:'[Student name]',school:'[B-school]',outcome:'[Placement / SIP outcome]',quote:'[Pull an approved quote from the Hall of Fame wall — keep it under ~25 words.]'},
+  {name:'[Student name]',school:'[B-school]',outcome:'[Placement / SIP outcome]',quote:'[Pull an approved quote from the Hall of Fame wall — keep it under ~25 words.]'}
+];
+const COMPARE={
+  cols:[
+    {id:'placement-bootcamp',name:'Bootcamp'},
+    {id:'bootcamp-case',name:'+ Case Comp'},
+    {id:'bootcamp-live',name:'+ Live Project'},
+    {id:'flagship-bundle',name:'Flagship bundle',highlight:true}
+  ],
+  rows:[
+    {label:'CV review slots',vals:['3–5','5','5','3–5']},
+    {label:'Mock PI & GD sessions',vals:['5–7','7','7','5–7']},
+    {label:'Live project',vals:['—','—','1 domain · 2 mo','1 domain · 2 mo']},
+    {label:'Case competition prep',vals:['—','30+ winning PPTs','—','30+ winning PPTs']},
+    {label:'Canva Pro',vals:['—','✓','—','✓ (1 yr)']},
+    {label:'Best for',vals:['Core placement prep','Consulting & strategy roles','Hands-on CV building','Going all-in on placements']}
+  ]
+};
 
 const fmt=n=>'₹'+Number(n).toLocaleString('en-IN');
 const byId=id=>COURSES.find(c=>c.id===id);
 const stars=r=>{let h='';for(let i=1;i<=5;i++)h+=`<i class="ti ${r>=i?'ti-star-filled':(r>=i-.5?'ti-star-half-filled':'ti-star')}"></i>`;return h;};
 const discountPct=c=>c.mrp?Math.round((c.mrp-c.price)/c.mrp*100):0;
-let cart=[],activeCat='all',query='',sort='popular',compare=[];const MAX_CMP=4;
+let cart=[],activeCat='all',query='',sort='popular',appliedCoupon=null;
+let detailState={courseId:null,selected:{}};
 const SORTS=[{key:'popular',label:'Most popular'},{key:'rating',label:'Highest rated'},{key:'priceLow',label:'Price: low to high'},{key:'priceHigh',label:'Price: high to low'},{key:'discount',label:'Biggest discount'}];
-
-function syncCart(){document.getElementById('cartCount').textContent=cart.length;}
-function addToCart(id){const c=byId(id);if(!c)return;cart.push(c);syncCart();showToast(c.title+' added to cart');}
-function removeFromCart(i){cart.splice(i,1);syncCart();renderCheckout();}
-function showToast(msg){const w=document.getElementById('toastWrap');const t=document.createElement('div');t.className='toast';t.innerHTML='<i class="ti ti-circle-check"></i>'+msg;w.appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},2400);}
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
 function observeReveals(scope){(scope||document).querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));}
-let countsDone=false;
-function runCounts(){if(countsDone)return;countsDone=true;document.querySelectorAll('[data-count]').forEach(el=>{const target=+el.dataset.count,suf=el.dataset.suffix||'',dur=1400;let st=null;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/dur,1);const ease=1-Math.pow(1-p,3);el.textContent=Math.round(target*ease).toLocaleString('en-IN')+suf;if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);});}
-const statObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)runCounts();}),{threshold:.4});
-document.addEventListener('click',e=>{const b=e.target.closest('.ripple');if(!b)return;const s=document.createElement('span');s.className='rp';const r=b.getBoundingClientRect();const d=Math.max(r.width,r.height);s.style.width=s.style.height=d+'px';s.style.left=(e.clientX-r.left-d/2)+'px';s.style.top=(e.clientY-r.top-d/2)+'px';b.appendChild(s);setTimeout(()=>s.remove(),550);});
 
-function renderSide(){
-  const tabs=[{key:'all',label:'All offerings'}].concat(CATS);
-  document.getElementById('sideList').innerHTML=tabs.map(t=>{const n=t.key==='all'?COURSES.length:COURSES.filter(c=>c.cat===t.key).length;return `<button class="side-item ${t.key===activeCat?'active':''}" data-c="${t.key}">${t.label}<span class="n">${n}</span></button>`;}).join('');
-  document.querySelectorAll('.side-item').forEach(b=>b.onclick=()=>{activeCat=b.dataset.c;renderSide();renderGrid();});
+function syncCart(){
+  document.getElementById('cartCount').textContent=cart.length;
+  document.getElementById('cartBtn').setAttribute('aria-label','Cart, '+cart.length+' item'+(cart.length===1?'':'s'));
 }
-function currentList(){
-  const q=query.trim().toLowerCase();
-  let list=COURSES.filter(c=>(activeCat==='all'||c.cat===activeCat)&&(!q||(c.title+' '+c.sub+' '+c.type+' '+c.instr).toLowerCase().includes(q)));
-  if(sort==='popular')list=list.slice().sort((a,b)=>b.students-a.students);
-  if(sort==='rating')list=list.slice().sort((a,b)=>b.rating-a.rating);
-  if(sort==='priceLow')list=list.slice().sort((a,b)=>a.price-b.price);
-  if(sort==='priceHigh')list=list.slice().sort((a,b)=>b.price-a.price);
-  if(sort==='discount')list=list.slice().sort((a,b)=>discountPct(b)-discountPct(a));
-  return list;
-}
-function cardHtml(c){
-  const checked=compare.includes(c.id);
-  return `<div class="card reveal" data-open="${c.id}">
-    <div class="thumb ${c.vis}">${c.best?'<span class="bestseller">Bestseller</span>':''}
-      <label class="cmp-check ${checked?'on':''}" data-cmp="${c.id}"><input type="checkbox" ${checked?'checked':''}/> Compare</label>
-      <i class="ti ${c.icon}"></i>
-    </div>
-    <div class="card-body">
-      <div class="c-title">${c.title}</div>
-      <div class="c-instr">${c.instr}</div>
-      <div class="c-rating"><span class="c-rate-num">${c.rating.toFixed(1)}</span><span class="stars">${stars(c.rating)}</span><span class="c-rate-cnt">(${c.students.toLocaleString('en-IN')})</span></div>
-      <div class="c-meta"><span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span><span><i class="ti ti-chart-arrows-vertical"></i>${c.cvPoints} CV pts</span></div>
-      <div class="c-price"><b>${fmt(c.price)}</b>${c.mrp?`<s>${fmt(c.mrp)}</s>`:''}</div>
-    </div>
-  </div>`;
-}
-function renderGrid(){
-  const list=currentList();
-  document.getElementById('resultsCount').innerHTML=`${list.length} result${list.length!==1?'s':''} <span>· ${activeCat==='all'?'all offerings':(CATS.find(c=>c.key===activeCat)||{}).label}</span>`;
-  const grid=document.getElementById('cardGrid');
-  grid.innerHTML=list.length?list.map(cardHtml).join(''):`<div class="co-empty" style="grid-column:1/-1"><i class="ti ti-search-off"></i><p>No offerings match your search.</p></div>`;
-  grid.querySelectorAll('.card').forEach((el,i)=>el.style.transitionDelay=(Math.min(i,8)*55)+'ms');
-  // whole card opens detail; compare toggle stops propagation
-  grid.querySelectorAll('.card[data-open]').forEach(el=>el.onclick=()=>location.hash='#/course/'+el.dataset.open);
-  grid.querySelectorAll('[data-cmp]').forEach(el=>el.onclick=e=>{e.stopPropagation();e.preventDefault();toggleCompare(el.dataset.cmp);});
-  observeReveals(grid);
+function removeFromCart(i){cart.splice(i,1);syncCart();renderCheckout();}
+function showToast(msg){const w=document.getElementById('toastWrap');const t=document.createElement('div');t.className='toast';t.innerHTML='<i class="ti ti-circle-check"></i>'+msg;w.appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},2400);}
+
+function sortList(list){
+  const a=list.slice();
+  if(sort==='popular')a.sort((x,y)=>y.students-x.students);
+  if(sort==='rating')a.sort((x,y)=>y.rating-x.rating);
+  if(sort==='priceLow')a.sort((x,y)=>x.price-y.price);
+  if(sort==='priceHigh')a.sort((x,y)=>y.price-x.price);
+  if(sort==='discount')a.sort((x,y)=>discountPct(y)-discountPct(x));
+  return a;
 }
 
+function renderTabs(){
+  const tabs=[{key:'all',label:'All'}].concat(CATS);
+  document.getElementById('tabs').innerHTML=tabs.map(t=>`<button class="tab ${t.key===activeCat?'active':''}" data-c="${t.key}">${t.label}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{activeCat=b.dataset.c;renderTabs();renderCatalog();});
+}
 function renderSortMenu(){
   document.getElementById('sortLabel').textContent=(SORTS.find(s=>s.key===sort)||SORTS[0]).label;
   document.getElementById('sortMenu').innerHTML=SORTS.map(s=>`<div class="sort-opt ${s.key===sort?'sel':''}" data-sort="${s.key}">${s.label}<i class="ti ti-check"></i></div>`).join('');
-  document.querySelectorAll('#sortMenu .sort-opt').forEach(o=>o.onclick=()=>{sort=o.dataset.sort;document.getElementById('sortWrap').classList.remove('open');renderSortMenu();renderGrid();});
+  document.querySelectorAll('#sortMenu .sort-opt').forEach(o=>o.onclick=()=>{sort=o.dataset.sort;document.getElementById('sortWrap').classList.remove('open');renderSortMenu();renderCatalog();});
 }
 document.getElementById('sortBtn').onclick=e=>{e.stopPropagation();document.getElementById('sortWrap').classList.toggle('open');};
 document.addEventListener('click',e=>{if(!e.target.closest('#sortWrap'))document.getElementById('sortWrap').classList.remove('open');});
-document.getElementById('navSearch').addEventListener('input',e=>{query=e.target.value;if(!document.getElementById('view-catalog').classList.contains('active'))location.hash='#/';renderGrid();});
 
-function toggleCompare(id){const i=compare.indexOf(id);if(i>-1)compare.splice(i,1);else{if(compare.length>=MAX_CMP){showToast('You can compare up to '+MAX_CMP+' offerings');return;}compare.push(id);}renderGrid();renderCmpBar();}
-function renderCmpBar(){
-  const bar=document.getElementById('cmpBar'),slots=document.getElementById('cmpSlots');
-  bar.classList.toggle('show',compare.length>0);
-  let html=compare.map(id=>{const c=byId(id);return `<div class="cmp-slot"><div class="mini ${c.vis}"><i class="ti ${c.icon}"></i></div><div class="nm">${c.title}</div><i class="ti ti-x x" data-rm="${id}"></i></div>`;}).join('');
-  for(let i=compare.length;i<2;i++)html+=`<div class="cmp-empty-slot">Add one more</div>`;
-  slots.innerHTML=html;
-  slots.querySelectorAll('[data-rm]').forEach(el=>el.onclick=()=>toggleCompare(el.dataset.rm));
-  document.getElementById('cmpGo').disabled=compare.length<2;
+function cardHtml(c){
+  return `<div class="card reveal" data-open="${c.id}" tabindex="0" role="button" aria-label="View ${c.title}">
+    <div class="card-vis">${c.badge?`<span class="badge">${c.badge}</span>`:''}<img data-src="${IMG(c.img,640)}" alt="${c.title}"/><span class="vtype">${c.type}</span></div>
+    <div class="card-body">
+      <div class="card-title">${c.title}</div>
+      <div class="card-instr">${c.instr}</div>
+      <div class="card-rating"><span class="card-rate-num">${c.rating.toFixed(1)}</span><span class="stars">${stars(c.rating)}</span><span class="card-rate-cnt">(${c.students.toLocaleString('en-IN')})</span></div>
+      <div class="card-meta"><span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span></div>
+      <div class="card-price-row"><span class="card-price">${fmt(c.price)}</span>${c.mrp?`<span class="card-mrp">${fmt(c.mrp)}</span>`:''}${c.off?`<span class="card-off">${c.off}</span>`:''}</div>
+    </div>
+  </div>`;
 }
-document.getElementById('cmpClear').onclick=()=>{compare=[];renderGrid();renderCmpBar();};
-document.getElementById('cmpGo').onclick=()=>{if(compare.length>=2)location.hash='#/compare';};
+function loadImg(img){img.onload=()=>img.classList.add('loaded');img.src=img.dataset.src;if(img.complete&&img.naturalWidth)img.classList.add('loaded');}
+function wireCards(scope){
+  scope.querySelectorAll('.card[data-open]').forEach(el=>{
+    el.onclick=()=>location.hash='#/course/'+el.dataset.open;
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();location.hash='#/course/'+el.dataset.open;}});
+  });
+  scope.querySelectorAll('.card-vis img[data-src]').forEach(loadImg);
+}
+function renderCatalog(){
+  const body=document.getElementById('catalogBody');
+  const q=query.trim().toLowerCase();
+  const match=c=>!q||(c.title+' '+c.sub+' '+c.type+' '+c.instr).toLowerCase().includes(q);
+  const cats=activeCat==='all'?CATS:CATS.filter(c=>c.key===activeCat);
+  let html='';
+  cats.forEach(cat=>{
+    const items=sortList(COURSES.filter(c=>c.cat===cat.key&&match(c)));
+    if(!items.length)return;
+    html+=`<div class="cat-sec"><h2 class="reveal">${cat.label}</h2><div class="grid">${items.map(cardHtml).join('')}</div></div>`;
+  });
+  body.innerHTML=html||`<div class="co-empty"><i class="ti ti-search-off"></i><p>No offerings match your search.</p></div>`;
+  body.querySelectorAll('.card[data-open]').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,8)*55)+'ms';});
+  wireCards(body);
+  observeReveals(body);
+}
+function applySearch(v){
+  query=v;
+  document.getElementById('searchInput').value=v;
+  document.getElementById('searchInputMobile').value=v;
+  if(!document.getElementById('view-catalog').classList.contains('active'))location.hash='#/';
+  renderCatalog();
+}
+document.getElementById('searchInput').addEventListener('input',e=>applySearch(e.target.value));
+document.getElementById('searchInputMobile').addEventListener('input',e=>applySearch(e.target.value));
+
 function renderCompare(){
-  if(compare.length<2){location.hash='#/';return;}
-  const items=compare.map(byId);
-  const bestPrice=Math.min(...items.map(c=>c.price)),bestRating=Math.max(...items.map(c=>c.rating)),bestCv=Math.max(...items.map(c=>c.cvPoints));
-  const allFeats=[...new Set(items.flatMap(c=>c.feats))];
-  const cell=v=>v?`<i class="ti ti-check cmp-yes"></i>`:`<i class="ti ti-minus cmp-no"></i>`;
-  let html=`<table class="cmp-table"><thead><tr><th class="cmp-col-label">Offering</th>${items.map(c=>`<th><div class="cmp-ch"><div class="mini ${c.vis}"><i class="ti ${c.icon}"></i></div><div class="ty">${c.type}</div><div class="nm">${c.title}</div><div class="rm" data-rm="${c.id}">Remove</div></div></th>`).join('')}</tr></thead><tbody>
-    <tr class="cmp-row-best"><td class="cmp-col-label">Price</td>${items.map(c=>`<td><div class="cmp-price">${fmt(c.price)}${c.mrp?`<s>${fmt(c.mrp)}</s>`:''}</div>${c.price===bestPrice?'<div class="cmp-save">Lowest price</div>':''}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">You save</td>${items.map(c=>`<td>${c.mrp?fmt(c.mrp-c.price)+' ('+discountPct(c)+'%)':'—'}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">Rating</td>${items.map(c=>`<td><b>${c.rating.toFixed(1)}</b> <span class="stars">${stars(c.rating)}</span>${c.rating===bestRating?' <div class="cmp-save">Top rated</div>':''}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">Students</td>${items.map(c=>`<td>${c.students.toLocaleString('en-IN')}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">CV points</td>${items.map(c=>`<td><b>${c.cvPoints}</b>${c.cvPoints===bestCv?' <div class="cmp-save">Most impact</div>':''}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">Duration</td>${items.map(c=>`<td>${c.hours}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">Level</td>${items.map(c=>`<td>${c.level}</td>`).join('')}</tr>
-    <tr><td class="cmp-col-label">Mentorship</td>${items.map(c=>`<td>${c.mentor}</td>`).join('')}</tr>`;
-  allFeats.forEach(f=>{html+=`<tr><td class="cmp-col-label">${f}</td>${items.map(c=>`<td>${cell(c.feats.includes(f))}</td>`).join('')}</tr>`;});
-  html+=`<tr><td class="cmp-col-label"></td>${items.map(c=>`<td><button class="cmp-add ripple" data-add="${c.id}">Add to cart</button></td>`).join('')}</tr></tbody></table>`;
-  const body=document.getElementById('compareBody');body.innerHTML=html;
-  body.querySelectorAll('[data-rm]').forEach(el=>el.onclick=()=>{toggleCompare(el.dataset.rm);if(compare.length<2)location.hash='#/';else renderCompare();});
-  body.querySelectorAll('[data-add]').forEach(el=>el.onclick=()=>addToCart(el.dataset.add));
-  window.scrollTo(0,0);
+  const el=document.getElementById('compareTable');
+  let html='<div class="cmp-row cmp-head"><div class="cmp-cell cmp-label"></div>';
+  COMPARE.cols.forEach(c=>{
+    const course=byId(c.id);
+    html+=`<div class="cmp-cell cmp-col-head ${c.highlight?'hl':''}">${c.highlight?'<span class="cmp-tag">Best value</span>':''}<div class="cmp-name">${c.name}</div><div class="cmp-price">${fmt(course.price)}</div><button class="cmp-cta" data-go="${c.id}">View plan</button></div>`;
+  });
+  html+='</div>';
+  COMPARE.rows.forEach(r=>{
+    html+='<div class="cmp-row"><div class="cmp-cell cmp-label">'+r.label+'</div>';
+    r.vals.forEach((v,i)=>{html+=`<div class="cmp-cell ${COMPARE.cols[i].highlight?'hl':''}">${v}</div>`;});
+    html+='</div>';
+  });
+  el.innerHTML=html;
+  el.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>location.hash='#/course/'+b.dataset.go);
+}
+function renderTestimonials(){
+  document.getElementById('testiGrid').innerHTML=TESTIMONIALS.map(t=>`<div class="testi-card"><div class="testi-avatar">${t.name.replace(/[\[\]]/g,'').slice(0,1)||'?'}</div><div class="testi-quote">${t.quote}</div><div class="testi-name">${t.name}</div><div class="testi-meta">${t.school} · ${t.outcome}</div></div>`).join('');
+}
+
+function variantGroupHtml(g){
+  const sel=detailState.selected[g.id];
+  const isMulti=g.type==='multi';
+  return `<div class="variant-group" data-gid="${g.id}">
+    <div class="variant-label">${g.label}${g.exact?' (pick '+g.exact+')':''}</div>
+    <div class="variant-pills">${g.options.map(o=>{
+      const active=isMulti?(sel||[]).includes(o.key):sel===o.key;
+      const priceTag=o.price!=null?` · ${fmt(o.price)}`:'';
+      return `<button type="button" class="variant-pill ${active?'sel':''}" data-gid="${g.id}" data-key="${o.key}">${o.label}${priceTag}</button>`;
+    }).join('')}</div>
+  </div>`;
+}
+function resolveVariant(c){
+  let price=c.price,mrp=c.mrp,feats=c.feats,labels=[];
+  (c.optionGroups||[]).forEach(g=>{
+    const sel=detailState.selected[g.id];
+    if(g.type==='single'){
+      const opt=g.options.find(o=>o.key===sel);
+      if(opt){
+        if(opt.price!=null){price=opt.price;mrp=opt.mrp;feats=opt.feats||feats;}
+        else{labels.push(opt.label+' domain');}
+      }
+    } else if(g.type==='multi'){
+      const keys=sel||[];
+      const chosen=g.options.filter(o=>keys.includes(o.key));
+      if(chosen.length)labels.push(chosen.map(o=>o.label).join(' + ')+' domains');
+    }
+  });
+  return {price,mrp,feats,label:labels.join(' · ')};
+}
+function groupsSatisfied(c){
+  return (c.optionGroups||[]).every(g=>{
+    if(g.required===false)return true;
+    const sel=detailState.selected[g.id];
+    if(g.type==='multi')return sel&&sel.length===(g.exact||1);
+    return !!sel;
+  });
+}
+function selectVariant(c,g,key){
+  if(g.type==='multi'){
+    const arr=detailState.selected[g.id]?detailState.selected[g.id].slice():[];
+    const idx=arr.indexOf(key);
+    if(idx>-1){arr.splice(idx,1);}
+    else{
+      if(g.exact&&arr.length>=g.exact){showToast('You can pick up to '+g.exact+' — remove one first');return;}
+      arr.push(key);
+    }
+    detailState.selected[g.id]=arr;
+  } else {
+    detailState.selected[g.id]=key;
+  }
+  renderVariantUI(c);
+}
+function renderVariantUI(c){
+  const wrap=document.getElementById('dVariants');
+  if(c.optionGroups&&c.optionGroups.length){
+    wrap.innerHTML=c.optionGroups.map(variantGroupHtml).join('');
+    wrap.querySelectorAll('.variant-pill').forEach(btn=>{
+      const g=c.optionGroups.find(g=>g.id===btn.dataset.gid);
+      btn.onclick=()=>selectVariant(c,g,btn.dataset.key);
+    });
+  } else {
+    wrap.innerHTML='';
+  }
+  updateBuyBoxPricing(c);
+}
+function updateBuyBoxPricing(c){
+  const v=resolveVariant(c);
+  let p=`<span class="buy-price">${fmt(v.price)}</span>`;
+  if(v.mrp)p+=`<span class="buy-mrp">${fmt(v.mrp)}</span>`;
+  if(v.mrp)p+=`<span class="buy-off">${Math.round((v.mrp-v.price)/v.mrp*100)}% off</span>`;
+  document.getElementById('dPriceRow').innerHTML=p;
+  document.getElementById('dNote').textContent=v.mrp?`You save ${fmt(v.mrp-v.price)} · one-time payment`:'One-time payment · lifetime access';
+  document.getElementById('dFeats').innerHTML=(v.feats||c.feats).map(f=>`<div class="feat-item"><i class="ti ti-circle-check"></i><span>${f}</span></div>`).join('');
+}
+function addToCart(c){
+  if(!groupsSatisfied(c)){showToast('Please make a selection above before continuing');return false;}
+  const v=resolveVariant(c);
+  cart.push({...c,price:v.price,mrp:v.mrp,variantLabel:v.label});
+  syncCart();
+  showToast(c.title+' added to cart'+(v.label?' · '+v.label:''));
+  return true;
+}
+function renderMentors(){
+  document.getElementById('dMentors').innerHTML=MENTORS.map(m=>`<div class="mentor-card"><div class="mentor-avatar">${m.initials}</div><div class="mentor-name">${m.name}</div><div class="mentor-school">${m.school}</div><div class="mentor-cred">${m.cred}</div></div>`).join('');
+}
+function renderFaq(){
+  document.getElementById('dFaq').innerHTML=FAQS.map((f,i)=>`<div class="faq-item" data-i="${i}"><button class="faq-q" aria-expanded="false"><span>${f.q}</span><i class="ti ti-chevron-down"></i></button><div class="faq-a">${f.a}</div></div>`).join('');
+  document.querySelectorAll('.faq-q').forEach(btn=>btn.onclick=()=>{
+    const item=btn.closest('.faq-item');const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',open);
+  });
+}
+function renderRelated(c){
+  const pool=COURSES.filter(x=>x.id!==c.id);
+  let picks=pool.filter(x=>x.cat!==c.cat).sort((a,b)=>b.rating-a.rating).slice(0,3);
+  if(picks.length<3){
+    const more=pool.filter(x=>!picks.includes(x)).sort((a,b)=>b.rating-a.rating);
+    picks=picks.concat(more).slice(0,3);
+  }
+  const el=document.getElementById('dRelated');
+  el.innerHTML=picks.map(cardHtml).join('');
+  wireCards(el);
 }
 
 function renderDetail(id){
   const c=byId(id);if(!c){location.hash='#/';return;}
-  document.getElementById('bcCat').textContent=(CATS.find(x=>x.key===c.cat)||{}).label||'';
+  detailState={courseId:c.id,selected:{}};
+  (c.optionGroups||[]).forEach(g=>{
+    if(g.type==='single'){
+      const d=g.options.find(o=>o.default);
+      if(d)detailState.selected[g.id]=d.key;
+    }
+  });
+  document.getElementById('bcTitle').textContent=c.title;
   document.getElementById('dType').textContent=c.type;
   document.getElementById('dTitle').textContent=c.title;
   document.getElementById('dTagline').textContent=c.tagline;
-  document.getElementById('dRating').innerHTML=`<span class="num">${c.rating.toFixed(1)}</span> <span class="stars">${stars(c.rating)}</span> <span>(${c.students.toLocaleString('en-IN')} students)</span>`;
-  document.getElementById('dHi').innerHTML=`<span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span><span><i class="ti ti-chart-arrows-vertical"></i>${c.cvPoints} CV points</span><span><i class="ti ti-user-star"></i>${c.mentor}</span>`;
-  document.getElementById('enrollVis').className='enroll-vis '+c.vis;
-  document.getElementById('enrollVis').innerHTML=`<i class="ti ${c.icon}"></i>`;
-  let p=`<span class="enroll-price">${fmt(c.price)}</span>`;
-  if(c.mrp)p+=`<span class="enroll-mrp">${fmt(c.mrp)}</span><span class="enroll-badge">${discountPct(c)}% off</span>`;
-  document.getElementById('enrollPriceRow').innerHTML=p;
-  document.getElementById('enrollNote').textContent=c.mrp?`You save ${fmt(c.mrp-c.price)} · one-time payment`:'One-time payment · lifetime access';
-  document.getElementById('dFeats').innerHTML=c.feats.map(f=>`<div class="feat-item"><i class="ti ti-circle-check"></i><span>${f}</span></div>`).join('');
+  document.getElementById('dRating').innerHTML=`<span class="num">${c.rating.toFixed(1)}</span> <span class="stars">${stars(c.rating)}</span> <span>(${c.students.toLocaleString('en-IN')} students)</span> · <span>${c.level}</span> · <span>${c.hours}</span>`;
+  document.getElementById('dBanner').src=IMG(c.img,1400);
+  document.getElementById('buyImg').src=IMG(c.img,640);
   document.getElementById('dDesc').textContent=c.desc;
   document.getElementById('dCurriculum').innerHTML=(c.curriculum&&c.curriculum.length)?c.curriculum.map((m,i)=>`<div class="curr-item"><div class="curr-num">${i+1}</div><div><div class="curr-t">${m.t}</div><div class="curr-s">${m.s}</div></div></div>`).join(''):`<div class="skeleton">Detailed curriculum will be added once official content is provided.</div>`;
-  document.getElementById('dCart').onclick=()=>addToCart(c.id);
-  document.getElementById('dEnroll').onclick=()=>{addToCart(c.id);location.hash='#/checkout';};
-  window.scrollTo(0,0);observeReveals(document.getElementById('view-detail'));
+  renderMentors();
+  renderFaq();
+  renderVariantUI(c);
+  document.getElementById('dCart').onclick=()=>addToCart(c);
+  document.getElementById('dEnroll').onclick=()=>{if(addToCart(c))location.hash='#/checkout';};
+  renderRelated(c);
+  window.scrollTo(0,0);
+  observeReveals(document.getElementById('view-detail'));
 }
 
 function renderCheckout(){
   const body=document.getElementById('checkoutBody');
-  if(!cart.length){body.innerHTML=`<div class="co-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty.</p><button class="bn-enroll ripple" style="max-width:220px;margin:0 auto" onclick="location.hash='#/'">Browse courses</button></div>`;return;}
+  if(!cart.length){body.innerHTML=`<div class="co-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty.</p><button class="buy-enroll" style="max-width:220px;margin:0 auto" onclick="location.hash='#/'">Browse courses</button></div>`;return;}
   const total=cart.reduce((s,c)=>s+c.price,0),mrpTotal=cart.reduce((s,c)=>s+(c.mrp||c.price),0),saved=mrpTotal-total;
+  const couponDiscount=appliedCoupon?Math.round(total*appliedCoupon.pct/100):0;
+  const grandTotal=total-couponDiscount;
   body.innerHTML=`<div class="co-title">Checkout</div><div class="co-sub">${cart.length} item${cart.length>1?'s':''} in your cart</div>
   <div class="co-grid">
     <div>
       <div class="co-panel"><h3>Your details</h3>
-        <div class="field"><label>Full name</label><input id="f-name" placeholder="Ananya Sharma"/></div>
-        <div class="field-row"><div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"/></div><div class="field"><label>Phone</label><input id="f-phone" placeholder="+91 …"/></div></div>
-        <div class="field"><label>College / B-School</label><input id="f-college" placeholder="IIM …"/></div>
+        <div class="field"><label for="f-name">Full name</label><input id="f-name" placeholder="Ananya Sharma"/></div>
+        <div class="field-row"><div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@email.com"/></div><div class="field"><label for="f-phone">Phone</label><input id="f-phone" placeholder="+91 …"/></div></div>
+        <div class="field"><label for="f-college">College / B-School</label><input id="f-college" placeholder="IIM …"/></div>
       </div>
       <div class="co-panel"><h3>Payment method</h3>
         <div class="pay-opt sel" data-pay="upi"><i class="ti ti-qrcode"></i><div class="pay-opt-t">UPI / QR</div></div>
         <div class="pay-opt" data-pay="card"><i class="ti ti-credit-card"></i><div class="pay-opt-t">Credit / Debit card</div></div>
         <div class="pay-opt" data-pay="netbanking"><i class="ti ti-building-bank"></i><div class="pay-opt-t">Net banking</div></div>
+        <div class="pay-note">Payments are simulated in this prototype — production routes through your Wix Payments / Razorpay gateway.</div>
       </div>
     </div>
     <div class="summary"><div class="co-panel"><h3>Order summary</h3>
-      ${cart.map((c,i)=>`<div class="sum-item"><div><div class="sum-item-t">${c.title}</div><div class="sum-item-ty">${c.type}</div><span class="sum-remove" data-rm="${i}">Remove</span></div><div class="sum-item-p">${fmt(c.price)}</div></div>`).join('')}
+      ${cart.map((c,i)=>`<div class="sum-item"><div><div class="sum-item-t">${c.title}</div><div class="sum-item-ty">${c.variantLabel?c.variantLabel:c.type}</div><span class="sum-remove" data-rm="${i}">Remove</span></div><div class="sum-item-p">${fmt(c.price)}</div></div>`).join('')}
       <div class="sum-row"><span>Subtotal</span><span>${fmt(mrpTotal)}</span></div>
       ${saved>0?`<div class="sum-row" style="color:var(--green);font-weight:600"><span>You save</span><span>− ${fmt(saved)}</span></div>`:''}
-      <div class="sum-total"><span>Total</span><span>${fmt(total)}</span></div>
-      <button class="co-pay-btn ripple" id="payNow">Pay ${fmt(total)}</button>
+      ${appliedCoupon?`<div class="sum-row" style="color:var(--green);font-weight:600"><span>Coupon (${appliedCoupon.code})</span><span>− ${fmt(couponDiscount)}</span></div>`:''}
+      <div class="coupon-row"><input id="couponInput" placeholder="Coupon code" aria-label="Coupon code"/><button id="couponApply" type="button">Apply</button></div>
+      <div class="sum-total"><span>Total</span><span>${fmt(grandTotal)}</span></div>
+      <button class="co-pay-btn" id="payNow">Pay ${fmt(grandTotal)}</button>
     </div></div>
   </div>`;
   body.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>removeFromCart(Number(b.dataset.rm)));
   body.querySelectorAll('.pay-opt').forEach(o=>o.onclick=()=>{body.querySelectorAll('.pay-opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');});
-  document.getElementById('payNow').onclick=()=>{const n=(document.getElementById('f-name').value||'').trim(),e=(document.getElementById('f-email').value||'').trim();if(!n||!e){showToast('Please enter your name and email');return;}openModal('paid',{total});};
+  document.getElementById('couponApply').onclick=()=>{
+    const code=(document.getElementById('couponInput').value||'').trim().toUpperCase();
+    if(code==='MBA10'){appliedCoupon={code,pct:10};showToast('Coupon applied — 10% off');renderCheckout();}
+    else{showToast('Invalid coupon code');}
+  };
+  document.getElementById('payNow').onclick=()=>{
+    const n=(document.getElementById('f-name').value||'').trim(),e=(document.getElementById('f-email').value||'').trim();
+    if(!n||!e){showToast('Please enter your name and email');return;}
+    /* DEMO PAYMENT — replace with real Wix Payments/Razorpay integration before launch */
+    openModal('paid',{total:grandTotal});
+  };
 }
 
 function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');}
-function router(){const h=location.hash||'#/';const m=h.match(/^#\/course\/(.+)$/);
-  if(m){show('detail');renderDetail(decodeURIComponent(m[1]));}
-  else if(h==='#/compare'){show('compare');renderCompare();}
-  else if(h==='#/checkout'){show('checkout');renderCheckout();window.scrollTo(0,0);}
-  else{show('catalog');window.scrollTo(0,0);}}
+function router(){const h=location.hash||'#/';const m=h.match(/^#\/course\/(.+)$/);if(m){show('detail');renderDetail(decodeURIComponent(m[1]));}else if(h==='#/checkout'){show('checkout');renderCheckout();window.scrollTo(0,0);}else{show('catalog');window.scrollTo(0,0);}}
 window.addEventListener('hashchange',router);
 
+function openCartDrawer(){renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
+function closeCartDrawer(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
+function renderCartDrawer(){
+  const body=document.getElementById('cartDrawerBody'),foot=document.getElementById('cartDrawerFoot');
+  if(!cart.length){body.innerHTML='<div class="cd-empty">Your cart is empty.</div>';foot.innerHTML='';return;}
+  body.innerHTML=cart.map((c,i)=>`<div class="cd-item"><div><div class="cd-item-t">${c.title}</div><div class="cd-item-v">${c.variantLabel||c.type}</div><span class="cd-remove" data-rmd="${i}">Remove</span></div><div class="cd-item-p">${fmt(c.price)}</div></div>`).join('');
+  body.querySelectorAll('[data-rmd]').forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.rmd),1);syncCart();renderCartDrawer();});
+  const total=cart.reduce((s,c)=>s+c.price,0);
+  foot.innerHTML=`<div class="sum-total" style="border-top:none;padding-top:0;margin-top:0;font-size:18px"><span>Total</span><span>${fmt(total)}</span></div><button class="co-pay-btn" id="drawerCheckout">Go to checkout</button>`;
+  document.getElementById('drawerCheckout').onclick=()=>{closeCartDrawer();location.hash='#/checkout';};
+}
+document.getElementById('cartBtn').onclick=openCartDrawer;
+document.getElementById('drawerClose').onclick=closeCartDrawer;
+document.getElementById('drawerOverlay').onclick=closeCartDrawer;
+
+document.getElementById('mobileSearchBtn').onclick=()=>{document.getElementById('mobileSearchBar').classList.add('open');document.getElementById('searchInputMobile').focus();};
+document.getElementById('mobileSearchClose').onclick=()=>document.getElementById('mobileSearchBar').classList.remove('open');
+
 const modalData={
-  testimonials:()=>({ico:'ti-quote',title:'Student testimonials',text:'10,000+ students placed at McKinsey, BCG, Bain, Deloitte and more. Full wall coming soon.',action:'Got it',run:null}),
-  paid:c=>({ico:'ti-circle-check',title:'Enrollment confirmed',text:'Payment of '+fmt(c.total)+' successful (demo). On the live site this connects to the Wix / payment-gateway checkout.',action:'Done',run:()=>{cart=[];syncCart();location.hash='#/';}})
+  testimonials:()=>({ico:'ti-quote',title:'Student testimonials',text:'10,000+ students placed at McKinsey, BCG, Bain, Deloitte and more. The full wall lives on a dedicated Testimonials page — this is just a preview slot.',action:'Got it',run:null}),
+  login:()=>({ico:'ti-user-circle',title:'Member login',text:'This connects to your existing Wix Members Area once the redesign is integrated — no separate login system needed here.',action:'Got it',run:null}),
+  paid:c=>({ico:'ti-circle-check',title:'Enrollment confirmed',text:'Payment of '+fmt(c.total)+' successful (demo). On the live site this connects to the Wix Payments / Razorpay checkout.',action:'Done',run:()=>{cart=[];appliedCoupon=null;syncCart();location.hash='#/';}})
 };
 let modalCtx=null;
 function openModal(k,ctx){const d=modalData[k](ctx);modalCtx=d;document.getElementById('modalIco').innerHTML='<i class="ti '+d.ico+'"></i>';document.getElementById('modalTitle').textContent=d.title;document.getElementById('modalText').textContent=d.text;document.getElementById('modalAction').textContent=d.action;document.getElementById('modal').classList.add('open');}
@@ -537,11 +788,11 @@ document.getElementById('modalClose').onclick=closeModal;
 document.getElementById('modalAction').onclick=()=>{if(modalCtx&&modalCtx.run)modalCtx.run();closeModal();};
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
 document.querySelectorAll('[data-modal]').forEach(b=>b.onclick=e=>{e.stopPropagation();openModal(b.dataset.modal);});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+document.getElementById('loginBtn').onclick=()=>openModal('login');
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeCartDrawer();document.getElementById('mobileSearchBar').classList.remove('open');}});
 
-renderSide();renderSortMenu();renderGrid();renderCmpBar();observeReveals();
-document.querySelectorAll('.stat-strip').forEach(s=>statObs.observe(s));
-router();
+renderTabs();renderSortMenu();renderCompare();renderTestimonials();renderCatalog();router();
+observeReveals(document);
 </script>
 </body>
 </html>
