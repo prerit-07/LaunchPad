@@ -218,3 +218,19 @@ button{cursor:pointer;font-family:inherit}
   .footer-grid{grid-template-columns:1fr}
   .sec-h{font-size:28px}
 }
+
+/* ===== Placements wall (dynamic, from Google Sheet) ===== */
+.pl-filter{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;justify-content:center}
+.pl-chip{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);padding:8px 18px;border-radius:30px;cursor:pointer;transition:all .18s var(--ease)}
+.pl-chip:hover{background:rgba(255,255,255,.14);color:#fff}
+.pl-chip.on{background:var(--orange);border-color:var(--orange);color:#fff}
+#hofGrid.pl-wall{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+.pl-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;transition:transform .2s var(--ease),border-color .2s,background .2s}
+.pl-card:hover{transform:translateY(-4px);border-color:rgba(255,139,2,.4);background:rgba(255,255,255,.09)}
+.pl-co{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em;margin-bottom:6px}
+.pl-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.9);font-family:'Inter',sans-serif}
+.pl-college{font-size:11.5px;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;margin-top:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.pl-college i{font-size:13px;color:var(--orange)}
+.pl-dom{font-size:10px;font-weight:700;color:var(--orange);background:rgba(255,139,2,.14);border:1px solid rgba(255,139,2,.25);padding:1px 7px;border-radius:20px}
+@media(max-width:1024px){#hofGrid.pl-wall{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){#hofGrid.pl-wall{grid-template-columns:1fr}}

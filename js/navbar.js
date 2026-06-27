@@ -254,18 +254,37 @@ function initFilter(){
   });
 }
 
-/* HOF */
-function renderHOF(){
-  document.getElementById('hofGrid').innerHTML=HOF.map(h=>`
-    <div class="hof-card" onclick="">
-      <div class="hof-img-wrap"><img class="hof-img" src="${h.img}" alt="${h.name}" loading="lazy"/></div>
-      <div class="hof-body">
-        <div class="hof-name-row"><span class="hof-name">${h.name}</span><a href="#" class="hof-li"><i class="ti ti-brand-linkedin"></i></a></div>
-        <div class="hof-school">${h.school}</div>
-        <div class="hof-co">${h.company}</div>
-        <div class="hof-q">"${h.quote}"</div>
-      </div>
-    </div>`).join('');
+/* PLACEMENTS WALL (dynamic, from js/site-data.js → Google Sheet) */
+let PL_DATA = [];
+let plFilter = 'all';
+async function renderPlacements(){
+  const data = await loadSiteData();
+  PL_DATA = data.placements || [];
+  const cnt = document.getElementById('plCount');
+  if (cnt) cnt.textContent = PL_DATA.length + '+ real placements and counting.';
+  drawPlacements();
+  document.querySelectorAll('#plFilter .pl-chip').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('#plFilter .pl-chip').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      plFilter=b.dataset.b;
+      drawPlacements();
+    };
+  });
+}
+function plCard(p){
+  const dom = p.Domain ? `<span class="pl-dom">${p.Domain}</span>` : '';
+  return `<div class="pl-card">
+    <div class="pl-co">${p.Company}</div>
+    <div class="pl-name">${p.Name}</div>
+    <div class="pl-college"><i class="ti ti-building-bank"></i> ${p.College}${dom}</div>
+  </div>`;
+}
+function drawPlacements(){
+  const list = plFilter==='all' ? PL_DATA : PL_DATA.filter(p => String(p.Batch||'').toLowerCase()===plFilter);
+  const g = document.getElementById('hofGrid');
+  if (!g) return;
+  g.innerHTML = list.map(plCard).join('');
 }
 
 /* LIGHTBOX */
@@ -304,6 +323,6 @@ initTicker();
 initMarquee();
 updateCounts();
 renderGrid('all');
-renderHOF();
+renderPlacements();
 initFilter();
 obs();

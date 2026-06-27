@@ -360,3 +360,22 @@ button{cursor:pointer}
   .buy,.summary{position:static}.summary{order:-1}
   .grid{grid-template-columns:1fr 1fr}
 }
+
+/* ===== Combo savings ===== */
+.combo-save{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;font-weight:700;
+  color:var(--green);background:var(--green-bg,#E5F4EC);border:1px solid rgba(26,127,75,.25);
+  padding:5px 11px;border-radius:30px;font-family:'Inter',sans-serif}
+.combo-save i{font-size:14px}
+.combo-save-box{margin:18px 0;padding:18px 20px;border:1px solid rgba(26,127,75,.3);
+  background:linear-gradient(135deg,#ECF8F1,#F4FBF7);border-radius:14px}
+.combo-save-head{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--green);margin-bottom:12px}
+.combo-save-head i{font-size:18px}
+.combo-save-parts{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.combo-part{font-size:12.5px;font-family:'Inter',sans-serif;color:var(--ink2,#5A6070);background:#fff;
+  border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.combo-part b{color:var(--navy);font-weight:700}
+.combo-plus{color:var(--ink3,#9AA0B0);font-weight:700}
+.combo-save-math{font-size:13px;font-family:'Inter',sans-serif;color:var(--ink,#111);display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.combo-save-math s{color:var(--ink3,#9AA0B0)}
+.combo-save-math b{color:var(--navy)}
+.combo-save-pill{font-size:12px;font-weight:800;color:#fff;background:var(--green);padding:4px 12px;border-radius:30px}

@@ -32,6 +32,7 @@ const COMPARE_ROWS=[
   {label:'Mock PI / GD sessions',fn:c=>c.feats.find(f=>f.toLowerCase().includes('pi')||f.toLowerCase().includes('mock'))||'—'},
   {label:'Live project',fn:c=>c.feats.find(f=>f.toLowerCase().includes('project'))||'—'},
   {label:'Case competition prep',fn:c=>c.feats.find(f=>f.toLowerCase().includes('case')||f.toLowerCase().includes('ppt'))||'—'},
+  {label:'Combo savings',fn:c=>{const cs=(typeof comboSavings==='function')?comboSavings(c):null;return (cs&&cs.save>0)?('Save '+fmt(cs.save)):'—';}},
   {label:'Canva Pro',fn:c=>c.feats.some(f=>f.toLowerCase().includes('canva'))?'✓':'—'},
   {label:'Completion certificate',fn:c=>c.feats.some(f=>f.toLowerCase().includes('certificate'))?'✓':'—'},
   {label:'Level',fn:c=>c.level},
@@ -238,6 +239,7 @@ function cardHtml(c){
       <div class="card-rating"><span class="card-rate-num">${c.rating.toFixed(1)}</span><span class="stars">${stars(c.rating)}</span><span class="card-rate-cnt">(${c.students.toLocaleString('en-IN')})</span></div>
       <div class="card-meta"><span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span></div>
       <div class="card-price-row"><span class="card-price">${fmt(c.price)}</span>${c.mrp?`<span class="card-mrp">${fmt(c.mrp)}</span>`:''}${c.off?`<span class="card-off">${c.off}</span>`:''}</div>
+      ${typeof comboBadge==='function'?comboBadge(c):''}
     </div>
   </div>`;
 }
@@ -357,6 +359,16 @@ function renderDetail(id){
   document.getElementById('dBanner').src=IMG(c.img,1400);
   document.getElementById('buyImg').src=IMG(c.img,640);
   document.getElementById('dDesc').textContent=c.desc;
+  // combo savings callout (injected after the description)
+  (function(){
+    const desc=document.getElementById('dDesc');
+    let box=document.getElementById('comboSaveBox');
+    const html=(typeof comboDetailHtml==='function')?comboDetailHtml(c):'';
+    if(html){
+      if(!box){box=document.createElement('div');box.id='comboSaveBox';desc.insertAdjacentElement('afterend',box);}
+      box.outerHTML=html.replace('<div class="combo-save-box">','<div class="combo-save-box" id="comboSaveBox">');
+    } else if(box){ box.remove(); }
+  })();
   document.getElementById('dCurriculum').innerHTML=(c.curriculum&&c.curriculum.length)?c.curriculum.map((m,i)=>`<div class="curr-item"><div class="curr-num">${i+1}</div><div><div class="curr-t">${m.t}</div><div class="curr-s">${m.s}</div></div></div>`).join(''):`<div class="skeleton">Detailed curriculum will be added once official content is provided.</div>`;
   renderMentors();renderFaq();renderVariantUI(c);
   document.getElementById('dCart').onclick=()=>addToCart(c);
@@ -474,3 +486,5 @@ updateMobileCart();
 /* ===== INIT ===== */
 initTicker();
 renderTabs();renderSortMenu();renderCatalog();renderComparator();router();observeReveals(document);
+// pull live prices from the Google Sheet (if configured) then re-render
+if(typeof initCoursesDynamic==='function') initCoursesDynamic(()=>{renderCatalog();renderComparator();router();observeReveals(document);});

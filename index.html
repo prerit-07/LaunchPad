@@ -215,6 +215,46 @@
       </div>
     </section>
 
+    <!-- MENTORS -->
+    <section class="mentors-sec">
+      <div class="wrap">
+        <div class="how-header">
+          <div class="sec-label">Meet Your Mentors</div>
+          <h2 class="sec-h">Learn From Those Who've Done It</h2>
+          <p class="sec-sub">Top-ranked mentors per domain, voted by 250+ students — from IIM A/B/C, XLRI and beyond.</p>
+        </div>
+        <div class="mentors-grid reveal" id="mentorsGrid"></div>
+      </div>
+    </section>
+
+    <!-- COLLEGE COLLAB -->
+    <section class="collab-sec">
+      <div class="wrap">
+        <div class="how-header">
+          <div class="sec-label">College Collaborations</div>
+          <h2 class="sec-h">Trusted Across India's Top B-Schools</h2>
+          <p class="sec-sub">Active tie-ups with leading campuses — bringing live projects, mentorship and placement prep to their students.</p>
+        </div>
+        <div class="collab-colleges reveal" id="collabColleges"></div>
+        <div class="collab-results reveal">
+          <div class="collab-result"><div class="cr-n">5,000+</div><div class="cr-l">Students mentored</div></div>
+          <div class="collab-result"><div class="cr-n">98.7%</div><div class="cr-l">Placed in target domain</div></div>
+          <div class="collab-result"><div class="cr-n">40+</div><div class="cr-l">Campuses reached</div></div>
+          <div class="collab-result"><div class="cr-n">MBB · Amazon · Accenture</div><div class="cr-l">Among recruiters</div></div>
+        </div>
+        <div class="collab-cta reveal">
+          <div class="collab-cta-text">
+            <h3>Want to bring MBA Partner to your college?</h3>
+            <p>Live projects, case-competition prep and placement bootcamps for your campus. Get in touch for current tie-ups and past results.</p>
+          </div>
+          <div class="collab-cta-actions">
+            <a class="collab-btn primary" href="tel:+917042732092"><i class="ti ti-phone"></i> +91 70427 32092</a>
+            <a class="collab-btn ghost" href="mailto:bharat.kapoor@prodmarkconsulting.in"><i class="ti ti-mail"></i> Email us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="resources-sec">
       <div class="wrap">
         <div style="text-align:center">
@@ -642,6 +682,30 @@
 <div class="toast-wrap" id="toastWrap"></div>
 
 
+  <script src="js/site-data.js"></script>
+  <script src="js/courses-dynamic.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  (async function(){
+    if (typeof loadSiteData !== 'function') return;
+    const data = await loadSiteData();
+    const el = document.getElementById('mentorsGrid');
+    const domIcon = {Consulting:'ti-chart-arrows',Finance:'ti-coin','Product Management':'ti-bulb',Marketing:'ti-speakerphone',HR:'ti-users',Operations:'ti-settings-2'};
+    if (el) el.innerHTML = (data.mentors||[]).map(m => `
+      <div class="mentor-card">
+        <div class="mentor-top">
+          <div class="mentor-av">${(m.Name||'?').trim().charAt(0)}</div>
+          <a class="mentor-li" href="${m.LinkedIn||'#'}" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin"></i></a>
+        </div>
+        <div class="mentor-name">${m.Name}</div>
+        <div class="mentor-school">${m.School}</div>
+        <div class="mentor-co"><i class="ti ${domIcon[m.Domain]||'ti-briefcase'}"></i> ${m.Company}</div>
+        <div class="mentor-dom">${m.Domain}</div>
+      </div>`).join('') +
+      `<div class="mentor-more"><div class="mentor-more-n">25+</div><div class="mentor-more-l">more mentors across top B-Schools</div></div>`;
+    const cEl = document.getElementById('collabColleges');
+    if (cEl) cEl.innerHTML = (data.colleges||[]).map(c => `<div class="collab-college"><i class="ti ti-building-bank"></i> ${c.Name}</div>`).join('');
+  })();
+  </script>
 </body>
 </html>
