@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MBA Partner — Courses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="stylesheet" href="css/courses.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="wrap nav-in">
+      <div class="brand" onclick="window.location.href='index.html'">
+        <div class="brand-mark">M</div>
+        <div class="brand-text">
+          <div class="brand-name">MBA Partner</div>
+          <div class="brand-tag">Initiative by Alumni of Old IIMs</div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <button class="nav-a" onclick="window.location.href='index.html'">Home</button>
+        <button class="nav-a active-link" onclick="window.location.href='courses.html'">Courses</button>
+        <button class="nav-a" onclick="window.location.href='testimonials.html'">Testimonials</button>
+        <a class="nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
+        <a class="nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+        <div class="nav-sep"></div>
+        <button class="nav-login" id="loginBtn">Login</button>
+        <a class="nav-call" href="tel:+917042732092">Call Us</a>
+        <button class="cart-btn" id="cartBtn" aria-label="Cart">
+          <i class="ti ti-shopping-cart" style="font-size:18px"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+      <button class="mobile-search-btn" id="mobileSearchBtn" aria-label="Search" style="display:none">
+        <i class="ti ti-search"></i>
+      </button>
+      <button class="cart-btn" id="cartBtnMobile" aria-label="Cart" style="display:none">
+        <i class="ti ti-shopping-cart" style="font-size:18px"></i>
+        <span class="cart-count" id="cartCountMobile">0</span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-a" onclick="window.location.href='index.html';closeMobileNav()">Home</button>
+      <button class="mobile-nav-a" onclick="window.location.href='courses.html';closeMobileNav()">Courses</button>
+      <button class="mobile-nav-a" onclick="window.location.href='testimonials.html';closeMobileNav()">Testimonials</button>
+      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
+      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+      <div class="mobile-nav-btns">
+        <button class="nav-login" id="loginBtnMobile" style="flex:1">Login</button>
+        <a class="nav-call" href="tel:+917042732092" style="flex:1;text-align:center">Call Us</a>
+      </div>
+    </div>
+  </nav>
+    <div class="mobile-search-bar" id="mobileSearchBar">
+      <div class="nav-search" style="display:flex; max-width:100%; border-color:var(--orange)">
+        <i class="ti ti-search"></i>
+        <input id="searchInputMobile" placeholder="Search courses" aria-label="Search"/>
+        <button class="drawer-close" id="mobileSearchClose" style="margin-left:8px; background:transparent; color:#fff; border:none; font-size:24px; cursor:pointer">&times;</button>
+      </div>
+    </div>
+
+  <div class="ticker" id="tickerBar">
+  <div class="ticker-inner" id="tickerInner"></div>
+</div>
+
+<div class="view active" id="view-catalog">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">An initiative by alumni of old IIMs</div>
+      <h1 id="headline"><span class="w" style="animation-delay:.05s">Find</span> <span class="w" style="animation-delay:.2s">your</span> <span class="w" style="animation-delay:.35s">edge.</span></h1>
+      <p class="anim" style="animation-delay:.6s">Placement bootcamps, live consulting projects and case competition prep — built to get you placed.</p>
+      <div class="search-container anim" style="animation-delay:.8s">
+        <div class="nav-search">
+          <i class="ti ti-search"></i>
+          <input id="searchInputHero" placeholder="Search courses & offerings" aria-label="Search courses"/>
+        </div>
+      </div>
+    </div>
+    
+    <div class="trust-strip reveal">
+      <div class="trust-item"><div class="trust-num">9.6/10</div><div class="trust-lbl">Avg. rating · 700+ students</div></div>
+      <div class="trust-item"><div class="trust-num">5,000+</div><div class="trust-lbl">Student network</div></div>
+      <div class="trust-item"><div class="trust-num">98.7%</div><div class="trust-lbl">Placed in desired domain</div></div>
+      <div class="trust-item"><div class="trust-num">IIM · XLRI · FMS</div><div class="trust-lbl">Mentor schools</div></div>
+    </div>
+
+    <div class="compare-sec reveal">
+      <div class="compare-head">
+        <div><h2>Compare courses</h2><p>Pick up to 4 courses to compare side by side</p></div>
+        <button class="comparator-reset" id="resetCompare">Clear all</button>
+      </div>
+      <div class="comparator">
+        <div class="comparator-top">
+          <div><h3>Build your comparison</h3><p>Click a slot below to choose a course</p></div>
+        </div>
+        <div class="comparator-picker" id="comparatorPicker"></div>
+        <div class="comparator-table" id="comparatorTable"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="wrap">
+    <div class="sort-bar">
+      <div class="sort-wrap" id="sortWrap">
+        <button class="sort-btn" id="sortBtn"><i class="ti ti-arrows-sort"></i>&nbsp;Sort: <span id="sortLabel">Most popular</span> <i class="ti ti-chevron-down caret"></i></button>
+        <div class="sort-menu" id="sortMenu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" id="catalogBody"></div>
+  <div style="height:40px"></div>
+</div>
+
+<div class="view" id="view-detail">
+  <div class="wrap">
+    <div class="dt-head">
+      <div class="dt-crumb"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:13px"></i> <span id="bcTitle"></span></div>
+      <div class="dt-type" id="dType"></div>
+      <div class="dt-title" id="dTitle"></div>
+      <div class="dt-tagline" id="dTagline"></div>
+      <div class="dt-rating" id="dRating"></div>
+      <div class="dt-banner"><img id="dBanner" alt=""/></div>
+    </div>
+    <div class="dt-grid">
+      <div>
+        <div class="dt-block"><h3>Overview</h3><div class="dt-desc" id="dDesc"></div></div>
+        <div class="dt-block"><h3>What's included</h3><div class="feat-list" id="dFeats"></div></div>
+        <div class="dt-block"><h3>Curriculum</h3><div id="dCurriculum"></div></div>
+        <div class="dt-block"><h3>Meet your mentors</h3><div class="mentor-grid" id="dMentors"></div></div>
+        <div class="dt-block"><h3>FAQs</h3><div class="faq-list" id="dFaq"></div></div>
+      </div>
+      <div><div class="buy">
+        <div class="buy-vis"><img id="buyImg" alt=""/></div>
+        <div class="buy-pad">
+          <div id="dVariants"></div>
+          <div class="buy-price-row" id="dPriceRow"></div>
+          <div class="buy-urgency"><i class="ti ti-flame"></i> Next cohort starting soon · limited slots</div>
+          <div class="buy-note" id="dNote">One-time payment · Lifetime access</div>
+          <button class="buy-enroll" id="dEnroll">Enroll now</button>
+          <button class="buy-cart" id="dCart">Add to cart</button>
+          <div class="buy-incl">
+            <div><i class="ti ti-certificate"></i> Certificate + CV points</div>
+            <div><i class="ti ti-users"></i> Mentored by IIM alumni</div>
+            <div><i class="ti ti-headset"></i> Community & support access</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    <div class="related-sec reveal"><h3 class="related-h">You might also like</h3><div class="grid" id="dRelated"></div></div>
+  </div>
+</div>
+
+<div class="view" id="view-checkout">
+  <div class="wrap">
+    <div class="dt-crumb" style="padding-top:40px"><a onclick="location.hash='#/'">Courses</a> <i class="ti ti-chevron-right" style="font-size:13px"></i> <span>Checkout</span></div>
+    <div id="checkoutBody"></div>
+  </div>
+</div>
+
+<div class="cpicker-modal" id="cpickerModal">
+  <div class="cpicker-box">
+    <div class="cpicker-head">
+      <h3>Choose a course to compare</h3>
+      <button id="cpickerClose">&times;</button>
+    </div>
+    <div class="cpicker-list" id="cpickerList"></div>
+  </div>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Cart">
+  <div class="cart-drawer-head"><span>Your cart</span><button class="drawer-close" id="drawerClose">&times;</button></div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-foot" id="cartDrawerFoot"></div>
+</aside>
+
+<div class="tmodal" id="testiModal">
+  <div class="tmodal-box" role="dialog" aria-modal="true">
+    <div class="tmodal-head">
+      <div>
+        <div class="tmodal-eyebrow">MBA Partner Community</div>
+        <div class="tmodal-title">Student Testimonials &amp; Hall of Fame</div>
+      </div>
+      <button class="tmodal-close" id="testiModalClose">&times;</button>
+    </div>
+    <div class="tmodal-body">
+      <div class="tmodal-sec-label">What Students Say</div>
+      <div class="tmodal-grid" id="modalTestiGrid"></div>
+      <div class="tmodal-divider"></div>
+      <div class="tmodal-sec-label">🏆 Hall of Fame — From Classroom to Corporate</div>
+      <div class="tmodal-grid" id="hofModalGrid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-ico" id="modalIco"><i class="ti ti-info-circle"></i></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-text" id="modalText"></div>
+    <div class="modal-actions"><button class="modal-btn ghost" id="modalClose">Close</button><button class="modal-btn primary" id="modalAction">Continue</button></div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand" style="cursor:default">
+          <div class="brand-mark">M</div>
+          <div class="brand-text">
+            <div class="brand-name">MBA Partner</div>
+            <div class="brand-tag">Initiative by Alumni of Old IIMs</div>
+          </div>
+        </div>
+        <p>We help MBA students get placed at their dream companies through live consulting projects, case competition prep, and expert-mentored placement bootcamps.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <div class="footer-links">
+          <a onclick="location.hash='#/';return false;">Placement Bootcamp</a>
+          <a onclick="location.hash='#/';return false;">Live Projects</a>
+          <a onclick="location.hash='#/';return false;">Case Competitions</a>
+          <a onclick="location.hash='#/';return false;">Certifications</a>
+          <a onclick="location.hash='#/';return false;">Combo Bundles</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <div class="footer-links">
+          <a href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
+          <a href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+          <a href="testimonials.html">Testimonials</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <div class="footer-links">
+          <a href="https://chat.whatsapp.com/EdyvGJbQoV9Jj6eC0slSx9" target="_blank">WhatsApp Community</a>
+          <a href="https://t.me/+IrnzgXdUKqsyOTZl" target="_blank">Telegram Channel</a>
+          <a href="tel:+917042732092">+91 70427 32092</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MBA Partner. Initiative by Alumni of Old IIMs. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="https://chat.whatsapp.com/EdyvGJbQoV9Jj6eC0slSx9" target="_blank" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="https://t.me/+IrnzgXdUKqsyOTZl" target="_blank" title="Telegram"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="js/search.js"></script>
+</body>
+</html>
