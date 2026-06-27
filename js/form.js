@@ -1,7 +1,11 @@
 // ===== USER DATA =====
 const VALID_CREDENTIALS = {
   'ananya@iimb.ac.in': 'Placement2025',
-  'rohan@iima.ac.in': 'Bundle2025'
+  'rohan@iima.ac.in': 'Bundle2025',
+  'demo1@iima.ac.in': '12345678',
+  'demo2@iimb.ac.in': '12345678',
+  'demo3@iimx.ac.in': '12345678',
+  'demo4@iim.ac.in': '12345678'
 };
 
 const USERS = {
@@ -61,6 +65,112 @@ const USERS = {
     piTotal: 7,
     gdDone: 2,
     gdTotal: 7,
+  },
+  finance: {
+    name: 'Priya Verma',
+    email: 'demo1@iima.ac.in',
+    role: 'Finance Track · Intermediate',
+    courses: [
+      { id: 1, type: 'Finance Track', title: 'Financial Modeling & Valuation', emoji: '💰', progress: 70, nextSession: 'DCF Analysis', nextDate: 'Jul 2' },
+      { id: 2, type: 'Certification', title: 'Advanced Excel Finance', emoji: '📊', progress: 45, nextSession: 'VBA Automation', nextDate: 'Jul 4' },
+    ],
+    sessions: [
+      { day: '02', mon: 'JUL', title: 'Financial Modeling Workshop #2', time: '7:00 PM IST', mentor: 'Goldman Sachs Alumnus', type: 'Workshop', soon: true },
+      { day: '04', mon: 'JUL', title: 'Real Case Study Analysis', time: '6:30 PM IST', mentor: 'Morgan Stanley Mentor', type: 'Case Study', soon: false },
+      { day: '07', mon: 'JUL', title: 'Valuation Methods Deep-Dive', time: '7:30 PM IST', mentor: 'McKinsey Analyst', type: 'Session', soon: false },
+    ],
+    materials: [
+      { icon: 'ti-file-spreadsheet', type: 'drive', name: 'Financial Models Library', meta: '50+ templates · Real projects', link: '#' },
+      { icon: 'ti-presentation', type: 'ppt', name: 'Valuation PPTs', meta: 'DCF, Comps, Precedents', link: '#' },
+      { icon: 'ti-file-text', type: 'pdf', name: 'Case Interview Guide', meta: 'Finance cases · Solutions', link: '#' },
+      { icon: 'ti-brand-google-drive', type: 'drive', name: 'Session Recordings', meta: 'All past sessions · 8 videos', link: '#' },
+      { icon: 'ti-books', type: 'drive', name: 'Finance Frameworks', meta: 'Ratio analysis · Metrics', link: '#' },
+    ],
+    cvDone: 3,
+    cvTotal: 5,
+    piDone: 5,
+    piTotal: 7,
+    gdDone: 4,
+    gdTotal: 7,
+  },
+  marketing: {
+    name: 'Aditya Kumar',
+    email: 'demo2@iimb.ac.in',
+    role: 'Marketing Bootcamp · Advanced',
+    courses: [
+      { id: 1, type: 'Marketing Bootcamp', title: 'Brand Strategy & Positioning', emoji: '🎨', progress: 85, nextSession: 'Brand Audit Workshop', nextDate: 'Jul 1' },
+      { id: 2, type: 'Live Project', title: 'Digital Marketing Campaign', emoji: '📱', progress: 60, nextSession: 'Client Presentation', nextDate: 'Jul 5' },
+      { id: 3, type: 'Certification', title: 'Google Analytics Pro', emoji: '📈', progress: 30, nextSession: 'Tracking Setup', nextDate: 'Jul 6' },
+    ],
+    sessions: [
+      { day: '01', mon: 'JUL', title: 'Brand Positioning Workshop', time: '5:30 PM IST', mentor: 'Ogilvy & Mather Director', type: 'Workshop', soon: true },
+      { day: '03', mon: 'JUL', title: 'Live Client Project Kickoff', time: '6:00 PM IST', mentor: 'Accenture Marketing Lead', type: 'Live Project', soon: false },
+      { day: '05', mon: 'JUL', title: 'Campaign Performance Review', time: '7:00 PM IST', mentor: 'BCG Consultant', type: 'Review', soon: false },
+    ],
+    materials: [
+      { icon: 'ti-presentation', type: 'ppt', name: 'Case Studies Collection', meta: '25+ global brands', link: '#' },
+      { icon: 'ti-file-text', type: 'pdf', name: 'Marketing Frameworks', meta: '4Ps, STP, SWOT & more', link: '#' },
+      { icon: 'ti-brand-google-drive', type: 'drive', name: 'Brand Templates', meta: 'Brand guidelines · Decks', link: '#' },
+      { icon: 'ti-file-spreadsheet', type: 'drive', name: 'Campaign Excel', meta: 'Budget planners · ROI sheets', link: '#' },
+    ],
+    cvDone: 2,
+    cvTotal: 5,
+    piDone: 3,
+    piTotal: 7,
+    gdDone: 3,
+    gdTotal: 7,
+  },
+  consulting: {
+    name: 'Nisha Desai',
+    email: 'demo3@iimx.ac.in',
+    role: 'Consulting Track · Intermediate',
+    courses: [
+      { id: 1, type: 'Consulting Track', title: 'Case Interview Mastery', emoji: '🎯', progress: 50, nextSession: 'Market Sizing Cases', nextDate: 'Jul 3' },
+      { id: 2, type: 'Framework', title: 'Problem-Solving Frameworks', emoji: '🔍', progress: 65, nextSession: 'Advanced Estimation', nextDate: 'Jul 4' },
+    ],
+    sessions: [
+      { day: '02', mon: 'JUL', title: 'Case Interview Bootcamp #3', time: '6:30 PM IST', mentor: 'Bain & Company Expert', type: 'Bootcamp', soon: true },
+      { day: '04', mon: 'JUL', title: 'Market Analysis Deep-Dive', time: '7:00 PM IST', mentor: 'McKinsey Senior Manager', type: 'Session', soon: false },
+      { day: '06', mon: 'JUL', title: 'Mock Consulting Interview', time: '5:00 PM IST', mentor: 'PwC Strategy Lead', type: 'Mock Interview', soon: false },
+    ],
+    materials: [
+      { icon: 'ti-books', type: 'drive', name: 'Case Interview Compendium', meta: '100+ cases · Solutions', link: '#' },
+      { icon: 'ti-presentation', type: 'ppt', name: 'Frameworks PPTs', meta: 'Complete deck collection', link: '#' },
+      { icon: 'ti-file-text', type: 'pdf', name: 'Estimation Techniques', meta: 'Detailed guide + examples', link: '#' },
+      { icon: 'ti-brand-google-drive', type: 'drive', name: 'Interview Videos', meta: '15+ mock interviews', link: '#' },
+    ],
+    cvDone: 1,
+    cvTotal: 5,
+    piDone: 2,
+    piTotal: 7,
+    gdDone: 2,
+    gdTotal: 7,
+  },
+  tech: {
+    name: 'Arjun Singh',
+    email: 'demo4@iim.ac.in',
+    role: 'Tech Roles Track · Beginner',
+    courses: [
+      { id: 1, type: 'Tech Track', title: 'Product Management Essentials', emoji: '⚙️', progress: 40, nextSession: 'Product Roadmaps', nextDate: 'Jul 2' },
+      { id: 2, type: 'Technical', title: 'Data Analysis for Non-Techies', emoji: '📊', progress: 55, nextSession: 'SQL Basics', nextDate: 'Jul 5' },
+    ],
+    sessions: [
+      { day: '02', mon: 'JUL', title: 'Product Strategy Fundamentals', time: '6:00 PM IST', mentor: 'Google PM', type: 'Masterclass', soon: true },
+      { day: '04', mon: 'JUL', title: 'SQL for PMs Workshop', time: '7:30 PM IST', mentor: 'Amazon Tech Lead', type: 'Workshop', soon: false },
+      { day: '06', mon: 'JUL', title: 'Product Case Interviews', time: '6:30 PM IST', mentor: 'Meta Senior PM', type: 'Case Study', soon: false },
+    ],
+    materials: [
+      { icon: 'ti-presentation', type: 'ppt', name: 'PM Frameworks', meta: 'PRD, Feature specs & more', link: '#' },
+      { icon: 'ti-file-text', type: 'pdf', name: 'Tech Fundamentals', meta: 'For non-engineering PMs', link: '#' },
+      { icon: 'ti-books', type: 'drive', name: 'Product Case Studies', meta: '20+ real examples', link: '#' },
+      { icon: 'ti-brand-google-drive', type: 'drive', name: 'SQL Query Bank', meta: 'Practice queries & solutions', link: '#' },
+    ],
+    cvDone: 0,
+    cvTotal: 5,
+    piDone: 1,
+    piTotal: 7,
+    gdDone: 1,
+    gdTotal: 7,
   }
 };
 
@@ -119,11 +229,18 @@ function handleLogin() {
     btnText.textContent = 'Sign in to Dashboard';
 
     if (!isValid) {
-      showError('Invalid credentials. Try ananya@iimb.ac.in / Placement2025 or rohan@iima.ac.in / Bundle2025');
+      showError('Invalid credentials. Try the demo accounts or demo buttons below.');
       return;
     }
 
-    const type = normalizedEmail.includes('rohan') || normalizedEmail.includes('bundle') ? 'bundle' : 'placement';
+    // Map email to user type
+    let type = 'placement';
+    if (normalizedEmail.includes('rohan') || normalizedEmail.includes('bundle')) type = 'bundle';
+    else if (normalizedEmail.includes('demo1')) type = 'finance';
+    else if (normalizedEmail.includes('demo2')) type = 'marketing';
+    else if (normalizedEmail.includes('demo3')) type = 'consulting';
+    else if (normalizedEmail.includes('demo4')) type = 'tech';
+    
     demoLogin(type);
   }, 600);
 }
