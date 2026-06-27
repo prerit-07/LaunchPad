@@ -148,7 +148,7 @@
         </button>
         <button class="nav-item" data-page="sessions" onclick="switchPage('sessions',this)">
           <i class="ti ti-calendar"></i> Sessions
-          <span class="nav-badge">2</span>
+          <span class="nav-badge" id="sessionsBadge">2</span>
         </button>
         <button class="nav-item" data-page="materials" onclick="switchPage('materials',this)">
           <i class="ti ti-folder"></i> Materials & Drive
@@ -201,7 +201,7 @@
           <div class="welcome-banner">
             <div class="welcome-text">
               <h3 id="welcomeMsg">Good morning, Ananya! 👋</h3>
-              <p>You have 2 sessions this week. Keep up the momentum — placements are closer than they feel.</p>
+              <p id="welcomeSub">You have 2 sessions this week. Keep up the momentum — placements are closer than they feel.</p>
             </div>
             <button class="welcome-cta" onclick="switchPage('sessions', document.querySelector('[data-page=sessions]'))">
               View Sessions →
@@ -271,10 +271,11 @@
 
         <!-- ===== PAGE: MATERIALS ===== -->
         <div class="dash-page" id="page-materials">
-          <div style="margin-bottom:20px">
-            <h3 style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px">Your Study Materials</h3>
-            <p style="font-size:13px;color:var(--ink2);font-family:'Inter',sans-serif">All resources from your enrolled programs — click any card to access.</p>
+          <div class="mat-header">
+            <h3>Your Study Materials</h3>
+            <p>Every resource from your enrolled programs, right here — no need to dig through Drive. <span id="materialCount"></span></p>
           </div>
+          <div class="mat-filters" id="materialFilters"></div>
           <div class="materials-grid" id="materialsGrid"></div>
         </div>
 
@@ -294,6 +295,7 @@
 </div><!-- /dashPage -->
 
 
+  <script src="js/dashboard-data.js"></script>
   <script src="js/form.js"></script>
 </body>
 </html>

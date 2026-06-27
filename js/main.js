@@ -209,6 +209,7 @@ function cardHtml(c){
       <div class="card-rating"><span class="card-rate-num">${c.rating.toFixed(1)}</span><span class="stars">${stars(c.rating)}</span><span class="card-rate-cnt">(${c.students.toLocaleString('en-IN')})</span></div>
       <div class="card-meta"><span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span></div>
       <div class="card-price-row"><span class="card-price">${fmt(c.price)}</span>${c.mrp?`<span class="card-mrp">${fmt(c.mrp)}</span>`:''}${c.off?`<span class="card-off">${c.off}</span>`:''}</div>
+      ${typeof comboBadge==='function'?comboBadge(c):''}
     </div>
   </div>`;
 }
@@ -409,3 +410,5 @@ initTicker();
 renderHallOfFame();
 renderBenefitsCards();
 observeReveals(document);
+// pull live prices from the Google Sheet (if configured)
+if(typeof initCoursesDynamic==='function') initCoursesDynamic();

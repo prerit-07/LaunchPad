@@ -115,9 +115,14 @@
     <div class="reveal">
       <div class="sec-label">🏆 Hall of Fame</div>
       <h2 class="sec-h">From Classroom to Corporate</h2>
-      <p class="sec-sub">Congratulations to our Hall of Famers — students who turned ambition into outstanding offers.</p>
+      <p class="sec-sub">Real students, real offers. <span id="plCount"></span></p>
     </div>
-    <div class="hof-grid reveal" id="hofGrid"></div>
+    <div class="pl-filter reveal" id="plFilter">
+      <button class="pl-chip on" data-b="all">All</button>
+      <button class="pl-chip" data-b="final">Final placements</button>
+      <button class="pl-chip" data-b="summer">Summer internships</button>
+    </div>
+    <div class="hof-grid pl-wall reveal" id="hofGrid"></div>
   </div>
 </section>
 
@@ -165,6 +170,7 @@
 <div class="toast-wrap" id="toastWrap"></div>
 
 
+  <script src="js/site-data.js"></script>
   <script src="js/navbar.js"></script>
 </body>
 </html>

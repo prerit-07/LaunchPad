@@ -435,3 +435,54 @@ button{cursor:pointer}
   .dt-banner{height:180px}
   .tmodal-grid{grid-template-columns:1fr}
 }
+
+/* ===== Mentors section (dynamic, from Google Sheet) ===== */
+.mentors-sec{padding:72px 0;background:var(--surface2,#F6F7FB)}
+.mentors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.mentor-card{background:#fff;border:1px solid var(--line,#E0E4F0);border-radius:16px;padding:22px;transition:transform .22s var(--ease),box-shadow .22s,border-color .2s}
+.mentor-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(27,42,107,.12);border-color:var(--orange)}
+.mentor-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mentor-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px}
+.mentor-li{color:#0A66C2;font-size:20px;display:flex;text-decoration:none;opacity:.8;transition:opacity .2s}
+.mentor-li:hover{opacity:1}
+.mentor-name{font-size:16px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.mentor-school{font-size:12.5px;color:var(--ink2,#5A6070);font-family:'Inter',sans-serif;margin-top:2px}
+.mentor-co{font-size:13px;color:var(--ink,#111114);font-family:'Inter',sans-serif;margin-top:12px;display:flex;align-items:center;gap:7px}
+.mentor-co i{color:var(--orange);font-size:16px}
+.mentor-dom{display:inline-block;margin-top:12px;font-size:11px;font-weight:700;color:var(--navy);background:#EEF1FB;border:1px solid var(--line,#E0E4F0);padding:4px 11px;border-radius:20px}
+.mentor-more{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:16px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff}
+.mentor-more-n{font-size:32px;font-weight:900;color:var(--orange);letter-spacing:-.03em}
+.mentor-more-l{font-size:12.5px;color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;margin-top:4px}
+@media(max-width:980px){.mentors-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.mentors-grid{grid-template-columns:1fr}}
+
+/* ===== Combo savings badge (course cards) ===== */
+.combo-save{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;font-weight:700;
+  color:#1A7F4B;background:#E5F4EC;border:1px solid rgba(26,127,75,.25);
+  padding:5px 11px;border-radius:30px;font-family:'Inter',sans-serif}
+.combo-save i{font-size:14px}
+
+/* ===== College collaborations ===== */
+.collab-sec{padding:72px 0}
+.collab-colleges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+.collab-college{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;
+  font-family:'Inter',sans-serif;color:var(--navy);background:#fff;border:1px solid var(--line,#E0E4F0);
+  padding:10px 16px;border-radius:30px;transition:transform .18s var(--ease),border-color .2s,box-shadow .2s}
+.collab-college:hover{transform:translateY(-2px);border-color:var(--orange);box-shadow:0 8px 20px rgba(27,42,107,.08)}
+.collab-college i{color:var(--orange);font-size:16px}
+.collab-results{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.collab-result{text-align:center;background:var(--surface2,#F6F7FB);border:1px solid var(--line,#E0E4F0);border-radius:14px;padding:22px 14px}
+.cr-n{font-size:24px;font-weight:900;color:var(--navy);letter-spacing:-.02em;line-height:1.15}
+.cr-l{font-size:12px;color:var(--ink2,#5A6070);font-family:'Inter',sans-serif;margin-top:6px}
+.collab-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  margin-top:36px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;padding:30px 34px}
+.collab-cta-text h3{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:6px}
+.collab-cta-text p{font-size:13.5px;color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;max-width:520px}
+.collab-cta-actions{display:flex;gap:12px;flex-wrap:wrap}
+.collab-btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:12px 20px;
+  border-radius:30px;text-decoration:none;transition:transform .18s var(--ease),box-shadow .2s,background .2s}
+.collab-btn.primary{background:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(255,139,2,.28)}
+.collab-btn.primary:hover{background:var(--orange-dark);transform:translateY(-1px)}
+.collab-btn.ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.collab-btn.ghost:hover{background:rgba(255,255,255,.18)}
+@media(max-width:760px){.collab-results{grid-template-columns:1fr 1fr}.collab-cta{flex-direction:column;align-items:flex-start}}
