@@ -82,6 +82,26 @@
   </div>
 </div>
 
+<!-- VIDEO TESTIMONIALS -->
+<section class="vid-sec">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-bottom:36px">
+      <div class="sec-label">Video Testimonials</div>
+      <h2 class="sec-h">Hear It In Their Words</h2>
+      <p class="sec-sub">Real students, real journeys — straight from the people who lived them.</p>
+    </div>
+    <div class="vid-grid reveal" id="vidGrid"></div>
+  </div>
+</section>
+
+<!-- VIDEO LIGHTBOX -->
+<div class="vid-lb" id="vidLb" onclick="if(event.target===this)closeVidLb()">
+  <div class="vid-lb-box" role="dialog" aria-modal="true">
+    <button class="vid-lb-x" onclick="closeVidLb()" aria-label="Close">&times;</button>
+    <div class="vid-lb-frame"><iframe id="vidIframe" src="" title="Video testimonial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</div>
+
 <!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="wrap filter-inner" id="filterBar">

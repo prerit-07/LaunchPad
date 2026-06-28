@@ -287,6 +287,53 @@ function drawPlacements(){
   g.innerHTML = list.map(plCard).join('');
 }
 
+/* VIDEO TESTIMONIALS (dynamic, from js/site-data.js → Google Sheet) */
+function vidEmbedUrl(url){
+  if(!url) return '';
+  // YouTube
+  let m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  if(m) return 'https://www.youtube.com/embed/'+m[1]+'?autoplay=1';
+  // Google Drive file
+  m = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  if(m) return 'https://drive.google.com/file/d/'+m[1]+'/preview';
+  return url;
+}
+function vidCard(v){
+  const has = v.VideoURL && v.VideoURL !== '#';
+  const dur = v.Duration ? `<span class="vid-duration">${v.Duration}</span>` : '';
+  const co  = v.Company ? `<span class="vid-company"><i class="ti ti-building-bank"></i> ${v.Company}</span>` : '';
+  const meta = [v.College, v.Domain].filter(Boolean).join(' · ');
+  return `<div class="vid-card${has?'':' soon'}" ${has?`onclick="openVidLb('${vidEmbedUrl(v.VideoURL)}')"`:''}>
+    <div class="vid-thumb">
+      ${has ? `<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>` : `<div class="vid-soon-tag">Video coming soon</div>`}
+      ${dur}
+    </div>
+    <div class="vid-body">
+      ${co}
+      <div class="vid-name">${v.Name}</div>
+      <div class="vid-meta">${meta}</div>
+    </div>
+  </div>`;
+}
+async function renderVideoTestimonials(){
+  const grid = document.getElementById('vidGrid');
+  if(!grid) return;
+  const data = await loadSiteData();
+  const vids = (data.videos||[]).filter(v=>v.Name);
+  grid.innerHTML = vids.length ? vids.map(vidCard).join('')
+    : `<div class="empty"><i class="ti ti-video-off"></i><p style="font-family:'Inter',sans-serif;font-size:15px;color:var(--ink3)">Video testimonials coming soon.</p></div>`;
+}
+function openVidLb(src){
+  document.getElementById('vidIframe').src = src;
+  document.getElementById('vidLb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVidLb(){
+  document.getElementById('vidIframe').src = '';
+  document.getElementById('vidLb').classList.remove('open');
+  document.body.style.overflow='';
+}
+
 /* LIGHTBOX */
 function openLB(i){
   const t=TESTIMONIALS[i];
@@ -300,7 +347,7 @@ function openLB(i){
   document.body.style.overflow='hidden';
 }
 function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeVidLb();}});
 
 /* MOBILE NAV */
 function closeMobileNav(){
@@ -324,5 +371,6 @@ initMarquee();
 updateCounts();
 renderGrid('all');
 renderPlacements();
+renderVideoTestimonials();
 initFilter();
 obs();

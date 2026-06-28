@@ -218,14 +218,23 @@
     <!-- MENTORS -->
     <section class="mentors-sec">
       <div class="wrap">
-        <div class="how-header">
-          <div class="sec-label">Meet Your Mentors</div>
-          <h2 class="sec-h">Learn From Those Who've Done It</h2>
-          <p class="sec-sub">Top-ranked mentors per domain, voted by 250+ students — from IIM A/B/C, XLRI and beyond.</p>
+        <div class="mentors-head">
+          <div>
+            <div class="sec-label">Meet the mentors</div>
+            <h2 class="sec-h">Top <span class="accent">Mentors</span> This Season</h2>
+            <p class="sec-sub">90% of our mentors were once our students — they know exactly what the journey feels like from both sides.</p>
+          </div>
+          <div class="mentors-pills">
+            <span class="mentor-pill"><i class="ti ti-award"></i> 90% were our students</span>
+            <span class="mentor-pill alt"><i class="ti ti-users"></i> 5,000+ mentored</span>
+          </div>
         </div>
         <div class="mentors-grid reveal" id="mentorsGrid"></div>
-        <div class="mentor-apply-cta reveal">
-          <span>Were you mentored here? <b>90% of our mentors were once our own students.</b> Pay it forward.</span>
+        <div class="mentor-apply-band reveal">
+          <div class="mentor-apply-text">
+            <h3>Were you mentored here? Now mentor the next batch.</h3>
+            <p>Most of our mentors started exactly where you are. Share a 60-second intro on why you'd be a great mentor.</p>
+          </div>
           <button class="btn-primary" id="openApply"><i class="ti ti-user-plus"></i> Apply to be a mentor</button>
         </div>
       </div>
@@ -703,7 +712,7 @@
         </div>
         <div class="mentor-name">${m.Name}</div>
         <div class="mentor-school">${m.School}</div>
-        <div class="mentor-co"><i class="ti ${domIcon[m.Domain]||'ti-briefcase'}"></i> ${m.Company}</div>
+        <div class="mentor-co"><span class="mentor-co-lbl">Placed at</span><span><i class="ti ${domIcon[m.Domain]||'ti-briefcase'}"></i> ${m.Company}</span></div>
         <div class="mentor-dom">${m.Domain}</div>
       </div>`).join('') +
       `<div class="mentor-more"><div class="mentor-more-n">25+</div><div class="mentor-more-l">more mentors across top B-Schools</div></div>`;
@@ -772,6 +781,54 @@
       ['amName','amEmail','amSchool','amVideo','amWhy'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
       const err=document.getElementById('amErr'); if(err) err.style.display='none';
     },200);};
+  })();
+  </script>
+
+  <!-- ===== USP WELCOME POPUP (shows once per visitor) ===== -->
+  <div class="usp-overlay" id="uspOverlay">
+    <div class="usp-popup" id="uspPopup" role="dialog" aria-modal="true" aria-label="Why MBA Partner">
+      <button class="usp-close" id="uspClose" aria-label="Close"><i class="ti ti-x"></i></button>
+      <div class="usp-header">
+        <div class="usp-eyebrow"><i class="ti ti-rosette-discount-check"></i> Why students choose us</div>
+        <h2 class="usp-title">Your MBA placement edge<br>starts <span>right here.</span></h2>
+        <p class="usp-subtitle">Join 5,000+ MBA students from IIM, XLRI &amp; FMS who landed offers at India's top firms.</p>
+      </div>
+      <div class="usp-grid">
+        <div class="usp-item"><div class="usp-ico"><i class="ti ti-file-cv"></i></div><div><div class="usp-item-title">ATS-optimised CVs</div><div class="usp-item-desc">High-impact keywords and recruiter-ready formats that get you shortlisted.</div></div></div>
+        <div class="usp-item"><div class="usp-ico"><i class="ti ti-trophy"></i></div><div><div class="usp-item-title">Case competition wins</div><div class="usp-item-desc">Mentored by AIR 1 — 30+ winning decks, frameworks and techniques.</div></div></div>
+        <div class="usp-item"><div class="usp-ico"><i class="ti ti-briefcase"></i></div><div><div class="usp-item-title">Live consulting projects</div><div class="usp-item-desc">Real deliverables with Prodmark — verifiable CV bullets in 4–8 weeks.</div></div></div>
+        <div class="usp-item"><div class="usp-ico"><i class="ti ti-building-factory-2"></i></div><div><div class="usp-item-title">Internship &amp; placement prep</div><div class="usp-item-desc">Domain-focused mock PIs, GDs and bootcamps — built for Day-1.</div></div></div>
+      </div>
+      <div class="usp-results">
+        <div class="usp-results-lbl">Our students placed at</div>
+        <div class="usp-companies">
+          <span class="usp-company star">MBB</span><span class="usp-company">Amazon</span><span class="usp-company">Accenture</span><span class="usp-company">Kearney</span><span class="usp-company">Pine Labs</span><span class="usp-company">BCG</span>
+        </div>
+      </div>
+      <div class="usp-footer">
+        <button class="usp-cta-primary" id="uspExplore"><i class="ti ti-bolt"></i> Explore courses</button>
+        <button class="usp-cta-ghost" id="uspLater">Maybe later</button>
+      </div>
+      <div class="usp-stat-strip">
+        <div class="usp-stat"><strong>5,000+</strong> students</div><div class="usp-stat-div"></div>
+        <div class="usp-stat"><strong>98.7%</strong> placed in target domain</div><div class="usp-stat-div"></div>
+        <div class="usp-stat"><strong>9.6/10</strong> avg. rating</div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var KEY='mbaUspSeen';
+    var overlay=document.getElementById('uspOverlay');
+    if(!overlay) return;
+    var seen=null; try{ seen=localStorage.getItem(KEY); }catch(e){}
+    function dismiss(){ overlay.classList.remove('usp-open'); try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+    if(!seen){ setTimeout(function(){ overlay.classList.add('usp-open'); }, 1400); }
+    var c=document.getElementById('uspClose'); if(c) c.onclick=dismiss;
+    var l=document.getElementById('uspLater'); if(l) l.onclick=dismiss;
+    var ex=document.getElementById('uspExplore'); if(ex) ex.onclick=function(){ dismiss(); if(typeof goToCourses==='function') goToCourses(); else window.location.href='courses.html'; };
+    overlay.addEventListener('click',function(e){ if(e.target===overlay) dismiss(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && overlay.classList.contains('usp-open')) dismiss(); });
   })();
   </script>
 </body>

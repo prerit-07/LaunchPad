@@ -29,46 +29,26 @@
   <div class="exam-select-section">
     <h3><i class="ti ti-clipboard-list"></i> Step 1 — Select Your Exam</h3>
     <p>Choose the entrance exam you appeared for (or are planning to). You can change this anytime.</p>
-    <div class="exam-grid" id="examGrid">
-      <div class="exam-btn active" onclick="selectExam('cat',this)">
-        <div class="exam-icon"><i class="ti ti-chart-bar"></i></div>
-        <div class="exam-name">CAT</div>
-        <div class="exam-score-range">Score 0–198</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('xat',this)">
-        <div class="exam-icon"><i class="ti ti-pencil"></i></div>
-        <div class="exam-name">XAT</div>
-        <div class="exam-score-range">Score 0–100</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('snap',this)">
-        <div class="exam-icon"><i class="ti ti-bolt"></i></div>
-        <div class="exam-name">SNAP</div>
-        <div class="exam-score-range">Score 0–60</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('nmat',this)">
-        <div class="exam-icon"><i class="ti ti-brain"></i></div>
-        <div class="exam-name">NMAT</div>
-        <div class="exam-score-range">Score 0–360</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('mahcet',this)">
-        <div class="exam-icon"><i class="ti ti-map-pin"></i></div>
-        <div class="exam-name">MAH-CET</div>
-        <div class="exam-score-range">Score 0–200</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('cmat',this)">
-        <div class="exam-icon"><i class="ti ti-school"></i></div>
-        <div class="exam-name">CMAT</div>
-        <div class="exam-score-range">Score 0–400</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('omet',this)">
-        <div class="exam-icon"><i class="ti ti-star"></i></div>
-        <div class="exam-name">OMET</div>
-        <div class="exam-score-range">Score 0–180</div>
-      </div>
-      <div class="exam-btn" onclick="selectExam('gmat',this)">
-        <div class="exam-icon"><i class="ti ti-world"></i></div>
-        <div class="exam-name">GMAT</div>
-        <div class="exam-score-range">Score 205–805</div>
+    <div class="exam-dropdown" id="examDropdown">
+      <button type="button" class="exam-drop-toggle" id="examDropToggle" onclick="toggleExamDrop()" aria-haspopup="listbox" aria-expanded="false">
+        <span class="exam-drop-current" id="examDropCurrent">
+          <span class="exam-drop-ico"><i class="ti ti-chart-bar"></i></span>
+          <span class="exam-drop-text">
+            <span class="exam-drop-name">CAT — Common Admission Test</span>
+            <span class="exam-drop-range">Score 0–198 · IIMs &amp; top B-schools</span>
+          </span>
+        </span>
+        <i class="ti ti-chevron-down exam-drop-caret"></i>
+      </button>
+      <div class="exam-drop-list" id="examDropList" role="listbox">
+        <div class="exam-option active" data-exam="cat" role="option" onclick="chooseExam('cat')"><span class="exam-drop-ico"><i class="ti ti-chart-bar"></i></span><span class="exam-opt-name">CAT — Common Admission Test</span><span class="exam-opt-range">0–198</span></div>
+        <div class="exam-option" data-exam="xat" role="option" onclick="chooseExam('xat')"><span class="exam-drop-ico"><i class="ti ti-pencil"></i></span><span class="exam-opt-name">XAT — Xavier Aptitude Test</span><span class="exam-opt-range">0–100</span></div>
+        <div class="exam-option" data-exam="snap" role="option" onclick="chooseExam('snap')"><span class="exam-drop-ico"><i class="ti ti-bolt"></i></span><span class="exam-opt-name">SNAP — Symbiosis Aptitude Test</span><span class="exam-opt-range">0–60</span></div>
+        <div class="exam-option" data-exam="nmat" role="option" onclick="chooseExam('nmat')"><span class="exam-drop-ico"><i class="ti ti-brain"></i></span><span class="exam-opt-name">NMAT — NMIMS Management Aptitude</span><span class="exam-opt-range">0–360</span></div>
+        <div class="exam-option" data-exam="mahcet" role="option" onclick="chooseExam('mahcet')"><span class="exam-drop-ico"><i class="ti ti-map-pin"></i></span><span class="exam-opt-name">MAH-CET — Maharashtra CET</span><span class="exam-opt-range">0–200</span></div>
+        <div class="exam-option" data-exam="cmat" role="option" onclick="chooseExam('cmat')"><span class="exam-drop-ico"><i class="ti ti-school"></i></span><span class="exam-opt-name">CMAT — Common Management Admission</span><span class="exam-opt-range">0–400</span></div>
+        <div class="exam-option" data-exam="omet" role="option" onclick="chooseExam('omet')"><span class="exam-drop-ico"><i class="ti ti-star"></i></span><span class="exam-opt-name">OMET — Other Management Exams</span><span class="exam-opt-range">0–180</span></div>
+        <div class="exam-option" data-exam="gmat" role="option" onclick="chooseExam('gmat')"><span class="exam-drop-ico"><i class="ti ti-world"></i></span><span class="exam-opt-name">GMAT — Graduate Management Admission</span><span class="exam-opt-range">205–805</span></div>
       </div>
     </div>
   </div>

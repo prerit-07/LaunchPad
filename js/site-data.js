@@ -21,7 +21,8 @@ const SITE_SHEET = {
   TABS: {
     placements: 'Placements',   // who got placed where
     mentors:    'Mentors',      // alumni mentors
-    colleges:   'Colleges'      // college collaborations / tie-ups
+    colleges:   'Colleges',     // college collaborations / tie-ups
+    videos:     'Videos'        // video testimonials
   }
 };
 
@@ -98,6 +99,17 @@ const SITE_SAMPLE = {
     { Name:'MDI Gurgaon' },     { Name:'SPJIMR' },         { Name:'NMIMS Mumbai' },
     { Name:'JBIMS' },           { Name:'IIFT' },           { Name:'SIBM Pune' },
     { Name:'IMT Ghaziabad' },   { Name:'BITSOM' },         { Name:'GLIM Chennai' }
+  ],
+
+  // --- Video testimonials. Leave VideoURL blank to show a "coming soon" card.
+  //     Paste a YouTube or Google Drive share link in VideoURL to make it playable. ---
+  videos: [
+    { Name:'Paluk Shukla',       College:'IIM Bangalore', Company:'Accenture',          Domain:'Consulting', VideoURL:'', Duration:'' },
+    { Name:'Bhaskarananda Boro', College:'IIM Bangalore', Company:'ICICI Bank',         Domain:'Finance',    VideoURL:'', Duration:'' },
+    { Name:'Dheeraj Acharya',    College:'IIM Bangalore', Company:'Samsung',            Domain:'Product',    VideoURL:'', Duration:'' },
+    { Name:'Rutuja Thorat',      College:'IIM Calcutta',  Company:'Accenture',          Domain:'Consulting', VideoURL:'', Duration:'' },
+    { Name:'Varun Kamble',       College:'IIM Lucknow',   Company:'American Express',    Domain:'Finance',    VideoURL:'', Duration:'' },
+    { Name:'Siba Prasad',        College:'IIM Kozhikode', Company:'Aditya Birla Group',  Domain:'Marketing',  VideoURL:'', Duration:'' }
   ]
 };
 
@@ -121,12 +133,13 @@ async function loadSiteData() {
   if (_siteDataCache) return _siteDataCache;
   if (!SITE_SHEET.SHEET_ID) { _siteDataCache = SITE_SAMPLE; return _siteDataCache; }
   try {
-    const [placements, mentors, colleges] = await Promise.all([
+    const [placements, mentors, colleges, videos] = await Promise.all([
       _fetchSiteTab(SITE_SHEET.TABS.placements),
       _fetchSiteTab(SITE_SHEET.TABS.mentors),
-      _fetchSiteTab(SITE_SHEET.TABS.colleges)
+      _fetchSiteTab(SITE_SHEET.TABS.colleges),
+      _fetchSiteTab(SITE_SHEET.TABS.videos)
     ]);
-    _siteDataCache = { placements, mentors, colleges };
+    _siteDataCache = { placements, mentors, colleges, videos };
   } catch (err) {
     console.error('Could not load site Google Sheet — using sample data.', err);
     _siteDataCache = SITE_SAMPLE;

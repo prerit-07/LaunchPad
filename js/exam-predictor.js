@@ -201,10 +201,37 @@ let currentExam = 'cat';
 let currentScore = 120;
 
 /* ========= EXAM SELECTION ========= */
-function selectExam(examId, btn) {
+/* ===== EXAM DROPDOWN ===== */
+function toggleExamDrop() {
+  const d = document.getElementById('examDropdown');
+  const open = d.classList.toggle('open');
+  document.getElementById('examDropToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function closeExamDrop() {
+  const d = document.getElementById('examDropdown');
+  if (d) { d.classList.remove('open'); const t = document.getElementById('examDropToggle'); if (t) t.setAttribute('aria-expanded', 'false'); }
+}
+function chooseExam(examId) { selectExam(examId); closeExamDrop(); }
+document.addEventListener('click', e => {
+  const d = document.getElementById('examDropdown');
+  if (d && !d.contains(e.target)) closeExamDrop();
+});
+
+function selectExam(examId) {
   currentExam = examId;
-  document.querySelectorAll('.exam-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  // update the dropdown: active option + the header display
+  document.querySelectorAll('.exam-option').forEach(o => o.classList.remove('active'));
+  const opt = document.querySelector('.exam-option[data-exam="' + examId + '"]');
+  if (opt) {
+    opt.classList.add('active');
+    const ico = opt.querySelector('.exam-drop-ico').innerHTML;
+    const name = opt.querySelector('.exam-opt-name').textContent;
+    const range = opt.querySelector('.exam-opt-range').textContent;
+    const cur = document.getElementById('examDropCurrent');
+    if (cur) cur.innerHTML = '<span class="exam-drop-ico">' + ico + '</span>' +
+      '<span class="exam-drop-text"><span class="exam-drop-name">' + name + '</span>' +
+      '<span class="exam-drop-range">Score ' + range + '</span></span>';
+  }
   const ex = EXAMS[examId];
   // Update score card
   document.getElementById('scoreCardTitle').textContent = ex.full + ' — Score Input';
@@ -529,4 +556,4 @@ function buildFallback(d){
 }
 
 /* ========= INIT ========= */
-selectExam('cat', document.querySelector('.exam-btn.active'));
+selectExam('cat');
