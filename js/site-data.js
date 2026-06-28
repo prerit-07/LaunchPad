@@ -22,7 +22,8 @@ const SITE_SHEET = {
     placements: 'Placements',   // who got placed where
     mentors:    'Mentors',      // alumni mentors
     colleges:   'Colleges',     // college collaborations / tie-ups
-    videos:     'Videos'        // video testimonials
+    videos:     'Videos',       // video testimonials
+    gdpi:       'GDPI'          // CAT/OMETs GDPI-flagship students (CAT page)
   }
 };
 
@@ -104,12 +105,28 @@ const SITE_SAMPLE = {
   // --- Video testimonials. Leave VideoURL blank to show a "coming soon" card.
   //     Paste a YouTube or Google Drive share link in VideoURL to make it playable. ---
   videos: [
-    { Name:'Paluk Shukla',       College:'IIM Bangalore', Company:'Accenture',          Domain:'Consulting', VideoURL:'', Duration:'' },
-    { Name:'Bhaskarananda Boro', College:'IIM Bangalore', Company:'ICICI Bank',         Domain:'Finance',    VideoURL:'', Duration:'' },
-    { Name:'Dheeraj Acharya',    College:'IIM Bangalore', Company:'Samsung',            Domain:'Product',    VideoURL:'', Duration:'' },
-    { Name:'Rutuja Thorat',      College:'IIM Calcutta',  Company:'Accenture',          Domain:'Consulting', VideoURL:'', Duration:'' },
-    { Name:'Varun Kamble',       College:'IIM Lucknow',   Company:'American Express',    Domain:'Finance',    VideoURL:'', Duration:'' },
-    { Name:'Siba Prasad',        College:'IIM Kozhikode', Company:'Aditya Birla Group',  Domain:'Marketing',  VideoURL:'', Duration:'' }
+    { Name:'Jigar',    College:'IIM Amritsar',  Company:'Neesh Perfumes', Domain:'Marketing', VideoURL:'https://drive.google.com/file/d/1hdXPP9kV-flTRVH8kEq8Z75Pi2KQIRUy/view', Duration:'' },
+    { Name:'Mridul',   College:'IIM Calcutta',  Company:'',               Domain:'',          VideoURL:'https://drive.google.com/file/d/1O8GULMw1TSJq-BJgk1F8i7u3ywEITHeD/view', Duration:'' },
+    { Name:'Satwik',   College:'IMT Ghaziabad', Company:'',               Domain:'',          VideoURL:'https://drive.google.com/file/d/1JqSKoRcT1gQD-DCmgwf_P96p5NlcIkWV/view', Duration:'' },
+    { Name:'Siddhant', College:'Delhi School of Economics',           Company:'',               Domain:'',          VideoURL:'https://drive.google.com/file/d/1DmKV0o29QQ3dMVucvhQhjgDpUOxI9PE6/view', Duration:'' },
+    { Name:'Tushar',   College:'GLIM Chennai',  Company:'Caratlane',      Domain:'',          VideoURL:'https://drive.google.com/file/d/1o7WAPHo1AHYY32DfJsW2Yx46SqHEcx5H/view', Duration:'' },
+    { Name:'Ananya',   College:'Welingkar',     Company:'',               Domain:'',          VideoURL:'https://drive.google.com/file/d/1oRElW0Q58PYFSrM5TDP5qzRtArVHFvOr/view', Duration:'' }
+  ],
+
+  // --- GDPI Flagship students (CAT/OMETs page). Name + college only (no contact info). ---
+  gdpi: [
+    { Name:'Sabeen', College:'IIM Lucknow' },        { Name:'Aryan Vivian', College:'NMIMS Mumbai' },
+    { Name:'Abhishek Rohilla', College:'IIM Kozhikode' }, { Name:'Divija Bansod', College:'IIM Lucknow' },
+    { Name:'Rupali Priyadarshini', College:'IIM Indore' }, { Name:'Varun Gangurde', College:'BITSOM' },
+    { Name:'Nikhil Jaiswal', College:'JBIMS' },      { Name:'Tamoghna Haldar', College:'IIM Sambalpur' },
+    { Name:'Shivadhwaj SR', College:'IIM Shillong' },{ Name:'Romit Banerjee', College:'GLIM Chennai' },
+    { Name:'Kushagra Barai', College:'IIM Mumbai' }, { Name:'Dhamo Dharan', College:'IIT Madras' },
+    { Name:'Sandeep', College:'IIM Bangalore' },     { Name:'Pranav', College:'FMS Delhi' },
+    { Name:'Gaurav Sarkar', College:'IIM Kozhikode' },{ Name:'Rudra', College:'IIM Trichy' },
+    { Name:'Dev Chauhan', College:'IIM Ahmedabad' }, { Name:'Sanjana Rai', College:'MDI Gurgaon' },
+    { Name:'Ayan Murmu', College:'IIM Calcutta' },   { Name:'Medha Rajhans', College:'IIM Nagpur' },
+    { Name:'Yusuf Hasan', College:'XLRI Jamshedpur' },{ Name:'Aastha Maurya', College:'XLRI Jamshedpur' },
+    { Name:'Sankalp Annavarpu', College:'FMS Delhi' },{ Name:'Piyush Kumar Jha', College:'IIM Mumbai' }
   ]
 };
 
@@ -133,13 +150,14 @@ async function loadSiteData() {
   if (_siteDataCache) return _siteDataCache;
   if (!SITE_SHEET.SHEET_ID) { _siteDataCache = SITE_SAMPLE; return _siteDataCache; }
   try {
-    const [placements, mentors, colleges, videos] = await Promise.all([
+    const [placements, mentors, colleges, videos, gdpi] = await Promise.all([
       _fetchSiteTab(SITE_SHEET.TABS.placements),
       _fetchSiteTab(SITE_SHEET.TABS.mentors),
       _fetchSiteTab(SITE_SHEET.TABS.colleges),
-      _fetchSiteTab(SITE_SHEET.TABS.videos)
+      _fetchSiteTab(SITE_SHEET.TABS.videos),
+      _fetchSiteTab(SITE_SHEET.TABS.gdpi)
     ]);
-    _siteDataCache = { placements, mentors, colleges, videos };
+    _siteDataCache = { placements, mentors, colleges, videos, gdpi };
   } catch (err) {
     console.error('Could not load site Google Sheet — using sample data.', err);
     _siteDataCache = SITE_SAMPLE;

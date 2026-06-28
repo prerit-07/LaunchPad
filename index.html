@@ -268,6 +268,31 @@
       </div>
     </section>
 
+    <!-- FREE SESSIONS -->
+    <section class="free-sec">
+      <div class="wrap">
+        <div style="text-align:center">
+          <div class="sec-label">Free Sessions</div>
+          <h2 class="sec-h">Free Masterclasses on YouTube</h2>
+          <p class="sec-sub" style="max-width:520px;margin:12px auto 0">Our most-loved sessions — watch anytime, no sign-up needed.</p>
+        </div>
+        <div class="free-grid">
+          <a class="free-card" href="https://www.youtube.com/watch?v=zZXBRobYRCE&t=34s" target="_blank" rel="noopener">
+            <div class="free-thumb"><img src="https://img.youtube.com/vi/zZXBRobYRCE/hqdefault.jpg" alt=""/><span class="free-play"><i class="ti ti-player-play-filled"></i></span></div>
+            <div class="free-body"><div class="free-title">B-School Comparison &amp; CV Skeleton</div><div class="free-meta"><i class="ti ti-brand-youtube"></i> Watch on YouTube</div></div>
+          </a>
+          <a class="free-card" href="https://www.youtube.com/watch?v=eIgTrOVCyRw" target="_blank" rel="noopener">
+            <div class="free-thumb"><img src="https://img.youtube.com/vi/eIgTrOVCyRw/hqdefault.jpg" alt=""/><span class="free-play"><i class="ti ti-player-play-filled"></i></span></div>
+            <div class="free-body"><div class="free-title">MBA Game Plan</div><div class="free-meta"><i class="ti ti-brand-youtube"></i> Watch on YouTube</div></div>
+          </a>
+          <a class="free-card" href="https://www.youtube.com/watch?v=OhVg0Wf9JzU" target="_blank" rel="noopener">
+            <div class="free-thumb"><img src="https://img.youtube.com/vi/OhVg0Wf9JzU/hqdefault.jpg" alt=""/><span class="free-play"><i class="ti ti-player-play-filled"></i></span></div>
+            <div class="free-body"><div class="free-title">HR Contacts (Demo)</div><div class="free-meta"><i class="ti ti-brand-youtube"></i> Watch on YouTube</div></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="resources-sec">
       <div class="wrap">
         <div style="text-align:center">
@@ -317,7 +342,8 @@
           <h1 class="hero-h1">Crack CAT & Top OMETs.<br>Master your <span class="accent">GDPI.</span></h1>
           <p class="hero-sub">Comprehensive prep, mentorship from IIM alumni, and foolproof GDPI strategies to get you into your dream B-School.</p>
           <div class="hero-ctas">
-            <button class="btn-primary" onclick="goToCourses()"><i class="ti ti-bolt"></i> View Prep Programs</button>
+            <a class="btn-primary" href="cat-portal.html"><i class="ti ti-clipboard-list"></i> CAT Prep Portal</a>
+            <button class="btn-ghost" onclick="goToCourses()"><i class="ti ti-bolt"></i> View Prep Programs</button>
             <a class="btn-ghost" href="cat-predictor.html"><i class="ti ti-target-arrow"></i> CAT College Predictor</a>
             <a class="btn-ghost" href="exam-predictor.html"><i class="ti ti-school"></i> Exam &amp; College Predictor</a>
             <a class="btn-ghost" href="#" target="_blank"><i class="ti ti-brand-whatsapp"></i> Join CAT Community</a>
@@ -468,6 +494,18 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- GDPI FLAGSHIP STUDENTS (CAT/OMETs) -->
+    <section class="collab-sec">
+      <div class="wrap">
+        <div class="how-header">
+          <div class="sec-label">GDPI Flagship</div>
+          <h2 class="sec-h">Students We've Mentored for GDPI</h2>
+          <p class="sec-sub">Aspirants who took our GDPI Flagship and solved our free sectionals — now headed to India's top B-schools.</p>
+        </div>
+        <div class="collab-colleges reveal" id="gdpiGrid"></div>
       </div>
     </section>
 
@@ -718,6 +756,8 @@
       `<div class="mentor-more"><div class="mentor-more-n">25+</div><div class="mentor-more-l">more mentors across top B-Schools</div></div>`;
     const cEl = document.getElementById('collabColleges');
     if (cEl) cEl.innerHTML = (data.colleges||[]).map(c => `<div class="collab-college"><i class="ti ti-building-bank"></i> ${c.Name}</div>`).join('');
+    const gEl = document.getElementById('gdpiGrid');
+    if (gEl) gEl.innerHTML = (data.gdpi||[]).map(g => `<div class="collab-college"><i class="ti ti-user-check"></i> ${g.Name} · ${g.College}</div>`).join('');
   })();
   </script>
 

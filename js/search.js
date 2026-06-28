@@ -40,16 +40,16 @@ const COMPARE_ROWS=[
 ];
 
 const MENTORS=[
-  {initials:'IA',name:'[Mentor name]',school:'IIM Ahmedabad',cred:'[1-line credential]'},
-  {initials:'XL',name:'[Mentor name]',school:'XLRI Jamshedpur',cred:'[1-line credential]'},
-  {initials:'FM',name:'[Mentor name]',school:'FMS Delhi',cred:'[1-line credential]'},
-  {initials:'IB',name:'[Mentor name]',school:'IIM Bangalore',cred:'[1-line credential]'}
+  {initials:'YG',name:'Yash Gohil',school:'IIM Ahmedabad',cred:'Consulting · Accenture'},
+  {initials:'AR',name:'Ananyo Roy',school:'XLRI Jamshedpur',cred:'HR · TAS'},
+  {initials:'SS',name:'Shen Shaji',school:'IIM Bangalore',cred:'Product · Media.Net'},
+  {initials:'VB',name:'Vidhi Barolia',school:'IIM Lucknow',cred:'Finance · PwC US'}
 ];
 const FAQS=[
   {q:'How is this delivered — live or recorded?',a:'Sessions run live online with mentors, and recordings are shared afterward for anyone who misses a slot.'},
-  {q:'When does the next batch start?',a:'New batches open on a rolling basis. [Insert current cohort start date once confirmed.]'},
-  {q:'What happens if I\'m not satisfied?',a:'[Insert refund / guarantee policy here.]'},
-  {q:'How long do I have access to materials?',a:'[Insert access/validity window, e.g. lifetime or 6 months.]'},
+  {q:'When does the next batch start?',a:'New batches open on a rolling basis. Call +91 70427 32092 or email bharat.kapoor@prodmarkconsulting.in for the next cohort date.'},
+  {q:'What happens if I\'m not satisfied?',a:'Reach out to our team at +91 70427 32092 and we will make it right — full enrolment terms are shared at sign-up.'},
+  {q:'How long do I have access to materials?',a:'You keep access to your program materials through your cohort. Contact us for the exact window on your plan.'},
   {q:'Will I get a certificate at the end?',a:'Yes — every program includes a completion certificate plus CV-ready points you can list on your resume.'},
   {q:'How do I reach my mentor if I have doubts?',a:'Through the MBA Partner community on WhatsApp/Telegram, plus dedicated doubt-clearing slots during the program.'}
 ];

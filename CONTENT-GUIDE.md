@@ -182,6 +182,21 @@ data already loaded from your Drive files.
 > chips under "Trusted Across India's Top B-Schools". (The contact details and result
 > numbers in that section are set in the page itself.)
 
+### Tab: `Videos` — the Video Testimonials section (Testimonials page)
+| Column | Meaning | Example |
+|---|---|---|
+| Name | Student name | `Jigar` |
+| College | B-school | `IIM Amritsar` |
+| Company | *(optional)* where they were placed | `Neesh Perfumes` |
+| Domain | *(optional)* role domain | `Marketing` |
+| VideoURL | YouTube or Google Drive share link | `https://drive.google.com/file/d/…/view` |
+| Duration | *(optional)* shown on the thumbnail | `2:34` |
+
+> Leave `VideoURL` blank to show a tasteful "Video coming soon" card.
+> ⚠️ **For Drive videos to play on the website, each video's sharing must be set to
+> "Anyone with the link → Viewer"** — otherwise visitors can't watch it. (The same goes
+> for YouTube links: keep them Public or Unlisted, not Private.)
+
 **To connect:** publish the sheet (as in Part A), then paste its ID into the
 `SITE_SHEET.SHEET_ID` line at the top of `js/site-data.js`.
 
