@@ -379,3 +379,23 @@ button{cursor:pointer}
 .combo-save-math s{color:var(--ink3,#9AA0B0)}
 .combo-save-math b{color:var(--navy)}
 .combo-save-pill{font-size:12px;font-weight:800;color:#fff;background:var(--green);padding:4px 12px;border-radius:30px}
+
+/* ===== 2-student group offer ===== */
+.group-banner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  background:linear-gradient(135deg,var(--navy),var(--navy2,#223278));border-radius:16px;
+  padding:18px 22px;margin-bottom:26px}
+.group-banner-l{display:flex;align-items:center;gap:14px}
+.group-banner-l>i{font-size:26px;color:var(--orange);flex-shrink:0}
+.group-banner-l b{display:block;font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.group-banner-l span{display:block;font-size:12.5px;color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;margin-top:2px}
+.group-banner-btn{flex-shrink:0;background:var(--orange);color:#fff;font-weight:700;font-size:14px;border:none;
+  cursor:pointer;padding:11px 22px;border-radius:30px;font-family:inherit;transition:transform .18s ease,background .2s}
+.group-banner-btn:hover{background:var(--orange-dark);transform:translateY(-1px)}
+.group-panel{border:1px solid rgba(255,139,2,.35)!important;background:var(--orange-light,#FFF3E0)}
+.group-panel h3{display:flex;align-items:center;gap:8px}
+.group-panel h3 i{color:var(--orange)}
+.group-note{font-size:12.5px;color:var(--ink2,#5A6070);font-family:'Inter',sans-serif;margin:6px 0 14px}
+.group-apply-btn{width:100%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;
+  padding:12px;border-radius:10px;font-family:inherit;transition:background .2s,transform .18s ease}
+.group-apply-btn:hover{background:var(--navy2,#223278);transform:translateY(-1px)}
+.group-apply-btn.applied{background:var(--green,#1A7F4B);cursor:default}

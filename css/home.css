@@ -486,3 +486,39 @@ button{cursor:pointer}
 .collab-btn.ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25)}
 .collab-btn.ghost:hover{background:rgba(255,255,255,.18)}
 @media(max-width:760px){.collab-results{grid-template-columns:1fr 1fr}.collab-cta{flex-direction:column;align-items:flex-start}}
+
+/* ===== Apply to be a mentor ===== */
+.mentor-apply-cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:32px;
+  background:var(--surface2,#F6F7FB);border:1px dashed var(--line,#E0E4F0);border-radius:16px;padding:20px 26px}
+.mentor-apply-cta span{font-size:14px;color:var(--ink2,#5A6070);font-family:'Inter',sans-serif}
+.mentor-apply-cta b{color:var(--navy);font-weight:700}
+.mentor-apply-cta .btn-primary{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.apply-modal{position:fixed;inset:0;background:rgba(15,20,45,.55);backdrop-filter:blur(3px);
+  display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.apply-modal.open{display:flex}
+.apply-box{position:relative;background:#fff;border-radius:20px;width:100%;max-width:480px;padding:30px;
+  max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.apply-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;line-height:1;
+  color:var(--ink3,#9AA0B0);cursor:pointer}
+.apply-head{text-align:center;margin-bottom:18px}
+.apply-ico{width:54px;height:54px;border-radius:50%;background:var(--orange-light,#FFF3E0);color:var(--orange);
+  display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px}
+.apply-ico.ok{background:#E5F4EC;color:#1A7F4B}
+.apply-head h3,.apply-success h3{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+.apply-head p,.apply-success p{font-size:13px;color:var(--ink2,#5A6070);font-family:'Inter',sans-serif;margin-top:6px;line-height:1.55}
+.afield{margin-bottom:12px}
+.afield-row{display:flex;gap:12px}
+.afield-row .afield{flex:1}
+.afield label{display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:5px;font-family:'Inter',sans-serif}
+.afield input,.afield textarea{width:100%;border:1px solid var(--line,#E0E4F0);border-radius:10px;padding:10px 12px;
+  font-size:14px;font-family:'Inter',sans-serif;color:var(--ink,#111);background:var(--surface2,#F6F7FB);resize:vertical}
+.afield input:focus,.afield textarea:focus{outline:none;border-color:var(--orange);background:#fff}
+.apply-err{display:none;font-size:12.5px;color:#DC2626;background:#FEF2F2;border:1px solid #FCA5A5;
+  border-radius:8px;padding:8px 11px;margin-bottom:12px;font-family:'Inter',sans-serif}
+.apply-submit{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);
+  color:#fff;font-weight:700;font-size:15px;border:none;cursor:pointer;padding:13px;border-radius:12px;
+  font-family:inherit;transition:background .2s,transform .18s ease}
+.apply-submit:hover{background:var(--orange-dark);transform:translateY(-1px)}
+.apply-success{text-align:center}
+.apply-success a{color:var(--orange-dark);font-weight:600}
+@media(max-width:480px){.afield-row{flex-direction:column;gap:0}}

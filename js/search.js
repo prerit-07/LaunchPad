@@ -256,7 +256,13 @@ function renderCatalog(){
   const q=query.trim().toLowerCase();
   const match=c=>!q||(c.title+' '+c.sub+' '+c.type+' '+c.instr).toLowerCase().includes(q);
   const cats=activeCat==='all'?CATS:CATS.filter(c=>c.key===activeCat);
-  let html='';
+  let html = (!q) ? `<div class="group-banner reveal">
+    <div class="group-banner-l"><i class="ti ti-users"></i>
+      <div><b>Enrol with a friend — you BOTH get 30% off</b>
+      <span>On Case Comps, Live Projects &amp; every program. Apply the offer at checkout.</span></div>
+    </div>
+    <button class="group-banner-btn" onclick="location.hash='#/checkout'">Enrol now</button>
+  </div>` : '';
   cats.forEach(cat=>{
     const items=sortList(COURSES.filter(c=>c.cat===cat.key&&match(c)));
     if(!items.length)return;
@@ -396,6 +402,11 @@ function renderCheckout(){
       <div class="pay-opt" data-pay="netbanking"><i class="ti ti-building-bank"></i><div class="pay-opt-t">Net banking</div></div>
       <div class="pay-note">Payments are simulated — production routes through Wix Payments / Razorpay.</div>
     </div>
+    <div class="co-panel group-panel"><h3><i class="ti ti-users"></i> Enrol with a friend — 30% off</h3>
+      <p class="group-note">When 2 students join together, you <b>both</b> get 30% off. Add your friend's details to apply.</p>
+      <div class="field-row"><div class="field"><label>Friend's name</label><input id="grpName" placeholder="Friend's name"/></div><div class="field"><label>Friend's email</label><input id="grpEmail" type="email" placeholder="friend@email.com"/></div></div>
+      <button class="group-apply-btn ${appliedCoupon&&appliedCoupon.code==='GROUP30'?'applied':''}" id="grpApply" type="button">${appliedCoupon&&appliedCoupon.code==='GROUP30'?'✓ Group offer applied — 30% off':'Apply group offer — 30% off'}</button>
+    </div>
   </div>
   <div class="summary"><div class="co-panel"><h3>Order summary</h3>
     ${cart.map((c,i)=>`<div class="sum-item"><div><div class="sum-item-t">${c.title}</div><div class="sum-item-ty">${c.variantLabel||c.type}</div><span class="sum-remove" data-rm="${i}">Remove</span></div><div class="sum-item-p">${fmt(c.price)}</div></div>`).join('')}
@@ -408,7 +419,16 @@ function renderCheckout(){
   </div></div></div>`;
   body.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>removeFromCart(Number(b.dataset.rm)));
   body.querySelectorAll('.pay-opt').forEach(o=>o.onclick=()=>{body.querySelectorAll('.pay-opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');});
-  document.getElementById('couponApply').onclick=()=>{const code=(document.getElementById('couponInput').value||'').trim().toUpperCase();if(code==='MBA10'){appliedCoupon={code,pct:10};showToast('Coupon applied — 10% off');renderCheckout();}else{showToast('Invalid coupon code');}};
+  document.getElementById('couponApply').onclick=()=>{const code=(document.getElementById('couponInput').value||'').trim().toUpperCase();if(code==='MBA10'){appliedCoupon={code,pct:10};showToast('Coupon applied — 10% off');renderCheckout();}else if(code==='GROUP30'){appliedCoupon={code,pct:30};showToast('Group offer applied — 30% off');renderCheckout();}else{showToast('Invalid coupon code');}};
+  const grpBtn=document.getElementById('grpApply');
+  if(grpBtn) grpBtn.onclick=()=>{
+    const gn=(document.getElementById('grpName').value||'').trim();
+    const ge=(document.getElementById('grpEmail').value||'').trim();
+    if(!gn||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ge)){showToast("Add your friend's name and a valid email to apply");return;}
+    appliedCoupon={code:'GROUP30',pct:30,group:{name:gn,email:ge}};
+    showToast('Group offer applied — you both get 30% off');
+    renderCheckout();
+  };
   document.getElementById('payNow').onclick=()=>{const n=(body.querySelector('input[placeholder="Ananya Sharma"]').value||'').trim(),e=(body.querySelector('input[type="email"]').value||'').trim();if(!n||!e){showToast('Please enter your name and email');return;}openModal('paid',{total:grandTotal});};
 }
 

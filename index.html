@@ -224,6 +224,10 @@
           <p class="sec-sub">Top-ranked mentors per domain, voted by 250+ students — from IIM A/B/C, XLRI and beyond.</p>
         </div>
         <div class="mentors-grid reveal" id="mentorsGrid"></div>
+        <div class="mentor-apply-cta reveal">
+          <span>Were you mentored here? <b>90% of our mentors were once our own students.</b> Pay it forward.</span>
+          <button class="btn-primary" id="openApply"><i class="ti ti-user-plus"></i> Apply to be a mentor</button>
+        </div>
       </div>
     </section>
 
@@ -705,6 +709,69 @@
       `<div class="mentor-more"><div class="mentor-more-n">25+</div><div class="mentor-more-l">more mentors across top B-Schools</div></div>`;
     const cEl = document.getElementById('collabColleges');
     if (cEl) cEl.innerHTML = (data.colleges||[]).map(c => `<div class="collab-college"><i class="ti ti-building-bank"></i> ${c.Name}</div>`).join('');
+  })();
+  </script>
+
+  <!-- APPLY TO BE A MENTOR -->
+  <div class="apply-modal" id="applyModal">
+    <div class="apply-box" role="dialog" aria-modal="true">
+      <button class="apply-x" id="applyClose" aria-label="Close">&times;</button>
+      <div id="applyForm">
+        <div class="apply-head">
+          <div class="apply-ico"><i class="ti ti-school"></i></div>
+          <h3>Apply to be a mentor</h3>
+          <p>90% of our mentors were once our students. Tell us about you and share a 60-second intro.</p>
+        </div>
+        <div class="afield"><label>Full name</label><input id="amName" placeholder="Your name"/></div>
+        <div class="afield-row">
+          <div class="afield"><label>Email</label><input id="amEmail" type="email" placeholder="you@email.com"/></div>
+          <div class="afield"><label>B-School / Company</label><input id="amSchool" placeholder="IIM … / Company"/></div>
+        </div>
+        <div class="afield"><label>60-second intro video link</label><input id="amVideo" placeholder="YouTube / Drive / Loom link (optional)"/></div>
+        <div class="afield"><label>Why do you want to mentor?</label><textarea id="amWhy" rows="3" placeholder="In a few lines…"></textarea></div>
+        <div class="apply-err" id="amErr"></div>
+        <button class="apply-submit" id="amSubmit"><i class="ti ti-send"></i> Submit application</button>
+      </div>
+      <div id="applySuccess" class="apply-success" style="display:none">
+        <div class="apply-ico ok"><i class="ti ti-circle-check"></i></div>
+        <h3>Application received!</h3>
+        <p>Thanks — our team will review your intro and reach out. You can also email <a href="mailto:bharat.kapoor@prodmarkconsulting.in">bharat.kapoor@prodmarkconsulting.in</a>.</p>
+        <button class="apply-submit" id="applyDone">Done</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    const modal=document.getElementById('applyModal'); if(!modal) return;
+    const open=()=>{modal.classList.add('open');document.body.style.overflow='hidden';};
+    const close=()=>{modal.classList.remove('open');document.body.style.overflow='';};
+    const ob=document.getElementById('openApply'); if(ob) ob.onclick=open;
+    const xc=document.getElementById('applyClose'); if(xc) xc.onclick=close;
+    modal.addEventListener('click',e=>{if(e.target===modal)close();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+    const sub=document.getElementById('amSubmit');
+    if(sub) sub.onclick=()=>{
+      const name=(document.getElementById('amName').value||'').trim();
+      const email=(document.getElementById('amEmail').value||'').trim();
+      const why=(document.getElementById('amWhy').value||'').trim();
+      const err=document.getElementById('amErr');
+      if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!why){
+        err.textContent='Please add your name, a valid email, and why you want to mentor.';
+        err.style.display='block'; return;
+      }
+      err.style.display='none';
+      // To capture applications, POST these fields to a Google Apps Script web-app URL
+      // here and append them to a "MentorApplications" sheet tab.
+      document.getElementById('applyForm').style.display='none';
+      document.getElementById('applySuccess').style.display='block';
+    };
+    const done=document.getElementById('applyDone');
+    if(done) done.onclick=()=>{close();setTimeout(()=>{
+      document.getElementById('applyForm').style.display='';
+      document.getElementById('applySuccess').style.display='none';
+      ['amName','amEmail','amSchool','amVideo','amWhy'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+      const err=document.getElementById('amErr'); if(err) err.style.display='none';
+    },200);};
   })();
   </script>
 </body>
