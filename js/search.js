@@ -339,6 +339,13 @@ function updateBuyBoxPricing(c){
   document.getElementById('dFeats').innerHTML=(v.feats||c.feats).map(f=>`<div class="feat-item"><i class="ti ti-circle-check"></i><span>${f}</span></div>`).join('');
 }
 function addToCart(c){
+  // Login is required before adding to cart (prototype: browser session).
+  if(window.MBAauth && !MBAauth.isLoggedIn()){
+    MBAauth.setReturn(location.href);
+    showToast('Please log in to add courses to your cart');
+    setTimeout(function(){location.href='login.html';},800);
+    return false;
+  }
   if(!groupsSatisfied(c)){showToast('Please make a selection above before continuing');return false;}
   const v=resolveVariant(c);cart.push({...c,price:v.price,mrp:v.mrp,variantLabel:v.label});syncCart();showToast(c.title+' added to cart'+(v.label?' · '+v.label:''));return true;
 }
@@ -474,7 +481,7 @@ document.getElementById('testiModal').addEventListener('click',e=>{if(e.target.i
 /* STANDARD MODAL */
 const modalData={
   login:()=>({ico:'ti-user-circle',title:'Member login',text:'This connects to your existing Wix Members Area once integrated.',action:'Got it',run:null}),
-  paid:c=>({ico:'ti-circle-check',title:'Enrollment confirmed',text:'Payment of '+fmt(c.total)+' successful (demo). On the live site this connects to Wix Payments / Razorpay.',action:'Done',run:()=>{cart=[];appliedCoupon=null;syncCart();location.hash='#/';}})
+  paid:c=>({ico:'ti-circle-check',title:'Enrollment confirmed',text:'Payment of '+fmt(c.total)+' successful (demo). On the live site this connects to Wix Payments / Razorpay.',action:'Go to dashboard',run:()=>{if(window.MBAauth){MBAauth.addPurchasedCourses(cart.map(it=>({id:it.id,title:it.title,type:it.type,emoji:it.emoji})));}cart=[];appliedCoupon=null;syncCart();location.href='login.html';}})
 };
 let modalCtx=null;
 function openModal(k,ctx){const d=modalData[k](ctx);modalCtx=d;document.getElementById('modalIco').innerHTML='<i class="ti '+d.ico+'"></i>';document.getElementById('modalTitle').textContent=d.title;document.getElementById('modalText').textContent=d.text;document.getElementById('modalAction').textContent=d.action;document.getElementById('modal').classList.add('open');}

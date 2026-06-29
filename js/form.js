@@ -55,6 +55,8 @@ function saveSession(email) {
 async function restoreSession() {
   const email = localStorage.getItem(SESSION_KEY);
   if (!email) return;
+  const acct = (window.MBAauth && MBAauth.findAccount) ? MBAauth.findAccount(email) : null;
+  if (acct) { currentUser = buildLocalView(acct); showDashboard(); return; }
   setLoading(true);
   await ensureData();
   const view = buildStudentView(DASH_DATA, email);
@@ -65,12 +67,15 @@ async function restoreSession() {
 }
 
 function goToHomeFromDashboard() {
-  // keep the student logged in for when they return
+  // mark that the redirect already happened this session, so Home stays viewable
+  try { sessionStorage.setItem('mbaHomeRedirected', '1'); } catch (e) {}
   window.location.href = 'index.html';
 }
 
 /* ---------- LOGIN ---------- */
+let authMode = 'login';
 async function handleLogin() {
+  if (authMode === 'signup') { doSignup(); return; }
   const email = document.getElementById('emailInput').value.trim();
   const pass  = document.getElementById('passInput').value;
   const btn   = document.getElementById('loginBtn');
@@ -82,14 +87,51 @@ async function handleLogin() {
   btnText.textContent = 'Signing in...';
 
   await ensureData();
-  const ok = checkCredentials(DASH_DATA, email, pass);
+  const acctLogin = window.MBAauth ? MBAauth.login(email, pass) : { ok: false };
+  const ok = acctLogin.ok || checkCredentials(DASH_DATA, email, pass);
 
   setTimeout(() => {
     btn.classList.remove('loading');
     btnText.textContent = 'Sign in to Dashboard';
-    if (!ok) { showError('Invalid credentials. Try the demo accounts or demo buttons below.'); return; }
-    enterDashboard(email);
+    if (!ok) { showError('No matching account. Check your details or create an account below.'); return; }
+    if (window.MBAauth && !acctLogin.ok) MBAauth.setSession(email.trim().toLowerCase(), '');
+    const ret = window.MBAauth ? MBAauth.takeReturn() : '';
+    if (ret) { location.href = ret; return; }
+    enterDashboard(email.trim().toLowerCase());
   }, 500);
+}
+function doSignup() {
+  const nameEl = document.getElementById('nameInput');
+  const name = nameEl ? nameEl.value : '';
+  const email = document.getElementById('emailInput').value.trim();
+  const pass = document.getElementById('passInput').value;
+  const r = window.MBAauth ? MBAauth.signup(name, email, pass) : { ok: false, error: 'Auth unavailable.' };
+  if (!r.ok) { showError(r.error); return; }
+  const ret = MBAauth.takeReturn();
+  if (ret) { location.href = ret; return; }
+  enterDashboard(email.trim().toLowerCase());
+}
+function toggleAuthMode() {
+  authMode = authMode === 'login' ? 'signup' : 'login';
+  const nf = document.getElementById('nameField');
+  const bt = document.getElementById('loginBtnText');
+  const tg = document.getElementById('authToggle');
+  const h  = document.getElementById('authHeading');
+  const s  = document.getElementById('authSub');
+  document.getElementById('loginError').classList.add('hidden');
+  if (authMode === 'signup') {
+    if (nf) nf.style.display = '';
+    if (bt) bt.textContent = 'Create account';
+    if (tg) tg.innerHTML = 'Already have an account? <a>Log in</a>';
+    if (h) h.textContent = 'Create your account';
+    if (s) s.textContent = 'Sign up to enrol and access your dashboard';
+  } else {
+    if (nf) nf.style.display = 'none';
+    if (bt) bt.textContent = 'Sign in to Dashboard';
+    if (tg) tg.innerHTML = 'New to MBA Partner? <a>Create an account</a>';
+    if (h) h.textContent = 'Welcome back 👋';
+    if (s) s.textContent = 'Log in to access your student dashboard';
+  }
 }
 
 function showError(msg) {
@@ -105,8 +147,18 @@ async function demoLogin(type) {
   enterDashboard(email);
 }
 
+function buildLocalView(a) {
+  return {
+    name: a.name || 'Student', email: a.email, role: 'Student',
+    avatar: ((a.name || a.email || '?')[0] || '?').toUpperCase(),
+    courses: (a.courses || []).map(c => ({ type: c.type || 'Course', title: c.title, emoji: c.emoji || '📘', progress: 0, nextSession: 'Onboarding', nextDate: 'Soon' })),
+    sessions: [], materials: [],
+    cvDone: 0, cvTotal: 5, piDone: 0, piTotal: 7, gdDone: 0, gdTotal: 7
+  };
+}
 function enterDashboard(email) {
-  const view = buildStudentView(DASH_DATA, email);
+  const acct = (window.MBAauth && MBAauth.findAccount) ? MBAauth.findAccount(email) : null;
+  const view = acct ? buildLocalView(acct) : buildStudentView(DASH_DATA, email);
   if (!view) { showError('No student record found for ' + email + '.'); return; }
   currentUser = view;
   saveSession(email);
@@ -128,6 +180,7 @@ function showDashboard() {
 
 function logout() {
   saveSession(null);
+  if (window.MBAauth) MBAauth.logout();
   document.getElementById('dashPage').classList.add('hidden');
   document.getElementById('dashPage').classList.remove('showing');
   document.getElementById('loginPage').classList.remove('hidden');

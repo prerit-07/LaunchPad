@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/chatbot-widget.css"/>
+<script src="js/auth.js"></script>
+<script>(function(){if(!(window.MBAauth&&MBAauth.isLoggedIn()))return;var done=false;try{done=!!sessionStorage.getItem('mbaHomeRedirected');}catch(e){}if(done)return;try{sessionStorage.setItem('mbaHomeRedirected','1');}catch(e){}location.replace('login.html');})();</script>
 <script src="js/nav-auth.js"></script>
 </head>
 <body>

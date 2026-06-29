@@ -49,8 +49,8 @@
     <div class="login-right">
       <div class="login-card">
         <a class="back-link" href="index.html"><i class="ti ti-arrow-left"></i> Back to home</a>
-        <h2>Welcome back 👋</h2>
-        <p>Log in to access your student dashboard</p>
+        <h2 id="authHeading">Welcome back 👋</h2>
+        <p id="authSub">Log in to access your student dashboard</p>
 
         <div id="loginError" class="login-error hidden">
           <i class="ti ti-alert-circle"></i>
@@ -58,6 +58,13 @@
         </div>
 
         <form onsubmit="event.preventDefault(); handleLogin();" autocomplete="on">
+          <div class="field" id="nameField" style="display:none">
+            <label>Full name</label>
+            <div class="field-wrap">
+              <i class="ti ti-user"></i>
+              <input type="text" id="nameInput" placeholder="Your name" autocomplete="name"/>
+            </div>
+          </div>
           <div class="field">
             <label>Email address</label>
             <div class="field-wrap">
@@ -80,6 +87,8 @@
             <i class="ti ti-arrow-right"></i> <span id="loginBtnText">Sign in to Dashboard</span>
           </button>
         </form>
+
+        <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">New to MBA Partner? <a>Create an account</a></div>
 
         <div class="login-divider">or try the demo</div>
 
@@ -295,6 +304,7 @@
 </div><!-- /dashPage -->
 
 
+  <script src="js/auth.js"></script>
   <script src="js/dashboard-data.js"></script>
   <script src="js/form.js"></script>
 </body>
