@@ -270,15 +270,14 @@ async function renderPlacements(){
 }
 function plCard(p){
   const dom = p.Domain ? `<span class="pl-dom">${p.Domain}</span>` : '';
-  const co  = p.Company
-    ? `<div class="pl-co">${p.Company}</div>`
-    : `<div class="pl-co-empty">Placement Pending</div>`;
-  const college = p.College ? `<div class="pl-college"><i class="ti ti-building-bank"></i> ${p.College}${dom}</div>` : '';
+  const co = p.Company ? `<div class="pl-co">${p.Company}</div>` : '';
   return `<div class="pl-card">
-    <div class="pl-card-head"><div class="pl-name">${p.Name}</div></div>
-    <div class="pl-card-body">${co}${college}</div>
+    ${co}
+    <div class="pl-name">${p.Name}</div>
+    <div class="pl-college"><i class="ti ti-building-bank"></i> ${p.College}${dom}</div>
   </div>`;
 }
+
 
 function drawPlacements(){
   let list;
