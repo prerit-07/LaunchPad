@@ -113,20 +113,32 @@ const SITE_SAMPLE = {
     { Name:'Ananya',   College:'Welingkar',     Company:'',               Domain:'',          VideoURL:'https://drive.google.com/file/d/1oRElW0Q58PYFSrM5TDP5qzRtArVHFvOr/view', Duration:'' }
   ],
 
-  // --- GDPI Flagship students (CAT/OMETs page). Name + college only (no contact info). ---
+  // --- GDPI Flagship students (CAT/OMETs page). Name + college + quote. ---
   gdpi: [
-    { Name:'Sabeen', College:'IIM Lucknow' },        { Name:'Aryan Vivian', College:'NMIMS Mumbai' },
-    { Name:'Abhishek Rohilla', College:'IIM Kozhikode' }, { Name:'Divija Bansod', College:'IIM Lucknow' },
-    { Name:'Rupali Priyadarshini', College:'IIM Indore' }, { Name:'Varun Gangurde', College:'BITSOM' },
-    { Name:'Nikhil Jaiswal', College:'JBIMS' },      { Name:'Tamoghna Haldar', College:'IIM Sambalpur' },
-    { Name:'Shivadhwaj SR', College:'IIM Shillong' },{ Name:'Romit Banerjee', College:'GLIM Chennai' },
-    { Name:'Kushagra Barai', College:'IIM Mumbai' }, { Name:'Dhamo Dharan', College:'IIT Madras' },
-    { Name:'Sandeep', College:'IIM Bangalore' },     { Name:'Pranav', College:'FMS Delhi' },
-    { Name:'Gaurav Sarkar', College:'IIM Kozhikode' },{ Name:'Rudra', College:'IIM Trichy' },
-    { Name:'Dev Chauhan', College:'IIM Ahmedabad' }, { Name:'Sanjana Rai', College:'MDI Gurgaon' },
-    { Name:'Ayan Murmu', College:'IIM Calcutta' },   { Name:'Medha Rajhans', College:'IIM Nagpur' },
-    { Name:'Yusuf Hasan', College:'XLRI Jamshedpur' },{ Name:'Aastha Maurya', College:'XLRI Jamshedpur' },
-    { Name:'Sankalp Annavarpu', College:'FMS Delhi' },{ Name:'Piyush Kumar Jha', College:'IIM Mumbai' }
+    { Name:'Sabeen',               College:'IIM Lucknow',      Quote:'Mock PIs made my final answers sharper and more confident.' },
+    { Name:'Aryan Vivian',         College:'NMIMS Mumbai',     Quote:'The GDPI prep gave me structure when I needed it most.' },
+    { Name:'Abhishek Rohilla',     College:'IIM Kozhikode',    Quote:'Personal feedback helped me turn every mock into progress.' },
+    { Name:'Divija Bansod',        College:'IIM Lucknow',      Quote:'Mentors helped me present my story with clarity.' },
+    { Name:'Rupali Priyadarshini', College:'IIM Indore',       Quote:'The practice panels made the real interview feel familiar.' },
+    { Name:'Varun Gangurde',       College:'BITSOM',           Quote:'Focused prep and honest feedback improved my interview presence.' },
+    { Name:'Nikhil Jaiswal',       College:'JBIMS',            Quote:'The transcripts and mocks helped me prepare with direction.' },
+    { Name:'Tamoghna Haldar',      College:'IIM Sambalpur',    Quote:'GD practice helped me speak with clarity and confidence.' },
+    { Name:'Shivadhwaj SR',        College:'IIM Shillong',     Quote:'MBA Partner helped me refine answers without sounding rehearsed.' },
+    { Name:'Romit Banerjee',       College:'GLIM Chennai',     Quote:'The mentor feedback made my interview prep much sharper.' },
+    { Name:'Kushagra Barai',       College:'IIM Mumbai',       Quote:'I learnt how to connect my profile to every answer.' },
+    { Name:'Dhamo Dharan',         College:'IIT Madras',       Quote:'Structured mocks helped me stay calm under pressure.' },
+    { Name:'Sandeep',              College:'IIM Bangalore',    Quote:'Their GDPI guidance helped me bring out my best points.' },
+    { Name:'Pranav',               College:'FMS Delhi',        Quote:'Short, focused prep sessions made a big difference.' },
+    { Name:'Gaurav Sarkar',        College:'IIM Kozhikode',    Quote:'The mock feedback helped me fix gaps before the final PI.' },
+    { Name:'Rudra',                College:'IIM Trichy',       Quote:'I became more confident with every mock and review.' },
+    { Name:'Dev Chauhan',          College:'IIM Ahmedabad',    Quote:'Mentors helped me build a crisp, convincing interview story.' },
+    { Name:'Sanjana Rai',          College:'MDI Gurgaon',      Quote:'The GDPI course gave me clarity on what panels expect.' },
+    { Name:'Ayan Murmu',           College:'IIM Calcutta',     Quote:'The answer frameworks helped me communicate with impact.' },
+    { Name:'Medha Rajhans',        College:'IIM Nagpur',       Quote:'Mock interviews helped me identify and improve weak areas.' },
+    { Name:'Yusuf Hasan',          College:'XLRI Jamshedpur',  Quote:'The practice made my PI answers more natural and precise.' },
+    { Name:'Aastha Maurya',        College:'XLRI Jamshedpur',  Quote:'Mentor feedback helped me polish my WAT and PI approach.' },
+    { Name:'Sankalp Annavarpu',    College:'FMS Delhi',        Quote:'The mocks gave me confidence to handle tough follow-ups.' },
+    { Name:'Piyush Kumar Jha',     College:'IIM Mumbai',       Quote:'GDPI prep helped me convert preparation into confidence.' }
   ]
 };
 

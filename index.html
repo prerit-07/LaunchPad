@@ -31,8 +31,16 @@
     Courses
 </button>
       <button class="nav-a" onclick="window.location.href='testimonials.html'">Testimonials</button>
-      <a class="nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
-      <a class="nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+      <div class="nav-free-res">
+        <button class="nav-a nav-free-btn"><i class="ti ti-book-download" style="font-size:14px;margin-right:4px"></i>Free Resources<i class="ti ti-chevron-down nav-free-chev"></i></button>
+        <div class="nav-free-menu">
+          <a class="nav-free-item" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank"><i class="ti ti-file-cv"></i><span>Sample CV</span></a>
+          <a class="nav-free-item" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank"><i class="ti ti-book-2"></i><span>Compendium</span></a>
+          <a class="nav-free-item" href="#free-sessions"><i class="ti ti-player-play-filled"></i><span>Free Session</span></a>
+        </div>
+      </div>
+      <button class="nav-a" onclick="window.location.href='college-collab.html'">College Collab</button>
+      <button class="nav-a" onclick="window.location.href='enroll.html'">Enrol &amp; Refer</button>
       <div class="nav-sep"></div>
       <button class="nav-login" id="loginBtn">Login</button>
       <a class="nav-call" href="tel:+917042732092">Call Us</a>
@@ -52,9 +60,15 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-nav-a" onclick="goHome();closeMobileNav()">Home</button>
     <button class="mobile-nav-a" onclick="window.location.href='courses.html';closeMobileNav()">Courses</button>
+    <button class="mobile-nav-a" onclick="window.location.href='enroll.html';closeMobileNav()">Enrol &amp; Refer</button>
     <button class="mobile-nav-a" onclick="window.location.href='testimonials.html';closeMobileNav()">Testimonials</button>
-    <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
-    <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+    <button class="mobile-nav-a mobile-free-btn" id="mobileFreeResBtn"><i class="ti ti-book-download"></i> Free Resources <i class="ti ti-chevron-down" id="mobileFreeIcon" style="font-size:12px;transition:.2s;margin-left:auto"></i></button>
+    <div class="mobile-free-sub" id="mobileFreeMenu">
+      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank" style="padding-left:28px"><i class="ti ti-file-cv"></i> Sample CV</a>
+      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank" style="padding-left:28px"><i class="ti ti-book-2"></i> Compendium</a>
+      <a class="mobile-nav-a" href="#free-sessions" onclick="closeMobileNav()" style="padding-left:28px"><i class="ti ti-player-play-filled"></i> Free Session</a>
+    </div>
+    <button class="mobile-nav-a" onclick="window.location.href='college-collab.html';closeMobileNav()">College Collab</button>
     <div class="mobile-nav-btns">
       <button class="nav-login" id="loginBtnMobile" style="flex:1">Login</button>
       <a class="nav-call" href="tel:+917042732092" style="flex:1;text-align:center">Call Us</a>
@@ -273,7 +287,7 @@
     </section>
 
     <!-- FREE SESSIONS -->
-    <section class="free-sec">
+    <section class="free-sec" id="free-sessions">
       <div class="wrap">
         <div style="text-align:center">
           <div class="sec-label">Free Sessions</div>
@@ -509,7 +523,7 @@
           <h2 class="sec-h">Students We've Mentored for GDPI</h2>
           <p class="sec-sub">Aspirants who took our GDPI Flagship and solved our free sectionals — now headed to India's top B-schools.</p>
         </div>
-        <div class="collab-colleges reveal" id="gdpiGrid"></div>
+        <div class="gdpi-cards-grid" id="gdpiGrid"></div>
       </div>
     </section>
 
@@ -761,7 +775,7 @@
     const cEl = document.getElementById('collabColleges');
     if (cEl) cEl.innerHTML = (data.colleges||[]).map(c => `<div class="collab-college"><i class="ti ti-building-bank"></i> ${c.Name}</div>`).join('');
     const gEl = document.getElementById('gdpiGrid');
-    if (gEl) gEl.innerHTML = (data.gdpi||[]).map(g => `<div class="collab-college"><i class="ti ti-user-check"></i> ${g.Name} · ${g.College}</div>`).join('');
+    if (gEl) gEl.innerHTML = (data.gdpi||[]).map(g => `<div class="gdpi-tcard reveal"><div class="gdpi-tcard-stars">★★★★★</div><p class="gdpi-tcard-quote">&ldquo;${g.Quote||''}&rdquo;</p><div class="gdpi-tcard-footer"><div><div class="gdpi-tcard-name">${g.Name}</div><div class="gdpi-tcard-college">${g.College}</div></div><span class="gdpi-tcard-badge">GDPI</span></div></div>`).join('');
   })();
   </script>
 
@@ -873,6 +887,29 @@
     var ex=document.getElementById('uspExplore'); if(ex) ex.onclick=function(){ dismiss(); if(typeof goToCourses==='function') goToCourses(); else window.location.href='courses.html'; };
     overlay.addEventListener('click',function(e){ if(e.target===overlay) dismiss(); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && overlay.classList.contains('usp-open')) dismiss(); });
+  })();
+  </script>
+  <!-- FLOATING SOCIAL RAIL -->
+  <div class="float-social" id="floatSocial">
+    <a class="float-social-btn whatsapp" href="https://chat.whatsapp.com/EdyvGJbQoV9Jj6eC0slSx9" target="_blank" aria-label="WhatsApp Community" title="Join WhatsApp Community">
+      <i class="ti ti-brand-whatsapp"></i><span class="float-social-label">WhatsApp</span>
+    </a>
+    <a class="float-social-btn instagram" href="https://www.instagram.com/mbapartner.in/" target="_blank" aria-label="Follow on Instagram" title="Follow on Instagram">
+      <i class="ti ti-brand-instagram"></i><span class="float-social-label">Instagram</span>
+    </a>
+    <a class="float-social-btn linkedin" href="https://www.linkedin.com/in/prodmarkconsulting" target="_blank" aria-label="LinkedIn" title="Connect on LinkedIn">
+      <i class="ti ti-brand-linkedin"></i><span class="float-social-label">LinkedIn</span>
+    </a>
+    <a class="float-social-btn youtube" href="https://youtube.com/@mbapartner" target="_blank" aria-label="YouTube" title="Watch on YouTube">
+      <i class="ti ti-brand-youtube"></i><span class="float-social-label">YouTube</span>
+    </a>
+  </div>
+  <script>
+  (function(){
+    var mfBtn=document.getElementById('mobileFreeResBtn');
+    var mfMenu=document.getElementById('mobileFreeMenu');
+    var mfIcon=document.getElementById('mobileFreeIcon');
+    if(mfBtn&&mfMenu){ mfBtn.onclick=function(){ var open=mfMenu.classList.toggle('open'); if(mfIcon) mfIcon.style.transform=open?'rotate(180deg)':''; }; }
   })();
   </script>
   <script src="js/chatbot-widget.js"></script>
