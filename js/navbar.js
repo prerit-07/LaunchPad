@@ -239,10 +239,6 @@ function renderGrid(filter){
   empty.style.display='none';
   grid.innerHTML=list.map(({t,i})=>cardHtml(t,i)).join('');
 }
-function updateCounts(){
-  document.getElementById('fcAll').textContent=TESTIMONIALS.length;
-  document.getElementById('fcIIM').textContent=TESTIMONIALS.filter(t=>t.tags.includes('iim')).length;
-}
 function initFilter(){
   document.querySelectorAll('.fchip').forEach(btn=>{
     btn.onclick=()=>{
@@ -274,18 +270,45 @@ async function renderPlacements(){
 }
 function plCard(p){
   const dom = p.Domain ? `<span class="pl-dom">${p.Domain}</span>` : '';
+  const co  = p.Company
+    ? `<div class="pl-co">${p.Company}</div>`
+    : `<div class="pl-co-empty">Placement Pending</div>`;
+  const college = p.College ? `<div class="pl-college"><i class="ti ti-building-bank"></i> ${p.College}${dom}</div>` : '';
   return `<div class="pl-card">
-    <div class="pl-co">${p.Company}</div>
-    <div class="pl-name">${p.Name}</div>
-    <div class="pl-college"><i class="ti ti-building-bank"></i> ${p.College}${dom}</div>
+    <div class="pl-card-head"><div class="pl-name">${p.Name}</div></div>
+    <div class="pl-card-body">${co}${college}</div>
   </div>`;
 }
+
 function drawPlacements(){
-  const list = plFilter==='all' ? PL_DATA : PL_DATA.filter(p => String(p.Batch||'').toLowerCase()===plFilter);
+  let list;
+  const f = plFilter;
+  if (f === 'all') {
+    list = PL_DATA;
+  } else if (f === 'iim') {
+    list = PL_DATA.filter(p => /\bIIM\b/i.test(p.College || ''));
+  } else if (f === 'xlri') {
+    list = PL_DATA.filter(p => /\bXLRI\b/i.test(p.College || ''));
+  } else if (f === 'consulting') {
+    list = PL_DATA.filter(p => /consulting/i.test(p.Domain || ''));
+  } else if (f === 'finance') {
+    list = PL_DATA.filter(p => /finance/i.test(p.Domain || ''));
+  } else if (f === 'marketing') {
+    list = PL_DATA.filter(p => /marketing/i.test(p.Domain || ''));
+  } else if (f === 'final') {
+    list = PL_DATA.filter(p => String(p.Batch || '').toLowerCase() === 'final');
+  } else if (f === 'summer') {
+    list = PL_DATA.filter(p => String(p.Batch || '').toLowerCase() === 'summer');
+  } else {
+    list = PL_DATA;
+  }
   const g = document.getElementById('hofGrid');
   if (!g) return;
-  g.innerHTML = list.map(plCard).join('');
+  g.innerHTML = list.length
+    ? list.map(plCard).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif">No results for this filter.</div>`;
 }
+
 
 /* VIDEO TESTIMONIALS (dynamic, from js/site-data.js → Google Sheet) */
 function vidEmbedUrl(url){
@@ -379,7 +402,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
 /* INIT */
 initTicker();
 initMarquee();
-updateCounts();
 renderGrid('all');
 renderPlacements();
 renderVideoTestimonials();

@@ -1,7 +1,7 @@
 /* ===== DATA ===== */
 const DOMAINS=[
-  {key:'marketing',label:'Marketing'},{key:'finance',label:'Finance'},{key:'operations',label:'Operations'},
-  {key:'hr',label:'HR'},{key:'strategy',label:'Strategy'}
+  {key:'finance',label:'Finance'},{key:'consulting',label:'Consulting'},{key:'hr',label:'HR'},
+  {key:'product',label:'Product Management'},{key:'marketing',label:'Marketing'},{key:'operations',label:'Operations'}
 ];
 const CATS=[
   {key:'combo',label:'Combos'},{key:'bootcamp',label:'Placement bootcamp'},

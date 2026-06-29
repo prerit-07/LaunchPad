@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/chatbot-widget.css"/>
+<script src="js/site-nav.js"></script>
 <script src="js/nav-auth.js"></script>
 </head>
 <body>
@@ -107,8 +108,8 @@
 <!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="wrap filter-inner" id="filterBar">
-    <button class="fchip on" data-f="all">All <span class="fcnt" id="fcAll">0</span></button>
-    <button class="fchip" data-f="iim">IIM <span class="fcnt" id="fcIIM">0</span></button>
+    <button class="fchip on" data-f="all">All</button>
+    <button class="fchip" data-f="iim">IIM</button>
     <button class="fchip" data-f="xlri">XLRI</button>
     <button class="fchip" data-f="consulting">Consulting</button>
     <button class="fchip" data-f="finance">Finance</button>
@@ -141,8 +142,13 @@
     </div>
     <div class="pl-filter reveal" id="plFilter">
       <button class="pl-chip on" data-b="all">All</button>
-      <button class="pl-chip" data-b="final">Final placements</button>
-      <button class="pl-chip" data-b="summer">Summer internships</button>
+      <button class="pl-chip" data-b="iim">IIM</button>
+      <button class="pl-chip" data-b="xlri">XLRI</button>
+      <button class="pl-chip" data-b="consulting">Consulting</button>
+      <button class="pl-chip" data-b="finance">Finance</button>
+      <button class="pl-chip" data-b="marketing">Marketing / FMCG</button>
+      <button class="pl-chip" data-b="final">Final Placements</button>
+      <button class="pl-chip" data-b="summer">Summer Internships</button>
     </div>
     <div class="hof-grid pl-wall reveal" id="hofGrid"></div>
   </div>

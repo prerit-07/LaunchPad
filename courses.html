@@ -10,6 +10,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link rel="stylesheet" href="css/courses.css">
 <link rel="stylesheet" href="css/chatbot-widget.css"/>
+<style>
+.nav-free-res{position:relative;display:inline-flex;align-items:center}
+.nav-free-btn{display:inline-flex;align-items:center;gap:5px}
+.nav-free-chev{font-size:11px;margin-left:2px;transition:transform .2s}
+.nav-free-res:hover .nav-free-chev{transform:rotate(180deg)}
+.nav-free-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:190px;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.97);transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:200}
+.nav-free-res:hover .nav-free-menu{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.nav-free-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;color:#1B2A6B;transition:.15s;text-decoration:none}
+.nav-free-item:hover{background:#F0F2F8;color:#FF8B02}
+.nav-free-item i{font-size:16px;color:#FF8B02}
+.mobile-free-sub{display:none;overflow:hidden;flex-direction:column;gap:2px}
+.mobile-free-sub.open{display:flex}
+.mobile-free-btn{display:flex;align-items:center;gap:8px}
+.mobile-free-btn i:first-child{color:rgba(255,255,255,.8)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var b=document.getElementById('mobileFreeResBtn'),m=document.getElementById('mobileFreeMenu'),i=document.getElementById('mobileFreeIcon');
+  if(b&&m)b.addEventListener('click',function(){var o=m.classList.toggle('open');if(i)i.style.transform=o?'rotate(180deg)':'';});
+});
+</script>
 <script src="js/nav-auth.js"></script>
 </head>
 <body>
@@ -27,8 +48,15 @@
         <button class="nav-a" onclick="window.location.href='index.html'">Home</button>
         <button class="nav-a active-link" onclick="window.location.href='courses.html'">Courses</button>
         <button class="nav-a" onclick="window.location.href='testimonials.html'">Testimonials</button>
-        <a class="nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
-        <a class="nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+        <div class="nav-free-res">
+          <button class="nav-a nav-free-btn"><i class="ti ti-book-download" style="font-size:14px;margin-right:4px"></i>Free Resources<i class="ti ti-chevron-down nav-free-chev"></i></button>
+          <div class="nav-free-menu">
+            <a class="nav-free-item" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank"><i class="ti ti-file-cv"></i><span>Sample CV</span></a>
+            <a class="nav-free-item" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank"><i class="ti ti-book-2"></i><span>Compendium</span></a>
+            <a class="nav-free-item" href="index.html#free-sessions"><i class="ti ti-player-play-filled"></i><span>Free Session</span></a>
+          </div>
+        </div>
+        <button class="nav-a" onclick="window.location.href='college-collab.html'">College Collab</button>
         <button class="nav-a" onclick="window.location.href='enroll.html'">Enrol &amp; Refer</button>
       <div class="nav-sep"></div>
         <button class="nav-login" id="loginBtn">Login</button>
@@ -55,8 +83,13 @@
       <button class="mobile-nav-a" onclick="window.location.href='index.html';closeMobileNav()">Home</button>
       <button class="mobile-nav-a" onclick="window.location.href='courses.html';closeMobileNav()">Courses</button>
       <button class="mobile-nav-a" onclick="window.location.href='testimonials.html';closeMobileNav()">Testimonials</button>
-      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank">Compendiums</a>
-      <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank">Sample CVs</a>
+      <button class="mobile-nav-a mobile-free-btn" id="mobileFreeResBtn"><i class="ti ti-book-download"></i> Free Resources <i class="ti ti-chevron-down" id="mobileFreeIcon" style="font-size:12px;transition:.2s;margin-left:auto"></i></button>
+      <div class="mobile-free-sub" id="mobileFreeMenu">
+        <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/18bj7C4I4Ro1DcOBfzF6xrEhNI7SmEZe2" target="_blank" style="padding-left:28px"><i class="ti ti-file-cv"></i> Sample CV</a>
+        <a class="mobile-nav-a" href="https://drive.google.com/drive/folders/1Ir9BWGjYgYsLJwneq9WoTI6dbDezXS_H" target="_blank" style="padding-left:28px"><i class="ti ti-book-2"></i> Compendium</a>
+        <a class="mobile-nav-a" href="index.html#free-sessions" style="padding-left:28px"><i class="ti ti-player-play-filled"></i> Free Session</a>
+      </div>
+      <button class="mobile-nav-a" onclick="window.location.href='college-collab.html';closeMobileNav()">College Collab</button>
       <div class="mobile-nav-btns">
         <button class="nav-login" id="loginBtnMobile" style="flex:1">Login</button>
         <a class="nav-call" href="tel:+917042732092" style="flex:1;text-align:center">Call Us</a>
