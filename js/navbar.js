@@ -298,13 +298,24 @@ function vidEmbedUrl(url){
   if(m) return 'https://drive.google.com/file/d/'+m[1]+'/preview';
   return url;
 }
+function vidThumbUrl(v){
+  if(v.Thumbnail) return v.Thumbnail;
+  const u = v.VideoURL || '';
+  let m = u.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  if(m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w640';
+  m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  if(m) return 'https://img.youtube.com/vi/' + m[1] + '/hqdefault.jpg';
+  return '';
+}
 function vidCard(v){
   const has = v.VideoURL && v.VideoURL !== '#';
   const dur = v.Duration ? `<span class="vid-duration">${v.Duration}</span>` : '';
   const co  = v.Company ? `<span class="vid-company"><i class="ti ti-building-bank"></i> ${v.Company}</span>` : '';
   const meta = [v.College, v.Domain].filter(Boolean).join(' · ');
+  const thumb = vidThumbUrl(v);
   return `<div class="vid-card${has?'':' soon'}" ${has?`onclick="openVidLb('${vidEmbedUrl(v.VideoURL)}')"`:''}>
     <div class="vid-thumb">
+      ${thumb ? `<img class="vid-thumb-img" src="${thumb}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}
       ${has ? `<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>` : `<div class="vid-soon-tag">Video coming soon</div>`}
       ${dur}
     </div>

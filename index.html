@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/chatbot-widget.css"/>
+<script src="js/nav-auth.js"></script>
 </head>
 <body>
 
@@ -861,8 +863,8 @@
     var KEY='mbaUspSeen';
     var overlay=document.getElementById('uspOverlay');
     if(!overlay) return;
-    var seen=null; try{ seen=localStorage.getItem(KEY); }catch(e){}
-    function dismiss(){ overlay.classList.remove('usp-open'); try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+    var seen=null; try{ seen=sessionStorage.getItem(KEY); }catch(e){}
+    function dismiss(){ overlay.classList.remove('usp-open'); try{ sessionStorage.setItem(KEY,'1'); }catch(e){} }
     if(!seen){ setTimeout(function(){ overlay.classList.add('usp-open'); }, 1400); }
     var c=document.getElementById('uspClose'); if(c) c.onclick=dismiss;
     var l=document.getElementById('uspLater'); if(l) l.onclick=dismiss;
@@ -871,5 +873,6 @@
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && overlay.classList.contains('usp-open')) dismiss(); });
   })();
   </script>
+  <script src="js/chatbot-widget.js"></script>
 </body>
 </html>
