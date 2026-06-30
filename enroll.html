@@ -92,6 +92,21 @@ button{cursor:pointer;font-family:inherit}
 .course-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(27,42,107,.12);border-color:rgba(255,139,2,.4)}
 .course-card.featured{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,139,2,.15)}
 .card-img{height:160px;object-fit:cover;width:100%;display:block;background:linear-gradient(135deg,var(--navy),#2B3D8A)}
+.card-img.banner-fit-bundle{object-fit:contain !important;background:#101c4c !important}
+.card-img.banner-fit-bootcamp{object-fit:contain !important;background:#3b3b3b !important}
+.card-img.banner-fit-excel{object-fit:contain !important;background:#0f233c !important}
+.card-img.banner-fit-powerbi{object-fit:contain !important;background:#301434 !important}
+.card-img.banner-fit-case{object-fit:contain !important;background:#3a1654 !important}
+/* ===== PROFESSIONAL COURSE ART (replaces poster photos) ===== */
+.card-img-wrap .course-art{width:100%;height:100%}
+.course-art{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
+.course-art::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 22%,rgba(255,255,255,.13),transparent 60%);pointer-events:none}
+.course-art .art-ico{font-size:66px;color:rgba(255,255,255,.95);position:relative;z-index:1}
+.course-art.cat-combo{background:linear-gradient(135deg,#1B2A6B 0%,#FF8B02 135%)}
+.course-art.cat-bootcamp{background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
+.course-art.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1B2F8A 100%)}
+.course-art.cat-case{background:linear-gradient(135deg,#D97400 0%,#FF8B02 115%)}
+.course-art.cat-cert{background:linear-gradient(135deg,#223278 0%,#3A4FB0 100%)}
 .card-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;background:var(--orange);color:#fff;padding:3px 10px;border-radius:20px}
 .card-img-wrap{position:relative}
 .card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
@@ -460,35 +475,36 @@ button{cursor:pointer;font-family:inherit}
 <div class="float-social">
   <a class="float-social-btn whatsapp" href="https://chat.whatsapp.com/EdyvGJbQoV9Jj6eC0slSx9" target="_blank"><i class="ti ti-brand-whatsapp"></i><span class="float-social-label">WhatsApp</span></a>
   <a class="float-social-btn telegram" href="https://t.me/+IrnzgXdUKqsyOTZl" target="_blank"><i class="ti ti-brand-telegram"></i><span class="float-social-label">Telegram</span></a>
-  <a class="float-social-btn instagram" href="https://www.instagram.com/mbapartner.in/" target="_blank"><i class="ti ti-brand-instagram"></i><span class="float-social-label">Instagram</span></a>
+  <a class="float-social-btn instagram" href="https://www.instagram.com/mba_partner?igsh=dGZuMmoyb3V2eDlx-" target="_blank"><i class="ti ti-brand-instagram"></i><span class="float-social-label">Instagram</span></a>
 </div>
 
 <script>
 /* ── COURSE DATA ── */
 const COURSES=[
-  {id:'flagship-bundle',cat:'combo',type:'Flagship Bundle',badge:'Best Value',title:'The Complete Placement Bundle',desc:'Bootcamp, 2-month live project and case competition prep — everything in one track.',price:13999,mrp:14500,off:'Save ₹501',rating:4.9,students:4120,groupOffer:true,img:'photo-1454165804606-c3d57bc86b40'},
-  {id:'placement-bootcamp',cat:'bootcamp',type:'Solo',badge:'Bestseller',title:'Placement Bootcamp',desc:'CV building, mock interviews and core domain sessions to make you Day-1 ready.',price:7499,mrp:7999,off:null,rating:4.8,students:6240,groupOffer:true,img:'photo-1521737604893-d14cc237f11d'},
+  {id:'flagship-bundle',cat:'combo',type:'Flagship Bundle',badge:'Best Value',title:'The Complete Placement Bundle',desc:'Bootcamp, 2-month live project and case competition prep — everything in one track.',price:13999,mrp:14500,off:'Save ₹501',rating:4.9,students:4120,groupOffer:true,img:'images/complete-placement-bundle.png'},
+  {id:'placement-bootcamp',cat:'bootcamp',type:'Solo',badge:'Bestseller',title:'Placement Bootcamp',desc:'CV building, mock interviews and core domain sessions to make you Day-1 ready.',price:7499,mrp:7999,off:null,rating:4.8,students:6240,groupOffer:true,img:'images/placement-bootcamp.png'},
   {id:'bootcamp-case',cat:'bootcamp',type:'Combo',badge:null,title:'Bootcamp + Case Competitions',desc:'Win case competitions while landing placements.',price:9499,mrp:9999,off:'5% off',rating:4.7,students:2110,groupOffer:true,img:'photo-1552664730-d307ca884978'},
   {id:'bootcamp-live',cat:'bootcamp',type:'Combo',badge:null,title:'Bootcamp + Live Project',desc:'Real consulting experience paired with full placement training.',price:11499,mrp:11999,off:'4% off',rating:4.8,students:1890,groupOffer:true,img:'photo-1517245386807-bb43f82c33c4'},
   {id:'live-1',cat:'live',type:'Internship',badge:null,title:'Live Project — 1 Domain',desc:'Build real deliverables, earn 5 verifiable CV points.',price:4000,mrp:4500,off:'11% off',rating:4.6,students:3320,groupOffer:true,img:'photo-1542744173-8e7e53415bb0'},
   {id:'live-2',cat:'live',type:'Internship',badge:null,title:'Live Project — 2 Domains',desc:'Double exposure across two domains with AI-ready CV.',price:7500,mrp:7999,off:'6% off',rating:4.7,students:2480,groupOffer:true,img:'photo-1531973576160-7125cd663d86'},
-  {id:'case-dominate',cat:'case',type:'Standalone',badge:'Bestseller',title:'Dominating Case Competitions',desc:'Learn to win from an AIR 1 mentor — 30+ winning PPTs.',price:3499,mrp:3999,off:'13% off',rating:4.9,students:5010,groupOffer:true,img:'photo-1567427017947-545c5f8d16ad'},
+  {id:'case-dominate',cat:'case',type:'Standalone',badge:'Bestseller',title:'Dominating Case Competitions',desc:'Learn to win from an AIR 1 mentor — 30+ winning PPTs.',price:3499,mrp:3999,off:'13% off',rating:4.9,students:5010,groupOffer:true,img:'images/case-competitions.png'},
   {id:'case-live',cat:'case',type:'Combo',badge:null,title:'Case Competitions + Live Project',desc:'Combine case wins with real consulting experience.',price:8499,mrp:8999,off:'6% off',rating:4.7,students:1450,groupOffer:true,img:'photo-1543286386-713bdd548da4'},
-  {id:'adv-excel',cat:'cert',type:'Certification',badge:null,title:'Advanced Excel',desc:'Formulas, pivot tables, dashboards and automation.',price:1199,mrp:1499,off:null,rating:4.6,students:7820,groupOffer:false,img:'photo-1460925895917-afdab827c52f'},
-  {id:'power-bi',cat:'cert',type:'Certification',badge:null,title:'Power BI Certification',desc:'Build real-time dynamic dashboards.',price:1499,mrp:null,off:null,rating:4.7,students:5630,groupOffer:false,img:'photo-1551288049-bebda4e38f71'}
+  {id:'adv-excel',cat:'cert',type:'Certification',badge:null,title:'Advanced Excel',desc:'Formulas, pivot tables, dashboards and automation.',price:1199,mrp:1499,off:null,rating:4.6,students:7820,groupOffer:false,img:'images/advanced-excel.png'},
+  {id:'power-bi',cat:'cert',type:'Certification',badge:null,title:'Power BI Certification',desc:'Build real-time dynamic dashboards.',price:1499,mrp:null,off:null,rating:4.7,students:5630,groupOffer:false,img:'images/power-bi.png'}
 ];
 
 const fmt=n=>'₹'+Number(n).toLocaleString('en-IN');
-const IMG=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=70`;
+const IMG=id=>(id.startsWith('http') || id.startsWith('images/')) ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=70`;
 const stars=r=>Array.from({length:5},(_, i)=>`<i class="ti ${r>=i+1?'ti-star-filled':r>=i+.5?'ti-star-half-filled':'ti-star'}"></i>`).join('');
 
 let activeCat='all';
+const CAT_ICON={combo:'ti-stack-2',bootcamp:'ti-rocket',live:'ti-briefcase',case:'ti-trophy',cert:'ti-certificate'};
 function renderGrid(){
   const list=activeCat==='all'?COURSES:COURSES.filter(c=>c.cat===activeCat);
   document.getElementById('enrollGrid').innerHTML=list.map(c=>`
     <div class="course-card${c.badge==='Best Value'?' featured':''}">
       <div class="card-img-wrap">
-        <img class="card-img" src="${IMG(c.img)}" alt="${c.title}" loading="lazy"/>
+        <div class="course-art cat-${c.cat}"><i class="ti ${CAT_ICON[c.cat]||'ti-school'} art-ico"></i></div>
         ${c.badge?`<div class="card-badge">${c.badge}</div>`:''}
       </div>
       <div class="card-body">

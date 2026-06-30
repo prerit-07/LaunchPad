@@ -177,6 +177,11 @@ button{cursor:pointer}
 .card-vis{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(100deg,#eee 25%,#f6f6f6 37%,#eee 63%);background-size:200% 100%;animation:shimmer 1.4s linear infinite}
 .card-vis img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s,transform .5s var(--ease)}
 .card-vis img.loaded{opacity:1}
+.card-vis img.banner-fit-bundle{object-fit:contain !important;background:#101c4c !important}
+.card-vis img.banner-fit-bootcamp{object-fit:contain !important;background:#3b3b3b !important}
+.card-vis img.banner-fit-excel{object-fit:contain !important;background:#0f233c !important}
+.card-vis img.banner-fit-powerbi{object-fit:contain !important;background:#301434 !important}
+.card-vis img.banner-fit-case{object-fit:contain !important;background:#3a1654 !important}
 .card:hover .card-vis img{transform:scale(1.07)}
 .card-vis::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.3));pointer-events:none}
 .card-vis .badge{position:absolute;top:10px;left:10px;z-index:2;font-size:11px;font-weight:700;background:#ECEB98;color:#3D3C0A;padding:4px 9px;border-radius:4px}
@@ -206,6 +211,11 @@ button{cursor:pointer}
 .dt-rating .num{color:#92590A;font-weight:800}.dt-rating .stars{color:var(--star)}
 .dt-banner{border-radius:var(--r);overflow:hidden;margin:24px 0 0;background:var(--surface2);height:220px;max-height:240px}
 .dt-banner img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%}
+.dt-banner img.banner-fit-bundle{object-fit:contain !important;background:#101c4c !important}
+.dt-banner img.banner-fit-bootcamp{object-fit:contain !important;background:#3b3b3b !important}
+.dt-banner img.banner-fit-excel{object-fit:contain !important;background:#0f233c !important}
+.dt-banner img.banner-fit-powerbi{object-fit:contain !important;background:#301434 !important}
+.dt-banner img.banner-fit-case{object-fit:contain !important;background:#3a1654 !important}
 .dt-grid{display:grid;grid-template-columns:1fr 310px;gap:48px;padding:32px 0 60px}
 .dt-block{margin-bottom:38px}
 .dt-block h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:16px}
@@ -234,6 +244,11 @@ button{cursor:pointer}
 .buy{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0;height:fit-content;box-shadow:0 8px 28px rgba(26,31,78,.1);overflow:hidden}
 .buy-vis{aspect-ratio:16/7;overflow:hidden;background:var(--surface2);max-height:160px}
 .buy-vis img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%}
+.buy-vis img.banner-fit-bundle{object-fit:contain !important;background:#101c4c !important}
+.buy-vis img.banner-fit-bootcamp{object-fit:contain !important;background:#3b3b3b !important}
+.buy-vis img.banner-fit-excel{object-fit:contain !important;background:#0f233c !important}
+.buy-vis img.banner-fit-powerbi{object-fit:contain !important;background:#301434 !important}
+.buy-vis img.banner-fit-case{object-fit:contain !important;background:#3a1654 !important}
 .buy-pad{padding:20px 22px 22px}
 .variant-group{margin-bottom:14px}
 .variant-label{font-size:10px;font-weight:700;color:var(--ink2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
