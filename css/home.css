@@ -510,25 +510,36 @@ button{cursor:pointer}
 .float-social-btn:hover i{transform:scale(1.1)}
 @media(max-width:600px){.float-social{top:auto;bottom:80px;transform:none}}
 
-/* ===== PROFESSIONAL COURSE ART (replaces poster photos) ===== */
-.card-vis{background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.card-vis::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 22%,rgba(255,255,255,.13),transparent 60%);pointer-events:none}
-.card-art-ico{font-size:54px;color:rgba(255,255,255,.95);position:relative;z-index:1}
-.card-vis.cat-combo{background:linear-gradient(135deg,#1B2A6B 0%,#FF8B02 135%)}
-.card-vis.cat-bootcamp{background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
-.card-vis.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1B2F8A 100%)}
-.card-vis.cat-case{background:linear-gradient(135deg,#D97400 0%,#FF8B02 115%)}
-.card-vis.cat-cert{background:linear-gradient(135deg,#223278 0%,#3A4FB0 100%)}
-.course-art{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
-.course-art::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 26% 20%,rgba(255,255,255,.14),transparent 62%);pointer-events:none}
-.course-art .art-ico{font-size:88px;color:rgba(255,255,255,.96);position:relative;z-index:1}
-.course-art.course-art-lg{min-height:220px}
+/* ===== PROFESSIONAL COURSE BANNER ===== */
+.card-vis{position:relative;overflow:hidden;display:block;height:auto!important;min-height:152px;padding:16px 16px 15px;background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.card-vis::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:22px 22px;opacity:.6;pointer-events:none}
+.card-vis::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FF8B02,#FFB347);z-index:2}
+.card-vis .badge{position:absolute;top:13px;right:13px;left:auto;z-index:3}
+.cv-mark{position:absolute;right:-12px;bottom:-18px;font-size:108px;line-height:1;color:rgba(255,255,255,.07);transform:rotate(-8deg);z-index:0}
+.cv-info{position:relative;z-index:1}
+.cv-chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#FFD9A8;background:rgba(255,139,2,.16);border:1px solid rgba(255,139,2,.32);padding:4px 10px;border-radius:20px}
+.cv-h{font-size:17px;font-weight:800;color:#fff;line-height:1.22;margin-top:11px;letter-spacing:-.01em}
+.cv-meta{display:flex;gap:14px;margin-top:9px}
+.cv-meta span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.72)}
+.cv-meta i{font-size:13px;color:#FF8B02}
+.card-vis.cat-combo{background:linear-gradient(135deg,#16235c 0%,#3a2f6e 100%)}
+.card-vis.cat-bootcamp{background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.card-vis.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1b2f8a 100%)}
+.card-vis.cat-case{background:linear-gradient(135deg,#3a1f5e 0%,#5a2a86 100%)}
+.card-vis.cat-cert{background:linear-gradient(135deg,#16235c 0%,#2a3f9a 100%)}
+.course-art{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.course-art::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:26px 26px;opacity:.6;pointer-events:none}
+.course-art .art-ico{font-size:84px;color:rgba(255,255,255,.9);position:relative;z-index:1}
+.course-art.course-art-lg{min-height:210px;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:26px}
+.course-art.course-art-lg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,#FF8B02,#FFB347)}
+.course-art-lg .cv-mark{font-size:150px;right:-14px;bottom:-22px;color:rgba(255,255,255,.08)}
+.course-art-lg .cv-h{font-size:26px}
 .buy-vis.course-art{min-height:160px}
-.course-art.cat-combo{background:linear-gradient(135deg,#1B2A6B 0%,#FF8B02 135%)}
-.course-art.cat-bootcamp{background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
-.course-art.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1B2F8A 100%)}
-.course-art.cat-case{background:linear-gradient(135deg,#D97400 0%,#FF8B02 115%)}
-.course-art.cat-cert{background:linear-gradient(135deg,#223278 0%,#3A4FB0 100%)}
+.course-art.cat-combo{background:linear-gradient(135deg,#16235c 0%,#3a2f6e 100%)}
+.course-art.cat-bootcamp{background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.course-art.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1b2f8a 100%)}
+.course-art.cat-case{background:linear-gradient(135deg,#3a1f5e 0%,#5a2a86 100%)}
+.course-art.cat-cert{background:linear-gradient(135deg,#16235c 0%,#2a3f9a 100%)}
 
 /* ===== College collaborations ===== */
 .collab-sec{padding:72px 0}

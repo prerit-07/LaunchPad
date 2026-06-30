@@ -97,16 +97,20 @@ button{cursor:pointer;font-family:inherit}
 .card-img.banner-fit-excel{object-fit:contain !important;background:#0f233c !important}
 .card-img.banner-fit-powerbi{object-fit:contain !important;background:#301434 !important}
 .card-img.banner-fit-case{object-fit:contain !important;background:#3a1654 !important}
-/* ===== PROFESSIONAL COURSE ART (replaces poster photos) ===== */
+/* ===== PROFESSIONAL COURSE BANNER ===== */
 .card-img-wrap .course-art{width:100%;height:100%}
-.course-art{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
-.course-art::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 22%,rgba(255,255,255,.13),transparent 60%);pointer-events:none}
-.course-art .art-ico{font-size:66px;color:rgba(255,255,255,.95);position:relative;z-index:1}
-.course-art.cat-combo{background:linear-gradient(135deg,#1B2A6B 0%,#FF8B02 135%)}
-.course-art.cat-bootcamp{background:linear-gradient(135deg,#1B2A6B 0%,#2B3D8A 100%)}
-.course-art.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1B2F8A 100%)}
-.course-art.cat-case{background:linear-gradient(135deg,#D97400 0%,#FF8B02 115%)}
-.course-art.cat-cert{background:linear-gradient(135deg,#223278 0%,#3A4FB0 100%)}
+.course-art{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;position:relative;overflow:hidden;padding:18px;background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.course-art::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:24px 24px;opacity:.6;pointer-events:none}
+.course-art::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FF8B02,#FFB347);z-index:2}
+.course-art .cv-mark{position:absolute;right:-12px;bottom:-18px;font-size:120px;line-height:1;color:rgba(255,255,255,.07);transform:rotate(-8deg);z-index:0}
+.course-art .cv-info{position:relative;z-index:1}
+.course-art .cv-chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#FFD9A8;background:rgba(255,139,2,.16);border:1px solid rgba(255,139,2,.32);padding:4px 10px;border-radius:20px}
+.course-art .cv-h{font-size:19px;font-weight:800;color:#fff;line-height:1.22;margin-top:10px;letter-spacing:-.01em}
+.course-art.cat-combo{background:linear-gradient(135deg,#16235c 0%,#3a2f6e 100%)}
+.course-art.cat-bootcamp{background:linear-gradient(135deg,#16235c 0%,#243a86 100%)}
+.course-art.cat-live{background:linear-gradient(135deg,#0e1d52 0%,#1b2f8a 100%)}
+.course-art.cat-case{background:linear-gradient(135deg,#3a1f5e 0%,#5a2a86 100%)}
+.course-art.cat-cert{background:linear-gradient(135deg,#16235c 0%,#2a3f9a 100%)}
 .card-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;background:var(--orange);color:#fff;padding:3px 10px;border-radius:20px}
 .card-img-wrap{position:relative}
 .card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
@@ -499,17 +503,16 @@ const stars=r=>Array.from({length:5},(_, i)=>`<i class="ti ${r>=i+1?'ti-star-fil
 
 let activeCat='all';
 const CAT_ICON={combo:'ti-stack-2',bootcamp:'ti-rocket',live:'ti-briefcase',case:'ti-trophy',cert:'ti-certificate'};
+const CAT_LABEL={combo:'Combo Program',bootcamp:'Placement Bootcamp',live:'Live Project',case:'Case Competition',cert:'Certification'};
 function renderGrid(){
   const list=activeCat==='all'?COURSES:COURSES.filter(c=>c.cat===activeCat);
   document.getElementById('enrollGrid').innerHTML=list.map(c=>`
     <div class="course-card${c.badge==='Best Value'?' featured':''}">
       <div class="card-img-wrap">
-        <div class="course-art cat-${c.cat}"><i class="ti ${CAT_ICON[c.cat]||'ti-school'} art-ico"></i></div>
+        <div class="course-art cat-${c.cat}"><i class="ti ${CAT_ICON[c.cat]||'ti-school'} cv-mark"></i><div class="cv-info"><span class="cv-chip">${CAT_LABEL[c.cat]||c.type}</span><div class="cv-h">${c.title}</div></div></div>
         ${c.badge?`<div class="card-badge">${c.badge}</div>`:''}
       </div>
       <div class="card-body">
-        <div class="card-type">${c.type}</div>
-        <div class="card-title">${c.title}</div>
         <div class="card-desc">${c.desc}</div>
         <div class="card-rating"><span class="card-stars">${stars(c.rating)}</span> <span>${c.rating} (${c.students.toLocaleString('en-IN')})</span></div>
         <div class="card-price-row">

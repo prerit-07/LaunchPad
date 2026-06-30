@@ -201,14 +201,13 @@ function sortList(list){
 }
 
 const CAT_ICON={combo:'ti-stack-2',bootcamp:'ti-rocket',live:'ti-briefcase',case:'ti-trophy',cert:'ti-certificate'};
+const CAT_LABEL={combo:'Combo Program',bootcamp:'Placement Bootcamp',live:'Live Project',case:'Case Competition',cert:'Certification'};
 function cardHtml(c){
   return `<div class="card reveal" data-open="${c.id}" tabindex="0" role="button" aria-label="View ${c.title}">
-    <div class="card-vis cat-${c.cat}">${c.badge?`<span class="badge">${c.badge}</span>`:''}<i class="ti ${CAT_ICON[c.cat]||'ti-school'} card-art-ico"></i><span class="vtype">${c.type}</span></div>
+    <div class="card-vis cat-${c.cat}">${c.badge?`<span class="badge">${c.badge}</span>`:''}<i class="ti ${CAT_ICON[c.cat]||'ti-school'} cv-mark"></i><div class="cv-info"><span class="cv-chip">${CAT_LABEL[c.cat]||c.type}</span><div class="cv-h">${c.title}</div><div class="cv-meta"><span><i class="ti ti-clock"></i> ${c.hours}</span><span><i class="ti ti-stairs"></i> ${c.level}</span></div></div></div>
     <div class="card-body">
-      <div class="card-title">${c.title}</div>
       <div class="card-instr">${c.instr}</div>
       <div class="card-rating"><span class="card-rate-num">${c.rating.toFixed(1)}</span><span class="stars">${stars(c.rating)}</span><span class="card-rate-cnt">(${c.students.toLocaleString('en-IN')})</span></div>
-      <div class="card-meta"><span><i class="ti ti-clock"></i>${c.hours}</span><span><i class="ti ti-stairs"></i>${c.level}</span></div>
       <div class="card-price-row"><span class="card-price">${fmt(c.price)}</span>${c.mrp?`<span class="card-mrp">${fmt(c.mrp)}</span>`:''}${c.off?`<span class="card-off">${c.off}</span>`:''}</div>
       ${typeof comboBadge==='function'?comboBadge(c):''}
     </div>
@@ -290,7 +289,7 @@ function renderDetail(id){
   document.getElementById('dTitle').textContent=c.title;
   document.getElementById('dTagline').textContent=c.tagline;
   document.getElementById('dRating').innerHTML=`<span class="num">${c.rating.toFixed(1)}</span> <span class="stars">${stars(c.rating)}</span> <span>(${c.students.toLocaleString('en-IN')} students)</span> · <span>${c.level}</span> · <span>${c.hours}</span>`;
-  const dbWrap=document.querySelector('#view-detail .dt-banner');if(dbWrap){dbWrap.className='dt-banner course-art course-art-lg cat-'+c.cat;dbWrap.innerHTML='<i class="ti '+(CAT_ICON[c.cat]||'ti-school')+' art-ico"></i>';}
+  const dbWrap=document.querySelector('#view-detail .dt-banner');if(dbWrap){dbWrap.className='dt-banner course-art course-art-lg cat-'+c.cat;dbWrap.innerHTML='<i class="ti '+(CAT_ICON[c.cat]||'ti-school')+' cv-mark"></i><div class="cv-info"><span class="cv-chip">'+(CAT_LABEL[c.cat]||c.type)+'</span><div class="cv-h">'+c.title+'</div><div class="cv-meta"><span><i class="ti ti-clock"></i> '+c.hours+'</span><span><i class="ti ti-stairs"></i> '+c.level+'</span></div></div>';}
   const biWrap=document.querySelector('#view-detail .buy-vis');if(biWrap){biWrap.className='buy-vis course-art cat-'+c.cat;biWrap.innerHTML='<i class="ti '+(CAT_ICON[c.cat]||'ti-school')+' art-ico"></i>';}
   document.getElementById('dDesc').textContent=c.desc;
   document.getElementById('dCurriculum').innerHTML=(c.curriculum&&c.curriculum.length)?c.curriculum.map((m,i)=>`<div class="curr-item"><div class="curr-num">${i+1}</div><div><div class="curr-t">${m.t}</div><div class="curr-s">${m.s}</div></div></div>`).join(''):`<div class="skeleton">Detailed curriculum will be added once official content is provided.</div>`;
